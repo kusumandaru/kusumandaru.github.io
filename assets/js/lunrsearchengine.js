@@ -1,32 +1,32 @@
 
 var documents = [{
     "id": 0,
-    "url": "/404.html",
+    "url": "http://localhost:4000/404.html",
     "title": "404",
     "body": "404 Page does not exist!Please use the search bar at the top or visit our homepage! "
     }, {
     "id": 1,
-    "url": "/about/",
+    "url": "http://localhost:4000/about/",
     "title": "About",
     "body": "Find me on linkedin Contact me on gmail You can find the source code for my posting at GitHub:kusumandaru "
     }, {
     "id": 2,
-    "url": "/categories",
+    "url": "http://localhost:4000/categories",
     "title": "Categories",
     "body": ""
     }, {
     "id": 3,
-    "url": "/",
+    "url": "http://localhost:4000/",
     "title": "Home",
     "body": "      Featured:                             All Stories:                         "
     }, {
     "id": 4,
-    "url": "/",
+    "url": "http://localhost:4000/",
     "title": "",
     "body": ""
     }, {
     "id": 5,
-    "url": "/robots.txt",
+    "url": "http://localhost:4000/robots.txt",
     "title": "",
     "body": "      Sitemap: {{ “sitemap. xml”   absolute_url }}   "
     }, ];

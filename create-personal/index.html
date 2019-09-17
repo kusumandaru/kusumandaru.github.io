@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Create personal website on second | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Create personal website on second | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Create personal website on second" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Create secure personal website on google page with jekyll Nowdays creating (static) website could be simple and cheap, yes, we can use google or aws with free credit for annualy. For this chapter we try to make with github and connect with custom domain. Part 1 — choose a custom domain skip if you want using just domain from github.io or you didn’t spend cost a penny domain registration You can buy with various domain provider like godaddy, wix, 101domain or many option outside there, for this example I use namecheap. Some domain like .com need activation via email to check owner validity. Part 2 — create repository Now create repository with your-username.github.io inhttps://github.com/new optional choose .gitignore with jeckyll when integrate using jeckyll then create repository On local terminal grab repository git clone https://github.com/username/username.github.io Go to selected folder with cd username.github.io Create index.html with echo “Hello World” &gt; index.html After that commit and push git add . and git commit -m &quot;first blood&quot; than git push -u origin/master Go to https://username.github.io. Part 3— link custom domain On your repository choose setting tab. Then scroll to below until found custom domain. Fill with your custom domain. custom domain save Follow your DNS provider’s instructions to create a CNAME record that points your subdomain to your default pages domain. For example, if you own the subdomain www.example.com, you can configure a CNAME record to point www.example.com to YOUR-GITHUB-USERNAME.github.io. DNS changes can take over a full day to update, and the wait varies among DNS and hosting providers. cname github In local terminal dig www.example.com +nostats +nocomments +nocmd Part 4 — Github https redirection If you configured your custom domain using an A record, your A record must point to one of the following IP addresses for HTTPS to work: 185.199.108.153185.199.109.153185.199.110.153185.199.111.153 After updating any A record IP addresses, you must remove and re-add your custom domain to the repository you’re using to publish your Pages site to trigger the process of enabling HTTPS. check with dig example.com +nostats +nocomments +nocmd Than choose https on github repository setting enforce HTTPS notes: in this step https site is available, but not secure Part 5 — Using cloudflare to inject https Since on this writing date, github not support custom domain https, so we need redirect dns using cloud flare to force ssl. Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite to make assets to use https when eligible, rather than https Your site now already using https already force using ssl Part 6 — Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 After done some improvement. copy _site into your repo github with command cp -r _site username.github.io Push using git push than your site already published my website with rss from medium Happy deploy :)" />
+<meta property="og:description" content="Create secure personal website on google page with jekyll Nowdays creating (static) website could be simple and cheap, yes, we can use google or aws with free credit for annualy. For this chapter we try to make with github and connect with custom domain. Part 1 — choose a custom domain skip if you want using just domain from github.io or you didn’t spend cost a penny domain registration You can buy with various domain provider like godaddy, wix, 101domain or many option outside there, for this example I use namecheap. Some domain like .com need activation via email to check owner validity. Part 2 — create repository Now create repository with your-username.github.io inhttps://github.com/new optional choose .gitignore with jeckyll when integrate using jeckyll then create repository On local terminal grab repository git clone https://github.com/username/username.github.io Go to selected folder with cd username.github.io Create index.html with echo “Hello World” &gt; index.html After that commit and push git add . and git commit -m &quot;first blood&quot; than git push -u origin/master Go to https://username.github.io. Part 3— link custom domain On your repository choose setting tab. Then scroll to below until found custom domain. Fill with your custom domain. custom domain save Follow your DNS provider’s instructions to create a CNAME record that points your subdomain to your default pages domain. For example, if you own the subdomain www.example.com, you can configure a CNAME record to point www.example.com to YOUR-GITHUB-USERNAME.github.io. DNS changes can take over a full day to update, and the wait varies among DNS and hosting providers. cname github In local terminal dig www.example.com +nostats +nocomments +nocmd Part 4 — Github https redirection If you configured your custom domain using an A record, your A record must point to one of the following IP addresses for HTTPS to work: 185.199.108.153185.199.109.153185.199.110.153185.199.111.153 After updating any A record IP addresses, you must remove and re-add your custom domain to the repository you’re using to publish your Pages site to trigger the process of enabling HTTPS. check with dig example.com +nostats +nocomments +nocmd Than choose https on github repository setting enforce HTTPS notes: in this step https site is available, but not secure Part 5 — Using cloudflare to inject https Since on this writing date, github not support custom domain https, so we need redirect dns using cloud flare to force ssl. Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite to make assets to use https when eligible, rather than https Your site now already using https already force using ssl Part 6 — Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 After done some improvement. copy _site into your repo github with command cp -r _site username.github.io Push using git push than your site already published my website with rss from medium Happy deploy :)" />
+<link rel="canonical" href="http://localhost:4000/create-personal/" />
+<meta property="og:url" content="http://localhost:4000/create-personal/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-02-24T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/create-personal/","image":"https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Create personal website on second","dateModified":"2019-02-24T00:00:00+07:00","description":"Create secure personal website on google page with jekyll Nowdays creating (static) website could be simple and cheap, yes, we can use google or aws with free credit for annualy. For this chapter we try to make with github and connect with custom domain. Part 1 — choose a custom domain skip if you want using just domain from github.io or you didn’t spend cost a penny domain registration You can buy with various domain provider like godaddy, wix, 101domain or many option outside there, for this example I use namecheap. Some domain like .com need activation via email to check owner validity. Part 2 — create repository Now create repository with your-username.github.io inhttps://github.com/new optional choose .gitignore with jeckyll when integrate using jeckyll then create repository On local terminal grab repository git clone https://github.com/username/username.github.io Go to selected folder with cd username.github.io Create index.html with echo “Hello World” &gt; index.html After that commit and push git add . and git commit -m &quot;first blood&quot; than git push -u origin/master Go to https://username.github.io. Part 3— link custom domain On your repository choose setting tab. Then scroll to below until found custom domain. Fill with your custom domain. custom domain save Follow your DNS provider’s instructions to create a CNAME record that points your subdomain to your default pages domain. For example, if you own the subdomain www.example.com, you can configure a CNAME record to point www.example.com to YOUR-GITHUB-USERNAME.github.io. DNS changes can take over a full day to update, and the wait varies among DNS and hosting providers. cname github In local terminal dig www.example.com +nostats +nocomments +nocmd Part 4 — Github https redirection If you configured your custom domain using an A record, your A record must point to one of the following IP addresses for HTTPS to work: 185.199.108.153185.199.109.153185.199.110.153185.199.111.153 After updating any A record IP addresses, you must remove and re-add your custom domain to the repository you’re using to publish your Pages site to trigger the process of enabling HTTPS. check with dig example.com +nostats +nocomments +nocmd Than choose https on github repository setting enforce HTTPS notes: in this step https site is available, but not secure Part 5 — Using cloudflare to inject https Since on this writing date, github not support custom domain https, so we need redirect dns using cloud flare to force ssl. Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite to make assets to use https when eligible, rather than https Your site now already using https already force using ssl Part 6 — Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 After done some improvement. copy _site into your repo github with command cp -r _site username.github.io Push using git push than your site already published my website with rss from medium Happy deploy :)","datePublished":"2019-02-24T00:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/create-personal/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Create personal website on second&url=http://localhost:4000/create-personal/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/create-personal/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/create-personal/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Create personal website on second</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" alt="Create personal website on second">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <h3>Create secure personal website on google page with jekyll</h3>
+<p>Nowdays creating (static) website could be simple and cheap, yes, we can use google or aws with free credit for annualy. For this chapter we try to make with github and connect with custom domain.</p>
+<p><strong>Part 1 — choose a custom domain</strong></p>
+<p>skip if you want using just domain from github.io or you didn’t spend cost a penny</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" /><figcaption>domain registration</figcaption></figure>
+<p>You can buy with various domain provider like godaddy, wix, 101domain or many option outside there, for this example I use namecheap.</p>
+<p>Some domain like .com need activation via email to check owner validity.</p>
+<p><strong>Part 2 — create repository</strong></p>
+<p>Now create repository with <em>your-username.</em>github.io inhttps://github.com/new</p>
+<p>optional choose .gitignore with jeckyll when integrate using jeckyll</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0SIKcHgtAdqTRZmiyTwe1Q.png" /></figure>
+<p>then create repository</p>
+<p>On local terminal grab repository git clone https://github.com/username/username.github.io</p>
+<p>Go to selected folder with cd username.github.io</p>
+<p>Create index.html with echo “Hello World” &gt; index.html</p>
+<p>After that commit and push git add . and git commit -m &quot;first blood&quot; than git push -u origin/master</p>
+<p>Go to <a href="https://username.github.io."><strong>https://<em>username</em>.github.io</strong>.</a></p>
+<p><strong>Part 3— link custom domain</strong></p>
+<p>On your repository choose setting tab.</p>
+<p>Then scroll to below until found custom domain. Fill with your custom domain.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Lw7WT4vhK8BltYL65faZgA.png" /><figcaption>custom domain save</figcaption></figure>
+<p>Follow your DNS provider’s instructions to create a CNAME record that points your subdomain to your default pages domain. For example, if you own the subdomain www.example.com, you can configure a CNAME record to point www.example.com to YOUR-GITHUB-USERNAME.github.io. DNS changes can take over a full day to update, and the wait varies among DNS and hosting providers.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*hFx8fyVRxApCBqx-VyWDYg.png" /><figcaption>cname github</figcaption></figure>
+<p>In local terminal dig <em>www.example.com</em> +nostats +nocomments +nocmd</p>
+<p>Part 4 — Github https redirection</p>
+<p>If you configured your custom domain using an A record, your A record must point to one of the following IP addresses for HTTPS to work:</p>
+<ul><li>185.199.108.153</li><li>185.199.109.153</li><li>185.199.110.153</li><li>185.199.111.153</li></ul>
+<p>After updating any A record IP addresses, you must remove and re-add your custom domain to the repository you’re using to publish your Pages site to trigger the process of enabling HTTPS.</p>
+<p>check with dig example.com +nostats +nocomments +nocmd</p>
+<p>Than choose https on github repository setting</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*nMXPlwUW6kP10ovGIL6_HA.png" /><figcaption>enforce HTTPS</figcaption></figure>
+<p>notes: in this step https site is available, but not secure</p>
+<p><strong>Part 5 — Using cloudflare to inject https</strong></p>
+<p>Since on this writing date, github not support custom domain https, so we need redirect dns using cloud flare to force ssl.</p>
+<p>Register first on <a href="https://www.cloudflare.com/">https://www.cloudflare.com/</a></p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/832/1*8NbToPoehLquG87WX7LcZg.png" /><figcaption>fill custom domain name</figcaption></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/666/1*kGTJWcFqvz4y_v5Jkb9ljA.png" /><figcaption>choose free option</figcaption></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*MTLjmTVwVzTVPv5nzDNuWA.png" /><figcaption>update domain setting to using cloudflare dns</figcaption></figure>
+<p>On your hosting change nameservers default dns into cloudflare dns.</p>
+<p>lia.ns.cloudflare.com for dns1</p>
+<p>west.ns.cloudflare.com for dns2</p>
+<p>It cost several hours until days depends on domain provider, check status on overview tab.</p>
+<p>Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*k5QAmRIl7YkbaW9PcMA3cw.png" /><figcaption>crypto area</figcaption></figure>
+<p>Also turn check on Automatic https rewrite to make assets to use https when eligible, rather than https</p>
+<p>Your site now already using https</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/704/1*L0eG2mrD4sV4qg4BCg9FzQ.png" /><figcaption>already force using ssl</figcaption></figure>
+<p>Part 6 — Using jekyll to generate website</p>
+<p>Choose theme from github page theme from <a href="https://jekyllthemes.io/">https://jekyllthemes.io/</a></p>
+<p>or just install jekyll using jekyll new blog</p>
+<p>Build using command bundle exec jekyll build and check with bundle exec jekyll server.</p>
+<p>check on localhost:4000</p>
+<p>After done some improvement. copy _site into your repo github with command cp -r _site username.github.io</p>
+<p>Push using git push than your site already published</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*cAgnmw2WAA8LjeDBLQVbaA.png" /><figcaption>my website with rss from medium</figcaption></figure>
+<p>Happy deploy :)</p>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=152339342b7c" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-02-24">24 Feb 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#custom-domain">custom-domain</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#github-pages">github-pages</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#jekyll">jekyll</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#ssl">ssl</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//10-years-challe/"> &laquo; 10 years challenge di pusaran ekonomi</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//aplikasi-lebih/">Aplikasi lebih dari dokumentasi, tepatkah? &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags" hidden=true>
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Walking">Walking (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Work-Life-Balance">Work Life Balance (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet-Core">Dotnet Core (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Convert">Convert (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet">Dotnet (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#engineer">engineer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#developer">developer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#health">health (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#work-life-balance">work-life-balance (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#10yearchallenge">10yearchallenge (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ekonomi">ekonomi (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#harga">harga (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ssl">ssl (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#github-pages">github-pages (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#custom-domain">custom-domain (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#jekyll">jekyll (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#agile">agile (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#software-development">software-development (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#documentation">documentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#programming">programming (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#toxic">toxic (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#build">build (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#pipeline">pipeline (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#test">test (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continous-integration">continous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#publish-subscribe">publish-subscribe (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ruby-on-rails">ruby-on-rails (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rabbitmq">rabbitmq (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#migration">migration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rebuild">rebuild (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continuous-integration">continuous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#startup">startup (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

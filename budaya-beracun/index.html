@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Budaya beracun dalam pengembangan aplikasi | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Budaya beracun dalam pengembangan aplikasi | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Budaya beracun dalam pengembangan aplikasi" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim Terjebak dalam dikotomi bukan bagian programmer Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan: Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (T-shaped). Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab: bos tidak selalu mengawasi, &amp;bos seharusnya tidak melakukan mikro manajemen Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia. Gampang menyalahkan blamming driven design Terdapat dua tipe karakterisik dalam sikap ini: Menyalahkan user Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:si A tidak tahu alur yang harus dijalankansi B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulangsi C harusnya tidak boleh mengisi nilai negatif atau kosong Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan Bagaimana untuk mengatasinya: Data driven design. Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran. Serta bisa pula menggunakan alat bantu analisis seperti hotjar/google analytic untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi Menyalahkan rekan kerja http://www.commitstrip.com/en/2017/12/19/no-git-blame/ Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui: Lakukan dalam Pull Request, apabila menemui ketidak setujuan: Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana: Kenapa fungsi ini punya 100 baris kode? dibandingkan Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance 3. Ambigu “Kayaknya ada cara yang lebih bagus deh selain ini” “Beneran kodenya mau seperti ini?” Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi. Apabila dibutuhkan lebih baik untuk berpedapat: ‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’ 4. Jangan dimasukkan ke dalam hati Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional. Tidak mampu melakukan estimasi pekerjaan Gampang kok 2 hari juga kelar Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi. Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan. Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect). Ada beberapa cara seperti melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8. Ketakutan untuk mengoptimasi (refactor) kode Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan. Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring. a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul; dapat melalui revert (mengembalikan ke rilis lama)atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain Tidak ada pencatatan progress (tracking) Let it flow — frozen Pengembangan aplikasi memerlukan pencatatan proses seperti Jira atau Pivotal Tracker. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk. Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi. Segan dalam menyampaikan ide atau pendapat Heraclitus — There is nothing permanent except change Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan. Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari. Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah. Apa yang terjadi? Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis. Pranala Developer Etiquette — Code Review and Pull Request Comments Common programmer errors" />
+<meta property="og:description" content="Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim Terjebak dalam dikotomi bukan bagian programmer Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan: Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (T-shaped). Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab: bos tidak selalu mengawasi, &amp;bos seharusnya tidak melakukan mikro manajemen Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia. Gampang menyalahkan blamming driven design Terdapat dua tipe karakterisik dalam sikap ini: Menyalahkan user Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:si A tidak tahu alur yang harus dijalankansi B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulangsi C harusnya tidak boleh mengisi nilai negatif atau kosong Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan Bagaimana untuk mengatasinya: Data driven design. Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran. Serta bisa pula menggunakan alat bantu analisis seperti hotjar/google analytic untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi Menyalahkan rekan kerja http://www.commitstrip.com/en/2017/12/19/no-git-blame/ Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui: Lakukan dalam Pull Request, apabila menemui ketidak setujuan: Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana: Kenapa fungsi ini punya 100 baris kode? dibandingkan Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance 3. Ambigu “Kayaknya ada cara yang lebih bagus deh selain ini” “Beneran kodenya mau seperti ini?” Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi. Apabila dibutuhkan lebih baik untuk berpedapat: ‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’ 4. Jangan dimasukkan ke dalam hati Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional. Tidak mampu melakukan estimasi pekerjaan Gampang kok 2 hari juga kelar Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi. Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan. Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect). Ada beberapa cara seperti melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8. Ketakutan untuk mengoptimasi (refactor) kode Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan. Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring. a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul; dapat melalui revert (mengembalikan ke rilis lama)atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain Tidak ada pencatatan progress (tracking) Let it flow — frozen Pengembangan aplikasi memerlukan pencatatan proses seperti Jira atau Pivotal Tracker. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk. Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi. Segan dalam menyampaikan ide atau pendapat Heraclitus — There is nothing permanent except change Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan. Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari. Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah. Apa yang terjadi? Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis. Pranala Developer Etiquette — Code Review and Pull Request Comments Common programmer errors" />
+<link rel="canonical" href="http://localhost:4000/budaya-beracun/" />
+<meta property="og:url" content="http://localhost:4000/budaya-beracun/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-05-19T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/budaya-beracun/","image":"https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Budaya beracun dalam pengembangan aplikasi","dateModified":"2019-05-19T00:00:00+07:00","description":"Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim Terjebak dalam dikotomi bukan bagian programmer Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan: Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (T-shaped). Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab: bos tidak selalu mengawasi, &amp;bos seharusnya tidak melakukan mikro manajemen Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia. Gampang menyalahkan blamming driven design Terdapat dua tipe karakterisik dalam sikap ini: Menyalahkan user Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:si A tidak tahu alur yang harus dijalankansi B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulangsi C harusnya tidak boleh mengisi nilai negatif atau kosong Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan Bagaimana untuk mengatasinya: Data driven design. Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran. Serta bisa pula menggunakan alat bantu analisis seperti hotjar/google analytic untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi Menyalahkan rekan kerja http://www.commitstrip.com/en/2017/12/19/no-git-blame/ Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui: Lakukan dalam Pull Request, apabila menemui ketidak setujuan: Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana: Kenapa fungsi ini punya 100 baris kode? dibandingkan Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance 3. Ambigu “Kayaknya ada cara yang lebih bagus deh selain ini” “Beneran kodenya mau seperti ini?” Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi. Apabila dibutuhkan lebih baik untuk berpedapat: ‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’ 4. Jangan dimasukkan ke dalam hati Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional. Tidak mampu melakukan estimasi pekerjaan Gampang kok 2 hari juga kelar Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi. Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan. Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect). Ada beberapa cara seperti melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8. Ketakutan untuk mengoptimasi (refactor) kode Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan. Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring. a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul; dapat melalui revert (mengembalikan ke rilis lama)atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain Tidak ada pencatatan progress (tracking) Let it flow — frozen Pengembangan aplikasi memerlukan pencatatan proses seperti Jira atau Pivotal Tracker. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk. Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi. Segan dalam menyampaikan ide atau pendapat Heraclitus — There is nothing permanent except change Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan. Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari. Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah. Apa yang terjadi? Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis. Pranala Developer Etiquette — Code Review and Pull Request Comments Common programmer errors","datePublished":"2019-05-19T00:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/budaya-beracun/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Budaya beracun dalam pengembangan aplikasi&url=http://localhost:4000/budaya-beracun/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/budaya-beracun/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/budaya-beracun/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Budaya beracun dalam pengembangan aplikasi</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg" alt="Budaya beracun dalam pengembangan aplikasi">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim</p>
+<h3>Terjebak dalam dikotomi bukan bagian programmer</h3>
+<p>Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan:</p>
+<p>Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (<a href="https://agilepainrelief.com/notesfromatooluser/2018/06/how-to-cross-skill-and-grow-t-shaped-team-members.html">T-shaped</a>).</p>
+<p>Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab:</p>
+<ul><li>bos tidak selalu mengawasi, &amp;</li><li>bos seharusnya tidak melakukan mikro manajemen</li></ul>
+<p>Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia.</p>
+<h3>Gampang menyalahkan</h3>
+<blockquote>blamming driven design</blockquote>
+<p>Terdapat dua tipe karakterisik dalam sikap ini:</p>
+<h4>Menyalahkan user</h4>
+<ul><li>Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:</li><li>si A tidak tahu alur yang harus dijalankan</li><li>si B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulang</li><li>si C harusnya tidak boleh mengisi nilai negatif atau kosong</li></ul>
+<p>Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan</p>
+<p>Bagaimana untuk mengatasinya:</p>
+<p><strong>Data driven design.</strong></p>
+<p>Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran.</p>
+<p>Serta bisa pula menggunakan alat bantu analisis seperti <a href="https://www.hotjar.com/">hotjar</a>/<a href="https://analytics.google.com/analytics/web/">google analytic</a> untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi</p>
+<h4>Menyalahkan rekan kerja</h4>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg" /><figcaption><a href="http://www.commitstrip.com/en/2017/12/19/no-git-blame/">http://www.commitstrip.com/en/2017/12/19/no-git-blame/</a></figcaption></figure>
+<p>Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui:</p>
+<p>Lakukan dalam Pull Request, apabila menemui ketidak setujuan:</p>
+<ol><li>Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’</li><li>Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana:</li></ol>
+<ul><li>Kenapa fungsi ini punya 100 baris kode?</li></ul>
+<p>dibandingkan</p>
+<ul><li>Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance</li></ul>
+<p>3. Ambigu</p>
+<p>“Kayaknya ada cara yang lebih bagus deh selain ini”</p>
+<p>“Beneran kodenya mau seperti ini?”</p>
+<p>Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi.</p>
+<p>Apabila dibutuhkan lebih baik untuk berpedapat:</p>
+<p>‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’</p>
+<p>4. Jangan dimasukkan ke dalam hati</p>
+<p>Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional.</p>
+<h3>Tidak mampu melakukan estimasi pekerjaan</h3>
+<blockquote>Gampang kok 2 hari juga kelar</blockquote>
+<p>Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi.</p>
+<p>Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan.</p>
+<p>Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect).</p>
+<p>Ada beberapa cara seperti</p>
+<ul><li>melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.</li><li>menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8.</li></ul>
+<h3>Ketakutan untuk mengoptimasi (refactor) kode</h3>
+<p>Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan.</p>
+<p>Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring.</p>
+<p>a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu</p>
+<p>b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi</p>
+<p>c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production</p>
+<p>d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul;</p>
+<ul><li>dapat melalui revert (mengembalikan ke rilis lama)</li><li>atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu</li></ul>
+<p>e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain</p>
+<h3>Tidak ada pencatatan progress (tracking)</h3>
+<blockquote>Let it flow — frozen</blockquote>
+<p>Pengembangan aplikasi memerlukan pencatatan proses seperti <a href="https://www.atlassian.com/software/jira">Jira</a> atau <a href="https://www.pivotaltracker.com">Pivotal Tracker</a>. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk.</p>
+<p>Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi.</p>
+<h3>Segan dalam menyampaikan ide atau pendapat</h3>
+<blockquote>Heraclitus — There is nothing permanent except change</blockquote>
+<p>Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan.</p>
+<p>Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari.</p>
+<p>Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah.</p>
+<p>Apa yang terjadi?</p>
+<p>Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*gy4a--uifdp7tfhYHcTXmQ.jpeg" /></figure>
+<h4>Pranala</h4>
+<p><a href="https://gooroo.io/GoorooTHINK/Article/16363/Developer-Etiquette--Code-Review-and-Pull-Request-Comments">Developer Etiquette — Code Review and Pull Request Comments</a></p>
+<p><a href="https://medium.com/@lsoares/common-programmers-errors-ea598b8f14c9">Common programmer errors</a></p>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3958ab020565" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-05-19">19 May 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#programming">programming</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#toxic">toxic</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#work-life-balance">work-life-balance</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//aplikasi-lebih/"> &laquo; Aplikasi lebih dari dokumentasi, tepatkah?</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//cheatsheet-depl/">Cheatsheet Deploy and Test in Pipeline for any language &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags" hidden=true>
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Walking">Walking (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Work-Life-Balance">Work Life Balance (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet-Core">Dotnet Core (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Convert">Convert (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet">Dotnet (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#engineer">engineer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#developer">developer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#health">health (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#work-life-balance">work-life-balance (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#10yearchallenge">10yearchallenge (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ekonomi">ekonomi (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#harga">harga (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ssl">ssl (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#github-pages">github-pages (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#custom-domain">custom-domain (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#jekyll">jekyll (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#agile">agile (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#software-development">software-development (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#documentation">documentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#programming">programming (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#toxic">toxic (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#build">build (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#pipeline">pipeline (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#test">test (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continous-integration">continous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#publish-subscribe">publish-subscribe (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ruby-on-rails">ruby-on-rails (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rabbitmq">rabbitmq (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#migration">migration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rebuild">rebuild (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continuous-integration">continuous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#startup">startup (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

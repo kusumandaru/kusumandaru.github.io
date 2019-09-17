@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Tips mengkonversi .Net Framework ke .Net Core | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Tips mengkonversi .Net Framework ke .Net Core | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Tips mengkonversi .Net Framework ke .Net Core" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Tips mengkonversi .Net Framework ke .Net Core .NET framework atau biasa dikenal dengan dot net adalah framework perangkat lunak yang diproduksi oleh Microsoft dan dijalankan pada media Microsoft Windows. Dot net berjalan pada perangkat lunak virtual machine (Common Language Runtime) alih-alih menggunakan perangkat keras komputer. Dan CLR ini berjalan native pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan library Framework Class Library (FCL). .Net Core bersifat open source dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan CoreFX yang merupakan porting dari sebagian FCL Ada beberapa checklist kapan menggunakan .net kapan menggunakan .netCore. Tetap gunakan .net ketika: Servernya harus menggunakan Windows ServerBasis kode saat ini sebagian besar menggunakan .net FrameworkLibrary atau paket nuget belum tersedia di .netcorePlatform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric) Gunakan .net Core ketika: membutuhkan aplikasi lintas platformmenggunakan Dockermembutuhkan peforma lebih cepat Apabila diperlukan porting .net ke .netCore dapat dilakukan dengan beberapa langkah. Identifikasi apakah ada third party library pada projek saat ini. Kita dapat melakukan pengecekan dengan beberapa cara: a. melihat reference pada tiap-tiap proyek. TIdak ada third party b. Kita dapat menggunakan tools apiport untuk mencek kompabilitas dari libary yang kita gunakan. apiport analyzae -f . checking library API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan. Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah. portabilitas library Library yang tidak ditemukan Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan: Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahuluBila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain. Kita dapat juga menggunakan situs packagesearch untuk menemukan alternatif dari package di .net Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core. Target framework ke 4.7.2 keatas (hanya windows) 2. Langkah selanjutnya adalah melakukan konversi project. Opsi pertama adalah melakukan konversi csproj. Ubah csproj dengan Tools-&gt; edit file ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt; Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; Jalankan dotnet build untuk me-restore dan build, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa konfigurasi perbaikan. Lakukan perbaikan apabila terjadi masalah saat build. build berhasil Contoh repository dapat dilihat disini. Beberapa kendala yang terkadang muncul pada proses porting: Paket tidak ditemukan Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup Tips personal untuk refaktor ke .net core: Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net CoreBuat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai Selamat mengkonversi :)" />
+<meta property="og:description" content="Tips mengkonversi .Net Framework ke .Net Core .NET framework atau biasa dikenal dengan dot net adalah framework perangkat lunak yang diproduksi oleh Microsoft dan dijalankan pada media Microsoft Windows. Dot net berjalan pada perangkat lunak virtual machine (Common Language Runtime) alih-alih menggunakan perangkat keras komputer. Dan CLR ini berjalan native pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan library Framework Class Library (FCL). .Net Core bersifat open source dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan CoreFX yang merupakan porting dari sebagian FCL Ada beberapa checklist kapan menggunakan .net kapan menggunakan .netCore. Tetap gunakan .net ketika: Servernya harus menggunakan Windows ServerBasis kode saat ini sebagian besar menggunakan .net FrameworkLibrary atau paket nuget belum tersedia di .netcorePlatform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric) Gunakan .net Core ketika: membutuhkan aplikasi lintas platformmenggunakan Dockermembutuhkan peforma lebih cepat Apabila diperlukan porting .net ke .netCore dapat dilakukan dengan beberapa langkah. Identifikasi apakah ada third party library pada projek saat ini. Kita dapat melakukan pengecekan dengan beberapa cara: a. melihat reference pada tiap-tiap proyek. TIdak ada third party b. Kita dapat menggunakan tools apiport untuk mencek kompabilitas dari libary yang kita gunakan. apiport analyzae -f . checking library API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan. Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah. portabilitas library Library yang tidak ditemukan Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan: Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahuluBila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain. Kita dapat juga menggunakan situs packagesearch untuk menemukan alternatif dari package di .net Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core. Target framework ke 4.7.2 keatas (hanya windows) 2. Langkah selanjutnya adalah melakukan konversi project. Opsi pertama adalah melakukan konversi csproj. Ubah csproj dengan Tools-&gt; edit file ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt; Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; Jalankan dotnet build untuk me-restore dan build, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa konfigurasi perbaikan. Lakukan perbaikan apabila terjadi masalah saat build. build berhasil Contoh repository dapat dilihat disini. Beberapa kendala yang terkadang muncul pada proses porting: Paket tidak ditemukan Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup Tips personal untuk refaktor ke .net core: Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net CoreBuat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai Selamat mengkonversi :)" />
+<link rel="canonical" href="http://localhost:4000/tips-mengkonversi-net/" />
+<meta property="og:url" content="http://localhost:4000/tips-mengkonversi-net/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-01-06T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/tips-mengkonversi-net/","image":"https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Tips mengkonversi .Net Framework ke .Net Core","dateModified":"2019-01-06T00:00:00+07:00","description":"Tips mengkonversi .Net Framework ke .Net Core .NET framework atau biasa dikenal dengan dot net adalah framework perangkat lunak yang diproduksi oleh Microsoft dan dijalankan pada media Microsoft Windows. Dot net berjalan pada perangkat lunak virtual machine (Common Language Runtime) alih-alih menggunakan perangkat keras komputer. Dan CLR ini berjalan native pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan library Framework Class Library (FCL). .Net Core bersifat open source dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan CoreFX yang merupakan porting dari sebagian FCL Ada beberapa checklist kapan menggunakan .net kapan menggunakan .netCore. Tetap gunakan .net ketika: Servernya harus menggunakan Windows ServerBasis kode saat ini sebagian besar menggunakan .net FrameworkLibrary atau paket nuget belum tersedia di .netcorePlatform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric) Gunakan .net Core ketika: membutuhkan aplikasi lintas platformmenggunakan Dockermembutuhkan peforma lebih cepat Apabila diperlukan porting .net ke .netCore dapat dilakukan dengan beberapa langkah. Identifikasi apakah ada third party library pada projek saat ini. Kita dapat melakukan pengecekan dengan beberapa cara: a. melihat reference pada tiap-tiap proyek. TIdak ada third party b. Kita dapat menggunakan tools apiport untuk mencek kompabilitas dari libary yang kita gunakan. apiport analyzae -f . checking library API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan. Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah. portabilitas library Library yang tidak ditemukan Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan: Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahuluBila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain. Kita dapat juga menggunakan situs packagesearch untuk menemukan alternatif dari package di .net Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core. Target framework ke 4.7.2 keatas (hanya windows) 2. Langkah selanjutnya adalah melakukan konversi project. Opsi pertama adalah melakukan konversi csproj. Ubah csproj dengan Tools-&gt; edit file ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt; Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; Jalankan dotnet build untuk me-restore dan build, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa konfigurasi perbaikan. Lakukan perbaikan apabila terjadi masalah saat build. build berhasil Contoh repository dapat dilihat disini. Beberapa kendala yang terkadang muncul pada proses porting: Paket tidak ditemukan Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup Tips personal untuk refaktor ke .net core: Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net CoreBuat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai Selamat mengkonversi :)","datePublished":"2019-01-06T00:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/tips-mengkonversi-net/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Tips mengkonversi .Net Framework ke .Net Core&url=http://localhost:4000/tips-mengkonversi-net/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/tips-mengkonversi-net/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/tips-mengkonversi-net/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Tips mengkonversi .Net Framework ke .Net Core</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png" alt="Tips mengkonversi .Net Framework ke .Net Core">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <h3>Tips mengkonversi .Net Framework ke .Net Core</h3>
+<p><em>.NET framework</em> atau biasa dikenal dengan <em>dot net</em> adalah <em>framework</em> perangkat lunak yang diproduksi oleh <a href="https://en.wikipedia.org/wiki/Microsoft">Microsoft</a> dan dijalankan pada media Microsoft Windows.</p>
+<p>Dot net berjalan pada perangkat lunak <em>virtual machine</em> (<em>Common Language Runtime) </em>alih-alih menggunakan perangkat keras komputer. Dan <a href="https://en.wikipedia.org/wiki/Common_Language_Runtime">CLR</a> ini berjalan <em>native </em>pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan <em>library </em>Framework Class Library (<a href="https://en.wikipedia.org/wiki/Framework_Class_Library">FCL</a>).</p>
+<p>.Net Core bersifat <em>open source </em>dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan <a href="https://blogs.msdn.microsoft.com/dotnet/2014/12/04/introducing-net-core/">CoreFX</a> yang merupakan <em>porting </em>dari sebagian FCL</p>
+<p>Ada beberapa <em>checklist</em> kapan menggunakan .net kapan menggunakan .netCore.</p>
+<p>Tetap gunakan .net ketika:</p>
+<ul><li>Servernya harus menggunakan Windows Server</li><li>Basis kode saat ini sebagian besar menggunakan .net Framework</li><li><em>Library </em>atau paket <em>nuget </em>belum tersedia di .netcore</li><li>Platform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric)</li></ul>
+<p>Gunakan .net Core ketika:</p>
+<ul><li>membutuhkan aplikasi lintas platform</li><li>menggunakan Docker</li><li>membutuhkan <a href="https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/">peforma lebih cepat</a></li></ul>
+<p>Apabila diperlukan <em>porting</em> .net ke .netCore dapat dilakukan dengan beberapa langkah.</p>
+<ol><li>Identifikasi apakah ada <em>third party library </em>pada projek saat ini.</li></ol>
+<p>Kita dapat melakukan pengecekan dengan beberapa cara:</p>
+<p>a. melihat reference pada tiap-tiap proyek.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/598/1*7sB8pZ02YWjg1YfbD-YHOQ.png" /><figcaption>TIdak ada third party</figcaption></figure>
+<p>b. Kita dapat menggunakan <a href="https://github.com/Microsoft/dotnet-apiport">tools apiport</a> untuk mencek kompabilitas dari libary yang kita gunakan.</p>
+<pre>apiport analyzae -f .</pre>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png" /><figcaption>checking library</figcaption></figure>
+<p>API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan.</p>
+<p>Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*D4f7l67AvwC3FhMzCceCfg.png" /><figcaption>portabilitas library</figcaption></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*AKT2x5bQIMMg2WVXUM8azg.png" /><figcaption>Library yang tidak ditemukan</figcaption></figure>
+<p>Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core</p>
+<p>Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan:</p>
+<ol><li>Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahulu</li><li>Bila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain.</li></ol>
+<p>Kita dapat juga menggunakan situs <a href="https://packagesearch.azurewebsites.net/">packagesearch</a> untuk menemukan alternatif dari <em>package</em> di .net</p>
+<p>Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*3Wg2WI1hP5223jea_1SHpw.png" /><figcaption>Target framework ke 4.7.2 keatas (hanya windows)</figcaption></figure>
+<p>2. Langkah selanjutnya adalah melakukan konversi project.</p>
+<p>Opsi pertama adalah melakukan konversi csproj.</p>
+<p>Ubah csproj dengan Tools-&gt; edit file</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*W6EDpNuqNFIH3Ycez04Ryg.png" /></figure>
+<p>ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt;</p>
+<p>Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt;</p>
+<p>Jalankan dotnet build untuk me-<em>restore</em> dan <em>build</em>, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa <a href="https://docs.microsoft.com/en-us/aspnet/core/migration/proper-to-2x/?view=aspnetcore-2.2">konfigurasi perbaikan</a>.</p>
+<p>Lakukan perbaikan apabila terjadi masalah saat build.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/580/1*p-nPl17Wl4o-QozY7Ykadw.png" /><figcaption>build berhasil</figcaption></figure>
+<p>Contoh repository dapat dilihat <a href="https://github.com/kusumandaru/message-broker">disini</a>.</p>
+<p>Beberapa kendala yang terkadang muncul pada proses <em>porting</em>:</p>
+<ol><li>Paket tidak ditemukan</li></ol>
+<pre>Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org</pre>
+<pre>Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org</pre>
+<pre>Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org</pre>
+<p>AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup</p>
+<pre>AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute </pre>
+<pre>AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute </pre>
+<pre>AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute </pre>
+<pre>AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute </pre>
+<pre>AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute </pre>
+<pre>AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute </pre>
+<p>Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup</p>
+<p>Tips personal untuk refaktor ke .net core:</p>
+<ol><li>Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net Core</li><li>Buat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai</li></ol>
+<p>Selamat mengkonversi :)</p>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=6a2445b3b8a4" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-01-06">06 Jan 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Convert">Convert</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Dotnet">Dotnet</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Dotnet-Core">Dotnet Core</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//manfaat-masjid-dekat/"> &laquo; Manfaat masjid dekat kantor</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//menjaga-kesehat/">Menjaga kesehatan sebagai software engineer &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags" hidden=true>
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Walking">Walking (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Work-Life-Balance">Work Life Balance (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet-Core">Dotnet Core (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Convert">Convert (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet">Dotnet (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#engineer">engineer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#developer">developer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#health">health (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#work-life-balance">work-life-balance (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#10yearchallenge">10yearchallenge (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ekonomi">ekonomi (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#harga">harga (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ssl">ssl (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#github-pages">github-pages (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#custom-domain">custom-domain (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#jekyll">jekyll (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#agile">agile (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#software-development">software-development (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#documentation">documentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#programming">programming (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#toxic">toxic (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#build">build (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#pipeline">pipeline (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#test">test (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continous-integration">continous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#publish-subscribe">publish-subscribe (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ruby-on-rails">ruby-on-rails (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rabbitmq">rabbitmq (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#migration">migration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rebuild">rebuild (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continuous-integration">continuous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#startup">startup (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Publish subscribe on ruby on rails | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Publish subscribe on ruby on rails | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Publish subscribe on ruby on rails" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Using RabbitMQ bunny and sneakers This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation. First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite. After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password. default: &amp;default adapter: mysql2 encoding: utf8 pool: &lt;%= ENV.fetch(&quot;RAILS_MAX_THREADS&quot;) { 5 } %&gt; host: &lt;%= ENV.fetch(&quot;RAILS_HOST_DB&quot;) %&gt; username: &lt;%= ENV.fetch(&quot;RAILS_USERNAME_DB&quot;) %&gt; password: &lt;%= ENV.fetch(&quot;RAILS_PASSWORD_DB&quot;) %&gt; socket: /tmp/mysql.sock For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &#39;dotenv-rails&#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like RAILS_HOST_DB=127.0.0.1RAILS_USERNAME_DB=rootRAILS_PASSWORD_DB=secret_password also on config/application.rb add new line Dotenv::Railtie.load Do initialize database using command rails db:create , and voila now on your mysql instance, two database created. We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate. Try to runrails db:migrate to create table and column on schema database. Since we try using rspec and shoulda matcher to test, we adding additional gem on test section gem ‘rspec-rails’ gem ‘shoulda-matchers’ and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable Install rabbitmq client, one of gem is bunny with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded. create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&quot;amqp://guest:guest@localhost:5672&quot;) but we can also set more advance setting like : @connection ||= begin instance = Bunny.new( addresses: ENV[&#39;AMQP_ADDRESSES&#39;].try(:split, &#39;,&#39;), username: ENV[&#39;AMQP_USER&#39;], password: ENV[&#39;AMQP_PASSWORD&#39;], vhost: ENV[&#39;AMQP_VHOST&#39;], automatically_recover: true, connection_timeout: 2, continuation_timeout: (ENV[&#39;CONTINUATION_TIMEOUT&#39;] || 10_000).to_i, logger: Rails.logger ) instance.start instance end It will create connection when not initiated before. After initializer created you can create service on app/services/user_publisher.rb , with main method publish def publish(options = {}) channel = ::Publisher::BunnyPublisher.connection.create_channel exchange = channel.exchange( ENV[&#39;AMQP_EXCHANGE&#39;], type: &#39;direct&#39;, durable: true ) headers = { &#39;x-delay&#39; =&gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present? exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers) end make sure queue name in publisher same with customer, than publisher ready to use. For background processing consumer we use sneakers, install via gem install sneakers create initializer on config/initializers/sneakers.rb and set configuration: Sneakers.configure connection: Connection.sneakers, exchange: ENV[&#39;SNEAKER_AMQP_EXCHANGE&#39;], # AMQP exchange exchange_type: :direct, runner_config_file: nil, metric: nil, daemonize: false, workers: ENV[&#39;SNEAKERS_WORKER&#39;].to_i, log: STDOUT, pid_path: &#39;sneakers.pid&#39;, timeout_job_after: 5.minutes, prefetch: ENV[&#39;SNEAKERS_PREFETCH&#39;].to_i, threads: ENV[&#39;SNEAKERS_THREADS&#39;].to_i, env: ENV[&#39;RAILS_ENV&#39;], durable: true, ack: true, heartbeat: 5, handler: Sneakers::Handlers::Maxretry, retry_max_times: 10, retry_timeout: 3 * 60 * 1000 Sneakers.logger = Rails.logger Sneakers.logger.level = Logger::WARN we choose ack to be true to make sure message must be acknowledge when process is success on consumer and then we create worker on app/workers/user_create.rb include Sneakers::Worker QUEUE_NAME = ::UserPublisher::QUEUE_NAME from_queue QUEUE_NAME, arguments: { &#39;x-dead-letter-exchange&#39;: &quot;#{QUEUE_NAME}-retry&quot; } def work(msg) data = ActiveSupport::JSON.decode(msg) data[&#39;users&#39;].each do |user| update_user(user.to_h) end ack! rescue StandardError =&gt; e create_log(false, data, message: e.message) reject! end so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate To publish you can call UserPublisher and it will consumed automatically. irb(main):002:0&gt; user_params = [{id: 1, first_name: &#39;first&#39;}]=&gt; [{:id=&gt;1, :first_name=&gt;&quot;first&quot;}]irb(main):003:0&gt; UserPublisher.new(user_params).publish on cosumer it will wait for any message rake sneakers:run 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: subscribing. 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: I&#39;m alive. 2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] Working off: &quot;{\&quot;users\&quot;:[{\&quot;id\&quot;:1,\&quot;first_name\&quot;:\&quot;first\&quot;}]}&quot; You can trace repository in here" />
+<meta property="og:description" content="Using RabbitMQ bunny and sneakers This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation. First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite. After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password. default: &amp;default adapter: mysql2 encoding: utf8 pool: &lt;%= ENV.fetch(&quot;RAILS_MAX_THREADS&quot;) { 5 } %&gt; host: &lt;%= ENV.fetch(&quot;RAILS_HOST_DB&quot;) %&gt; username: &lt;%= ENV.fetch(&quot;RAILS_USERNAME_DB&quot;) %&gt; password: &lt;%= ENV.fetch(&quot;RAILS_PASSWORD_DB&quot;) %&gt; socket: /tmp/mysql.sock For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &#39;dotenv-rails&#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like RAILS_HOST_DB=127.0.0.1RAILS_USERNAME_DB=rootRAILS_PASSWORD_DB=secret_password also on config/application.rb add new line Dotenv::Railtie.load Do initialize database using command rails db:create , and voila now on your mysql instance, two database created. We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate. Try to runrails db:migrate to create table and column on schema database. Since we try using rspec and shoulda matcher to test, we adding additional gem on test section gem ‘rspec-rails’ gem ‘shoulda-matchers’ and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable Install rabbitmq client, one of gem is bunny with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded. create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&quot;amqp://guest:guest@localhost:5672&quot;) but we can also set more advance setting like : @connection ||= begin instance = Bunny.new( addresses: ENV[&#39;AMQP_ADDRESSES&#39;].try(:split, &#39;,&#39;), username: ENV[&#39;AMQP_USER&#39;], password: ENV[&#39;AMQP_PASSWORD&#39;], vhost: ENV[&#39;AMQP_VHOST&#39;], automatically_recover: true, connection_timeout: 2, continuation_timeout: (ENV[&#39;CONTINUATION_TIMEOUT&#39;] || 10_000).to_i, logger: Rails.logger ) instance.start instance end It will create connection when not initiated before. After initializer created you can create service on app/services/user_publisher.rb , with main method publish def publish(options = {}) channel = ::Publisher::BunnyPublisher.connection.create_channel exchange = channel.exchange( ENV[&#39;AMQP_EXCHANGE&#39;], type: &#39;direct&#39;, durable: true ) headers = { &#39;x-delay&#39; =&gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present? exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers) end make sure queue name in publisher same with customer, than publisher ready to use. For background processing consumer we use sneakers, install via gem install sneakers create initializer on config/initializers/sneakers.rb and set configuration: Sneakers.configure connection: Connection.sneakers, exchange: ENV[&#39;SNEAKER_AMQP_EXCHANGE&#39;], # AMQP exchange exchange_type: :direct, runner_config_file: nil, metric: nil, daemonize: false, workers: ENV[&#39;SNEAKERS_WORKER&#39;].to_i, log: STDOUT, pid_path: &#39;sneakers.pid&#39;, timeout_job_after: 5.minutes, prefetch: ENV[&#39;SNEAKERS_PREFETCH&#39;].to_i, threads: ENV[&#39;SNEAKERS_THREADS&#39;].to_i, env: ENV[&#39;RAILS_ENV&#39;], durable: true, ack: true, heartbeat: 5, handler: Sneakers::Handlers::Maxretry, retry_max_times: 10, retry_timeout: 3 * 60 * 1000 Sneakers.logger = Rails.logger Sneakers.logger.level = Logger::WARN we choose ack to be true to make sure message must be acknowledge when process is success on consumer and then we create worker on app/workers/user_create.rb include Sneakers::Worker QUEUE_NAME = ::UserPublisher::QUEUE_NAME from_queue QUEUE_NAME, arguments: { &#39;x-dead-letter-exchange&#39;: &quot;#{QUEUE_NAME}-retry&quot; } def work(msg) data = ActiveSupport::JSON.decode(msg) data[&#39;users&#39;].each do |user| update_user(user.to_h) end ack! rescue StandardError =&gt; e create_log(false, data, message: e.message) reject! end so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate To publish you can call UserPublisher and it will consumed automatically. irb(main):002:0&gt; user_params = [{id: 1, first_name: &#39;first&#39;}]=&gt; [{:id=&gt;1, :first_name=&gt;&quot;first&quot;}]irb(main):003:0&gt; UserPublisher.new(user_params).publish on cosumer it will wait for any message rake sneakers:run 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: subscribing. 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: I&#39;m alive. 2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] Working off: &quot;{\&quot;users\&quot;:[{\&quot;id\&quot;:1,\&quot;first_name\&quot;:\&quot;first\&quot;}]}&quot; You can trace repository in here" />
+<link rel="canonical" href="http://localhost:4000/publish-subscri/" />
+<meta property="og:url" content="http://localhost:4000/publish-subscri/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-17T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/publish-subscri/","image":"https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Publish subscribe on ruby on rails","dateModified":"2019-08-17T00:00:00+07:00","description":"Using RabbitMQ bunny and sneakers This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation. First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite. After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password. default: &amp;default adapter: mysql2 encoding: utf8 pool: &lt;%= ENV.fetch(&quot;RAILS_MAX_THREADS&quot;) { 5 } %&gt; host: &lt;%= ENV.fetch(&quot;RAILS_HOST_DB&quot;) %&gt; username: &lt;%= ENV.fetch(&quot;RAILS_USERNAME_DB&quot;) %&gt; password: &lt;%= ENV.fetch(&quot;RAILS_PASSWORD_DB&quot;) %&gt; socket: /tmp/mysql.sock For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &#39;dotenv-rails&#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like RAILS_HOST_DB=127.0.0.1RAILS_USERNAME_DB=rootRAILS_PASSWORD_DB=secret_password also on config/application.rb add new line Dotenv::Railtie.load Do initialize database using command rails db:create , and voila now on your mysql instance, two database created. We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate. Try to runrails db:migrate to create table and column on schema database. Since we try using rspec and shoulda matcher to test, we adding additional gem on test section gem ‘rspec-rails’ gem ‘shoulda-matchers’ and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable Install rabbitmq client, one of gem is bunny with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded. create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&quot;amqp://guest:guest@localhost:5672&quot;) but we can also set more advance setting like : @connection ||= begin instance = Bunny.new( addresses: ENV[&#39;AMQP_ADDRESSES&#39;].try(:split, &#39;,&#39;), username: ENV[&#39;AMQP_USER&#39;], password: ENV[&#39;AMQP_PASSWORD&#39;], vhost: ENV[&#39;AMQP_VHOST&#39;], automatically_recover: true, connection_timeout: 2, continuation_timeout: (ENV[&#39;CONTINUATION_TIMEOUT&#39;] || 10_000).to_i, logger: Rails.logger ) instance.start instance end It will create connection when not initiated before. After initializer created you can create service on app/services/user_publisher.rb , with main method publish def publish(options = {}) channel = ::Publisher::BunnyPublisher.connection.create_channel exchange = channel.exchange( ENV[&#39;AMQP_EXCHANGE&#39;], type: &#39;direct&#39;, durable: true ) headers = { &#39;x-delay&#39; =&gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present? exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers) end make sure queue name in publisher same with customer, than publisher ready to use. For background processing consumer we use sneakers, install via gem install sneakers create initializer on config/initializers/sneakers.rb and set configuration: Sneakers.configure connection: Connection.sneakers, exchange: ENV[&#39;SNEAKER_AMQP_EXCHANGE&#39;], # AMQP exchange exchange_type: :direct, runner_config_file: nil, metric: nil, daemonize: false, workers: ENV[&#39;SNEAKERS_WORKER&#39;].to_i, log: STDOUT, pid_path: &#39;sneakers.pid&#39;, timeout_job_after: 5.minutes, prefetch: ENV[&#39;SNEAKERS_PREFETCH&#39;].to_i, threads: ENV[&#39;SNEAKERS_THREADS&#39;].to_i, env: ENV[&#39;RAILS_ENV&#39;], durable: true, ack: true, heartbeat: 5, handler: Sneakers::Handlers::Maxretry, retry_max_times: 10, retry_timeout: 3 * 60 * 1000 Sneakers.logger = Rails.logger Sneakers.logger.level = Logger::WARN we choose ack to be true to make sure message must be acknowledge when process is success on consumer and then we create worker on app/workers/user_create.rb include Sneakers::Worker QUEUE_NAME = ::UserPublisher::QUEUE_NAME from_queue QUEUE_NAME, arguments: { &#39;x-dead-letter-exchange&#39;: &quot;#{QUEUE_NAME}-retry&quot; } def work(msg) data = ActiveSupport::JSON.decode(msg) data[&#39;users&#39;].each do |user| update_user(user.to_h) end ack! rescue StandardError =&gt; e create_log(false, data, message: e.message) reject! end so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate To publish you can call UserPublisher and it will consumed automatically. irb(main):002:0&gt; user_params = [{id: 1, first_name: &#39;first&#39;}]=&gt; [{:id=&gt;1, :first_name=&gt;&quot;first&quot;}]irb(main):003:0&gt; UserPublisher.new(user_params).publish on cosumer it will wait for any message rake sneakers:run 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: subscribing. 2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: I&#39;m alive. 2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] Working off: &quot;{\\&quot;users\\&quot;:[{\\&quot;id\\&quot;:1,\\&quot;first_name\\&quot;:\\&quot;first\\&quot;}]}&quot; You can trace repository in here","datePublished":"2019-08-17T00:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/publish-subscri/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Publish subscribe on ruby on rails&url=http://localhost:4000/publish-subscri/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/publish-subscri/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/publish-subscri/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Publish subscribe on ruby on rails</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg" alt="Publish subscribe on ruby on rails">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>Using RabbitMQ bunny and sneakers</p>
+<p>This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation.</p>
+<p>First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.</p>
+<p>After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password.</p>
+<pre>default: &amp;default  <br />adapter: mysql2  encoding: utf8  pool: &lt;%= ENV.fetch(&quot;RAILS_MAX_THREADS&quot;) { 5 } %&gt;  host: &lt;%= ENV.fetch(&quot;RAILS_HOST_DB&quot;) %&gt;  username: &lt;%= ENV.fetch(&quot;RAILS_USERNAME_DB&quot;) %&gt;  password: &lt;%= ENV.fetch(&quot;RAILS_PASSWORD_DB&quot;) %&gt;  socket: /tmp/mysql.sock</pre>
+<p>For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &#39;dotenv-rails&#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like</p>
+<pre>RAILS_HOST_DB=127.0.0.1<br />RAILS_USERNAME_DB=root<br />RAILS_PASSWORD_DB=secret_password</pre>
+<p>also on config/application.rb add new line Dotenv::Railtie.load</p>
+<p>Do initialize database using command rails db:create , and voila now on your mysql instance, two database created.</p>
+<p>We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate.</p>
+<p>Try to runrails db:migrate to create table and column on schema database.</p>
+<p>Since we try using rspec and shoulda matcher to test, we adding additional gem on test section</p>
+<pre>gem ‘rspec-rails’</pre>
+<pre>gem ‘shoulda-matchers’</pre>
+<p>and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper</p>
+<p>and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable</p>
+<p>Install rabbitmq client, one of gem is <a href="https://github.com/ruby-amqp/bunny">bunny</a> with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded.</p>
+<p>create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&quot;amqp://guest:guest@localhost:5672&quot;) but we can also set more advance setting like :</p>
+<pre>@connection ||= begin</pre>
+<pre>  instance = Bunny.new(</pre>
+<pre>    addresses: ENV[&#39;AMQP_ADDRESSES&#39;].try(:split, &#39;,&#39;),</pre>
+<pre>    username: ENV[&#39;AMQP_USER&#39;],</pre>
+<pre>    password: ENV[&#39;AMQP_PASSWORD&#39;],</pre>
+<pre>    vhost: ENV[&#39;AMQP_VHOST&#39;],</pre>
+<pre>    automatically_recover: true,</pre>
+<pre>    connection_timeout: 2,</pre>
+<pre>    continuation_timeout: (ENV[&#39;CONTINUATION_TIMEOUT&#39;] || 10_000).to_i,</pre>
+<pre>    logger: Rails.logger</pre>
+<pre>  )</pre>
+<pre>  instance.start</pre>
+<pre>  instance</pre>
+<pre>end</pre>
+<p>It will create connection when not initiated before.</p>
+<p>After initializer created you can create service on app/services/user_publisher.rb , with main method publish</p>
+<pre>def publish(options = {})</pre>
+<pre>  channel = ::Publisher::BunnyPublisher.connection.create_channel</pre>
+<pre>  exchange = channel.exchange(</pre>
+<pre>    ENV[&#39;AMQP_EXCHANGE&#39;],</pre>
+<pre>    type: &#39;direct&#39;,</pre>
+<pre>    durable: true</pre>
+<pre>  )</pre>
+<pre>  headers = { &#39;x-delay&#39; =&gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present?</pre>
+<pre>  exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers)</pre>
+<pre>end</pre>
+<p>make sure queue name in publisher same with customer, than publisher ready to use.</p>
+<p>For background processing consumer we use <a href="https://github.com/jondot/sneakers">sneakers</a>, install via gem install sneakers</p>
+<p>create initializer on config/initializers/sneakers.rb and set configuration:</p>
+<pre>Sneakers.configure  connection: Connection.sneakers,</pre>
+<pre>  exchange: ENV[&#39;SNEAKER_AMQP_EXCHANGE&#39;], # AMQP exchange</pre>
+<pre>  exchange_type: :direct,</pre>
+<pre>  runner_config_file: nil,</pre>
+<pre>  metric: nil,</pre>
+<pre>  daemonize: false,</pre>
+<pre>  workers: ENV[&#39;SNEAKERS_WORKER&#39;].to_i,</pre>
+<pre>  log: STDOUT,</pre>
+<pre>  pid_path: &#39;sneakers.pid&#39;,</pre>
+<pre>  timeout_job_after: 5.minutes,</pre>
+<pre>  prefetch: ENV[&#39;SNEAKERS_PREFETCH&#39;].to_i,</pre>
+<pre>  threads: ENV[&#39;SNEAKERS_THREADS&#39;].to_i,</pre>
+<pre>  env: ENV[&#39;RAILS_ENV&#39;], </pre>
+<pre>  durable: true,</pre>
+<pre>  ack: true,</pre>
+<pre>  heartbeat: 5,</pre>
+<pre>  handler: Sneakers::Handlers::Maxretry,</pre>
+<pre>  retry_max_times: 10,</pre>
+<pre>  retry_timeout: 3 * 60 * 1000 </pre>
+<pre>Sneakers.logger = Rails.logger</pre>
+<pre>Sneakers.logger.level = Logger::WARN</pre>
+<p>we choose ack to be true to make sure message must be acknowledge when process is success on consumer</p>
+<p>and then we create worker on app/workers/user_create.rb</p>
+<pre>include Sneakers::Worker</pre>
+<pre>QUEUE_NAME = ::UserPublisher::QUEUE_NAME</pre>
+<pre>from_queue QUEUE_NAME, arguments: { &#39;x-dead-letter-exchange&#39;: &quot;#{QUEUE_NAME}-retry&quot; }</pre>
+<pre>def work(msg)</pre>
+<pre>  data = ActiveSupport::JSON.decode(msg)</pre>
+<pre>  data[&#39;users&#39;].each do |user|</pre>
+<pre>    update_user(user.to_h)</pre>
+<pre>  end</pre>
+<pre>  ack!</pre>
+<pre>rescue StandardError =&gt; e</pre>
+<pre>  create_log(false, data, message: e.message)</pre>
+<pre>  reject!</pre>
+<pre>end</pre>
+<p>so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed</p>
+<p>now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate</p>
+<p>To publish you can call UserPublisher and it will consumed automatically.</p>
+<pre>irb(main):002:0&gt; user_params = [{id: 1, first_name: &#39;first&#39;}]<br />=&gt; [{:id=&gt;1, :first_name=&gt;&quot;first&quot;}]<br />irb(main):003:0&gt; UserPublisher.new(user_params).publish</pre>
+<p>on cosumer it will wait for any message</p>
+<pre>rake sneakers:run           <br /><br />2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: subscribing.</pre>
+<pre>2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b0885d78 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] New worker: I&#39;m alive.</pre>
+<pre>2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&gt;][user.create][#&lt;Sneakers::Configuration:0x00007fd5b6efd240&gt;] Working off: &quot;{\&quot;users\&quot;:[{\&quot;id\&quot;:1,\&quot;first_name\&quot;:\&quot;first\&quot;}]}&quot;</pre>
+<p>You can trace repository in <a href="https://github.com/kusumandaru/rails_queue">here</a></p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg" /></figure>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=6aa6893ef819" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-08-17">17 Aug 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#publish-subscribe">publish-subscribe</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#rabbitmq">rabbitmq</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#ruby-on-rails">ruby-on-rails</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//cheatsheet-depl/"> &laquo; Cheatsheet Deploy and Test in Pipeline for any language</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//how-we-rewrite/">How we rewrite our code without customer aware and uninterrupted business &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags" hidden=true>
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Walking">Walking (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Work-Life-Balance">Work Life Balance (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet-Core">Dotnet Core (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Convert">Convert (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet">Dotnet (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#engineer">engineer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#developer">developer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#health">health (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#work-life-balance">work-life-balance (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#10yearchallenge">10yearchallenge (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ekonomi">ekonomi (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#harga">harga (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ssl">ssl (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#github-pages">github-pages (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#custom-domain">custom-domain (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#jekyll">jekyll (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#agile">agile (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#software-development">software-development (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#documentation">documentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#programming">programming (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#toxic">toxic (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#build">build (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#pipeline">pipeline (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#test">test (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continous-integration">continous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#publish-subscribe">publish-subscribe (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ruby-on-rails">ruby-on-rails (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rabbitmq">rabbitmq (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#migration">migration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rebuild">rebuild (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continuous-integration">continuous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#startup">startup (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

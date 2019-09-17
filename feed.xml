@@ -5,9 +5,619 @@
     <description>Collection medium story of kusumandaru</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 01 Sep 2019 16:57:02 +0700</pubDate>
-    <lastBuildDate>Sun, 01 Sep 2019 16:57:02 +0700</lastBuildDate>
+    <pubDate>Tue, 17 Sep 2019 18:02:28 +0700</pubDate>
+    <lastBuildDate>Tue, 17 Sep 2019 18:02:28 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>How we rewrite our code without customer aware and uninterrupted business</title>
+        <description>&lt;h4&gt;Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid.&lt;/h4&gt;
+&lt;p&gt;When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff.&lt;/p&gt;
+&lt;p&gt;Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;you must allocate dedicated member and time,&lt;/li&gt;&lt;li&gt;make regressive whole testing,&lt;/li&gt;&lt;li&gt;hold some new feature,&lt;/li&gt;&lt;li&gt;make sure recent feature still steady and not broken,&lt;/li&gt;&lt;li&gt;lack of documentation how recent module work.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in.&lt;/p&gt;
+&lt;p&gt;Our progress is start on beginning of 2018.&lt;/p&gt;
+&lt;p&gt;We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :)&lt;/p&gt;
+&lt;p&gt;We change to ruby cause of several aspect:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.&lt;/li&gt;&lt;li&gt;No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.&lt;/li&gt;&lt;li&gt;Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.&lt;/li&gt;&lt;li&gt;On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.&lt;/li&gt;&lt;li&gt;Some UI/UX need to adapt.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch.&lt;/p&gt;
+&lt;p&gt;Strategy pattern to rewrite:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.&lt;/li&gt;&lt;li&gt;Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.&lt;/li&gt;&lt;li&gt;We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.&lt;/li&gt;&lt;li&gt;Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.&lt;/li&gt;&lt;li&gt;Make coverage test to more than 90%.&lt;/li&gt;&lt;li&gt;Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly.&lt;/p&gt;
+&lt;p&gt;And voila it works like charm.&lt;/p&gt;
+&lt;p&gt;Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee.&lt;/p&gt;
+&lt;p&gt;And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;both system need redirection url between each system.&lt;/li&gt;&lt;li&gt;Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)&lt;/li&gt;&lt;li&gt;some data have anomaly (inconsistent ) because in new system some validation is more strict than old one.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately.&lt;/p&gt;
+&lt;p&gt;We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one.&lt;/p&gt;
+&lt;p&gt;We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php.&lt;/p&gt;
+&lt;p&gt;We learn some point after last deploy like:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)&lt;/li&gt;&lt;li&gt;There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.&lt;/li&gt;&lt;li&gt;Some customer already churn, and we don’t hesitating to migrate this customer on new feature.&lt;/li&gt;&lt;li&gt;It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.&lt;/li&gt;&lt;li&gt;It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.&lt;/li&gt;&lt;li&gt;We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Cause of above point we try to make migrate by selected customer rather than global (whole company). With step:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Coordinate business development and product owner to select and inform customer which want to migrate on new feature.&lt;/li&gt;&lt;li&gt;Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.&lt;/li&gt;&lt;li&gt;Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.&lt;/li&gt;&lt;li&gt;Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.&lt;/li&gt;&lt;li&gt;Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.&lt;/li&gt;&lt;li&gt;Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database.&lt;/li&gt;&lt;/ul&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href&quot;&gt;https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;ul&gt;&lt;li&gt;Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.&lt;/li&gt;&lt;li&gt;Set versioning migration so we can track company status migration of each company.&lt;/li&gt;&lt;li&gt;Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;And before customer migration, we do some improvement like:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. &lt;a href=&quot;https://medium.com/sleekrco/the-journey-build-continuous-deployment-sleekr-69f07adb7efe&quot;&gt;see this link&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Make code already in production but not active with feature toggle. (Deploy code on dormant mode).&lt;/li&gt;&lt;li&gt;Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality&lt;/li&gt;&lt;/ul&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg&quot; /&gt;&lt;figcaption&gt;Photo by &lt;a href=&quot;https://unsplash.com/@martinirc?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;José Martín Ramírez C&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/search/photos/business?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;Unsplash&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b4590273c3c9&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9&quot;&gt;How we rewrite our code without customer aware and uninterrupted business&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 28 Aug 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/how-we-rewrite/</link>
+        <guid isPermaLink="true">http://localhost:4000/how-we-rewrite/</guid>
+        
+        
+        <category>migration</category>
+        
+        <category>rebuild</category>
+        
+        <category>continuous-integration</category>
+        
+        <category>startup</category>
+        
+      </item>
+    
+      <item>
+        <title>Publish subscribe on ruby on rails</title>
+        <description>&lt;p&gt;Using RabbitMQ bunny and sneakers&lt;/p&gt;
+&lt;p&gt;This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation.&lt;/p&gt;
+&lt;p&gt;First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.&lt;/p&gt;
+&lt;p&gt;After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password.&lt;/p&gt;
+&lt;pre&gt;default: &amp;amp;default  &lt;br /&gt;adapter: mysql2  encoding: utf8  pool: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_MAX_THREADS&amp;quot;) { 5 } %&amp;gt;  host: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_HOST_DB&amp;quot;) %&amp;gt;  username: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_USERNAME_DB&amp;quot;) %&amp;gt;  password: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_PASSWORD_DB&amp;quot;) %&amp;gt;  socket: /tmp/mysql.sock&lt;/pre&gt;
+&lt;p&gt;For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &amp;#39;dotenv-rails&amp;#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like&lt;/p&gt;
+&lt;pre&gt;RAILS_HOST_DB=127.0.0.1&lt;br /&gt;RAILS_USERNAME_DB=root&lt;br /&gt;RAILS_PASSWORD_DB=secret_password&lt;/pre&gt;
+&lt;p&gt;also on config/application.rb add new line Dotenv::Railtie.load&lt;/p&gt;
+&lt;p&gt;Do initialize database using command rails db:create , and voila now on your mysql instance, two database created.&lt;/p&gt;
+&lt;p&gt;We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate.&lt;/p&gt;
+&lt;p&gt;Try to runrails db:migrate to create table and column on schema database.&lt;/p&gt;
+&lt;p&gt;Since we try using rspec and shoulda matcher to test, we adding additional gem on test section&lt;/p&gt;
+&lt;pre&gt;gem ‘rspec-rails’&lt;/pre&gt;
+&lt;pre&gt;gem ‘shoulda-matchers’&lt;/pre&gt;
+&lt;p&gt;and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper&lt;/p&gt;
+&lt;p&gt;and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable&lt;/p&gt;
+&lt;p&gt;Install rabbitmq client, one of gem is &lt;a href=&quot;https://github.com/ruby-amqp/bunny&quot;&gt;bunny&lt;/a&gt; with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded.&lt;/p&gt;
+&lt;p&gt;create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&amp;quot;amqp://guest:guest@localhost:5672&amp;quot;) but we can also set more advance setting like :&lt;/p&gt;
+&lt;pre&gt;@connection ||= begin&lt;/pre&gt;
+&lt;pre&gt;  instance = Bunny.new(&lt;/pre&gt;
+&lt;pre&gt;    addresses: ENV[&amp;#39;AMQP_ADDRESSES&amp;#39;].try(:split, &amp;#39;,&amp;#39;),&lt;/pre&gt;
+&lt;pre&gt;    username: ENV[&amp;#39;AMQP_USER&amp;#39;],&lt;/pre&gt;
+&lt;pre&gt;    password: ENV[&amp;#39;AMQP_PASSWORD&amp;#39;],&lt;/pre&gt;
+&lt;pre&gt;    vhost: ENV[&amp;#39;AMQP_VHOST&amp;#39;],&lt;/pre&gt;
+&lt;pre&gt;    automatically_recover: true,&lt;/pre&gt;
+&lt;pre&gt;    connection_timeout: 2,&lt;/pre&gt;
+&lt;pre&gt;    continuation_timeout: (ENV[&amp;#39;CONTINUATION_TIMEOUT&amp;#39;] || 10_000).to_i,&lt;/pre&gt;
+&lt;pre&gt;    logger: Rails.logger&lt;/pre&gt;
+&lt;pre&gt;  )&lt;/pre&gt;
+&lt;pre&gt;  instance.start&lt;/pre&gt;
+&lt;pre&gt;  instance&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;It will create connection when not initiated before.&lt;/p&gt;
+&lt;p&gt;After initializer created you can create service on app/services/user_publisher.rb , with main method publish&lt;/p&gt;
+&lt;pre&gt;def publish(options = {})&lt;/pre&gt;
+&lt;pre&gt;  channel = ::Publisher::BunnyPublisher.connection.create_channel&lt;/pre&gt;
+&lt;pre&gt;  exchange = channel.exchange(&lt;/pre&gt;
+&lt;pre&gt;    ENV[&amp;#39;AMQP_EXCHANGE&amp;#39;],&lt;/pre&gt;
+&lt;pre&gt;    type: &amp;#39;direct&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;    durable: true&lt;/pre&gt;
+&lt;pre&gt;  )&lt;/pre&gt;
+&lt;pre&gt;  headers = { &amp;#39;x-delay&amp;#39; =&amp;gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present?&lt;/pre&gt;
+&lt;pre&gt;  exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers)&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;make sure queue name in publisher same with customer, than publisher ready to use.&lt;/p&gt;
+&lt;p&gt;For background processing consumer we use &lt;a href=&quot;https://github.com/jondot/sneakers&quot;&gt;sneakers&lt;/a&gt;, install via gem install sneakers&lt;/p&gt;
+&lt;p&gt;create initializer on config/initializers/sneakers.rb and set configuration:&lt;/p&gt;
+&lt;pre&gt;Sneakers.configure  connection: Connection.sneakers,&lt;/pre&gt;
+&lt;pre&gt;  exchange: ENV[&amp;#39;SNEAKER_AMQP_EXCHANGE&amp;#39;], # AMQP exchange&lt;/pre&gt;
+&lt;pre&gt;  exchange_type: :direct,&lt;/pre&gt;
+&lt;pre&gt;  runner_config_file: nil,&lt;/pre&gt;
+&lt;pre&gt;  metric: nil,&lt;/pre&gt;
+&lt;pre&gt;  daemonize: false,&lt;/pre&gt;
+&lt;pre&gt;  workers: ENV[&amp;#39;SNEAKERS_WORKER&amp;#39;].to_i,&lt;/pre&gt;
+&lt;pre&gt;  log: STDOUT,&lt;/pre&gt;
+&lt;pre&gt;  pid_path: &amp;#39;sneakers.pid&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;  timeout_job_after: 5.minutes,&lt;/pre&gt;
+&lt;pre&gt;  prefetch: ENV[&amp;#39;SNEAKERS_PREFETCH&amp;#39;].to_i,&lt;/pre&gt;
+&lt;pre&gt;  threads: ENV[&amp;#39;SNEAKERS_THREADS&amp;#39;].to_i,&lt;/pre&gt;
+&lt;pre&gt;  env: ENV[&amp;#39;RAILS_ENV&amp;#39;], &lt;/pre&gt;
+&lt;pre&gt;  durable: true,&lt;/pre&gt;
+&lt;pre&gt;  ack: true,&lt;/pre&gt;
+&lt;pre&gt;  heartbeat: 5,&lt;/pre&gt;
+&lt;pre&gt;  handler: Sneakers::Handlers::Maxretry,&lt;/pre&gt;
+&lt;pre&gt;  retry_max_times: 10,&lt;/pre&gt;
+&lt;pre&gt;  retry_timeout: 3 * 60 * 1000 &lt;/pre&gt;
+&lt;pre&gt;Sneakers.logger = Rails.logger&lt;/pre&gt;
+&lt;pre&gt;Sneakers.logger.level = Logger::WARN&lt;/pre&gt;
+&lt;p&gt;we choose ack to be true to make sure message must be acknowledge when process is success on consumer&lt;/p&gt;
+&lt;p&gt;and then we create worker on app/workers/user_create.rb&lt;/p&gt;
+&lt;pre&gt;include Sneakers::Worker&lt;/pre&gt;
+&lt;pre&gt;QUEUE_NAME = ::UserPublisher::QUEUE_NAME&lt;/pre&gt;
+&lt;pre&gt;from_queue QUEUE_NAME, arguments: { &amp;#39;x-dead-letter-exchange&amp;#39;: &amp;quot;#{QUEUE_NAME}-retry&amp;quot; }&lt;/pre&gt;
+&lt;pre&gt;def work(msg)&lt;/pre&gt;
+&lt;pre&gt;  data = ActiveSupport::JSON.decode(msg)&lt;/pre&gt;
+&lt;pre&gt;  data[&amp;#39;users&amp;#39;].each do |user|&lt;/pre&gt;
+&lt;pre&gt;    update_user(user.to_h)&lt;/pre&gt;
+&lt;pre&gt;  end&lt;/pre&gt;
+&lt;pre&gt;  ack!&lt;/pre&gt;
+&lt;pre&gt;rescue StandardError =&amp;gt; e&lt;/pre&gt;
+&lt;pre&gt;  create_log(false, data, message: e.message)&lt;/pre&gt;
+&lt;pre&gt;  reject!&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed&lt;/p&gt;
+&lt;p&gt;now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate&lt;/p&gt;
+&lt;p&gt;To publish you can call UserPublisher and it will consumed automatically.&lt;/p&gt;
+&lt;pre&gt;irb(main):002:0&amp;gt; user_params = [{id: 1, first_name: &amp;#39;first&amp;#39;}]&lt;br /&gt;=&amp;gt; [{:id=&amp;gt;1, :first_name=&amp;gt;&amp;quot;first&amp;quot;}]&lt;br /&gt;irb(main):003:0&amp;gt; UserPublisher.new(user_params).publish&lt;/pre&gt;
+&lt;p&gt;on cosumer it will wait for any message&lt;/p&gt;
+&lt;pre&gt;rake sneakers:run           &lt;br /&gt;&lt;br /&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: subscribing.&lt;/pre&gt;
+&lt;pre&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: I&amp;#39;m alive.&lt;/pre&gt;
+&lt;pre&gt;2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] Working off: &amp;quot;{\&amp;quot;users\&amp;quot;:[{\&amp;quot;id\&amp;quot;:1,\&amp;quot;first_name\&amp;quot;:\&amp;quot;first\&amp;quot;}]}&amp;quot;&lt;/pre&gt;
+&lt;p&gt;You can trace repository in &lt;a href=&quot;https://github.com/kusumandaru/rails_queue&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6aa6893ef819&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 17 Aug 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/publish-subscri/</link>
+        <guid isPermaLink="true">http://localhost:4000/publish-subscri/</guid>
+        
+        
+        <category>publish-subscribe</category>
+        
+        <category>ruby-on-rails</category>
+        
+        <category>rabbitmq</category>
+        
+      </item>
+    
+      <item>
+        <title>Cheatsheet Deploy and Test in Pipeline for any language</title>
+        <description>&lt;h3&gt;Cheatsheet Deploy and Test on Pipeline for any language&lt;/h3&gt;
+&lt;p&gt;cheatsheet any language for pipeline continous integration&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;Typescript vscode extension&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;build:&lt;/p&gt;
+&lt;pre&gt;npm install&lt;br /&gt;npm run compile&lt;/pre&gt;
+&lt;p&gt;test&lt;/p&gt;
+&lt;pre&gt;node ./node_modules/vscode/bin/test&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Jekyll&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;build:&lt;/p&gt;
+&lt;pre&gt;gem install bundler -v 1.17.3&lt;br /&gt;bundle install&lt;/pre&gt;
+&lt;p&gt;test&lt;/p&gt;
+&lt;pre&gt;export MEDIUM_USERNAME=xxx # optional when need export params&lt;br /&gt;bundle exec jekyll build&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Chrome extension&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;build&lt;/p&gt;
+&lt;pre&gt;yarn install&lt;/pre&gt;
+&lt;p&gt;install&lt;/p&gt;
+&lt;pre&gt;yarn test&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Dotnet core&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;build&lt;/p&gt;
+&lt;pre&gt;dotnet build&lt;/pre&gt;
+&lt;p&gt;test&lt;/p&gt;
+&lt;pre&gt;cd {project_name}.Test&lt;br /&gt;dotnet test&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Laravel&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;build&lt;/p&gt;
+&lt;pre&gt;sudo apt-get install python-software-properties&lt;br /&gt;sudo add-apt-repository ppa:ondrej/php&lt;br /&gt;sudo apt update&lt;br /&gt;sudo apt install -y php7.2&lt;br /&gt;sudo apt-get install php7.2-mbstring&lt;br /&gt;sudo apt-get install php7.2-xml&lt;br /&gt;curl -sS &lt;a href=&quot;https://getcomposer.org/installer&quot;&gt;https://getcomposer.org/installer&lt;/a&gt; | sudo php -- --install-dir=/usr/local/bin --filename=composer&lt;br /&gt;sudo phpenmod mbstring&lt;br /&gt;mkdir bootstrap/cache&lt;br /&gt;sudo chmod 777 -R bootstrap/cache&lt;br /&gt;composer install&lt;/pre&gt;
+&lt;p&gt;test&lt;/p&gt;
+&lt;pre&gt;phpunit&lt;/pre&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*GeFpt4wx9aTUUsUULB8dkA.jpeg&quot; /&gt;&lt;figcaption&gt;infinity deploy&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=356c2bdbb48&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 14 Jul 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/cheatsheet-depl/</link>
+        <guid isPermaLink="true">http://localhost:4000/cheatsheet-depl/</guid>
+        
+        
+        <category>build</category>
+        
+        <category>pipeline</category>
+        
+        <category>test</category>
+        
+        <category>continous-integration</category>
+        
+      </item>
+    
+      <item>
+        <title>Budaya beracun dalam pengembangan aplikasi</title>
+        <description>&lt;p&gt;Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim&lt;/p&gt;
+&lt;h3&gt;Terjebak dalam dikotomi bukan bagian programmer&lt;/h3&gt;
+&lt;p&gt;Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan:&lt;/p&gt;
+&lt;p&gt;Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (&lt;a href=&quot;https://agilepainrelief.com/notesfromatooluser/2018/06/how-to-cross-skill-and-grow-t-shaped-team-members.html&quot;&gt;T-shaped&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;bos tidak selalu mengawasi, &amp;amp;&lt;/li&gt;&lt;li&gt;bos seharusnya tidak melakukan mikro manajemen&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia.&lt;/p&gt;
+&lt;h3&gt;Gampang menyalahkan&lt;/h3&gt;
+&lt;blockquote&gt;blamming driven design&lt;/blockquote&gt;
+&lt;p&gt;Terdapat dua tipe karakterisik dalam sikap ini:&lt;/p&gt;
+&lt;h4&gt;Menyalahkan user&lt;/h4&gt;
+&lt;ul&gt;&lt;li&gt;Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:&lt;/li&gt;&lt;li&gt;si A tidak tahu alur yang harus dijalankan&lt;/li&gt;&lt;li&gt;si B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulang&lt;/li&gt;&lt;li&gt;si C harusnya tidak boleh mengisi nilai negatif atau kosong&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan&lt;/p&gt;
+&lt;p&gt;Bagaimana untuk mengatasinya:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Data driven design.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran.&lt;/p&gt;
+&lt;p&gt;Serta bisa pula menggunakan alat bantu analisis seperti &lt;a href=&quot;https://www.hotjar.com/&quot;&gt;hotjar&lt;/a&gt;/&lt;a href=&quot;https://analytics.google.com/analytics/web/&quot;&gt;google analytic&lt;/a&gt; untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi&lt;/p&gt;
+&lt;h4&gt;Menyalahkan rekan kerja&lt;/h4&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;http://www.commitstrip.com/en/2017/12/19/no-git-blame/&quot;&gt;http://www.commitstrip.com/en/2017/12/19/no-git-blame/&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui:&lt;/p&gt;
+&lt;p&gt;Lakukan dalam Pull Request, apabila menemui ketidak setujuan:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’&lt;/li&gt;&lt;li&gt;Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana:&lt;/li&gt;&lt;/ol&gt;
+&lt;ul&gt;&lt;li&gt;Kenapa fungsi ini punya 100 baris kode?&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;dibandingkan&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;3. Ambigu&lt;/p&gt;
+&lt;p&gt;“Kayaknya ada cara yang lebih bagus deh selain ini”&lt;/p&gt;
+&lt;p&gt;“Beneran kodenya mau seperti ini?”&lt;/p&gt;
+&lt;p&gt;Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi.&lt;/p&gt;
+&lt;p&gt;Apabila dibutuhkan lebih baik untuk berpedapat:&lt;/p&gt;
+&lt;p&gt;‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’&lt;/p&gt;
+&lt;p&gt;4. Jangan dimasukkan ke dalam hati&lt;/p&gt;
+&lt;p&gt;Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional.&lt;/p&gt;
+&lt;h3&gt;Tidak mampu melakukan estimasi pekerjaan&lt;/h3&gt;
+&lt;blockquote&gt;Gampang kok 2 hari juga kelar&lt;/blockquote&gt;
+&lt;p&gt;Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi.&lt;/p&gt;
+&lt;p&gt;Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan.&lt;/p&gt;
+&lt;p&gt;Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect).&lt;/p&gt;
+&lt;p&gt;Ada beberapa cara seperti&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.&lt;/li&gt;&lt;li&gt;menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8.&lt;/li&gt;&lt;/ul&gt;
+&lt;h3&gt;Ketakutan untuk mengoptimasi (refactor) kode&lt;/h3&gt;
+&lt;p&gt;Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan.&lt;/p&gt;
+&lt;p&gt;Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring.&lt;/p&gt;
+&lt;p&gt;a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu&lt;/p&gt;
+&lt;p&gt;b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi&lt;/p&gt;
+&lt;p&gt;c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production&lt;/p&gt;
+&lt;p&gt;d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul;&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;dapat melalui revert (mengembalikan ke rilis lama)&lt;/li&gt;&lt;li&gt;atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain&lt;/p&gt;
+&lt;h3&gt;Tidak ada pencatatan progress (tracking)&lt;/h3&gt;
+&lt;blockquote&gt;Let it flow — frozen&lt;/blockquote&gt;
+&lt;p&gt;Pengembangan aplikasi memerlukan pencatatan proses seperti &lt;a href=&quot;https://www.atlassian.com/software/jira&quot;&gt;Jira&lt;/a&gt; atau &lt;a href=&quot;https://www.pivotaltracker.com&quot;&gt;Pivotal Tracker&lt;/a&gt;. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk.&lt;/p&gt;
+&lt;p&gt;Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi.&lt;/p&gt;
+&lt;h3&gt;Segan dalam menyampaikan ide atau pendapat&lt;/h3&gt;
+&lt;blockquote&gt;Heraclitus — There is nothing permanent except change&lt;/blockquote&gt;
+&lt;p&gt;Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan.&lt;/p&gt;
+&lt;p&gt;Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari.&lt;/p&gt;
+&lt;p&gt;Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah.&lt;/p&gt;
+&lt;p&gt;Apa yang terjadi?&lt;/p&gt;
+&lt;p&gt;Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*gy4a--uifdp7tfhYHcTXmQ.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;h4&gt;Pranala&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://gooroo.io/GoorooTHINK/Article/16363/Developer-Etiquette--Code-Review-and-Pull-Request-Comments&quot;&gt;Developer Etiquette — Code Review and Pull Request Comments&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://medium.com/@lsoares/common-programmers-errors-ea598b8f14c9&quot;&gt;Common programmer errors&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3958ab020565&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 19 May 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/budaya-beracun/</link>
+        <guid isPermaLink="true">http://localhost:4000/budaya-beracun/</guid>
+        
+        
+        <category>programming</category>
+        
+        <category>work-life-balance</category>
+        
+        <category>toxic</category>
+        
+      </item>
+    
+      <item>
+        <title>Aplikasi lebih dari dokumentasi, tepatkah?</title>
+        <description>&lt;h4&gt;Salah satu agile manifesto yang berisi keutamaan aplikasi yang berjalan dibanding dokumentasi yang komprehensif dapat menjadi pisau bermata dua&lt;/h4&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*tRKc9_iyJlzFC-o1OYhnYw.jpeg&quot; /&gt;&lt;figcaption&gt;dokumentasi&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Saya bukan anti agile, tapi penerapan ini dapat mengakibatkan blunder bila tidak disikapi dengan hati-hati.&lt;/p&gt;
+&lt;p&gt;Penghilangan dokumentasi dapat menjadikan developer menjadi kuncen (juru kunci) atas modul / fitur yang ditulisnya, karena developer lain merasa was-was apabila melakukan perubahan kode, atau product manager merasa delivery lebih cepat apabila dilakukan oleh developer yang mengerjakan modul itu sebelumnya;&lt;/p&gt;
+&lt;p&gt;Atau ketika developer itu berpindah kerja, maka developer penggantinya susah untuk melanjutkan atau melakukan optimasi kode tersebut, sebab kode yang tersedia susah dipahami atau apabila melakukan perubahan didalamnya, akan berpengaruh ke modul lain (senggol bacok kasarannya).&lt;/p&gt;
+&lt;p&gt;Untuk itu perlu beberapa pendekatan untuk memitigasi tantangan tersebut.&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Unggah kode ke repository secara teratur.&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Pastikan setiap kode tersimpan di repository, untuk memudahkan gunakan awalan no tiket pada branch yang ingin dibuat. Usahakan setiap selesai kerja untuk mem-push kode pada repository, berjaga-jaga apabila gawai yang digunakan mengalami masalah.&lt;/p&gt;
+&lt;p&gt;Developer yang baik tidak akan takut untuk menunjukkan hasil kerja mereka, walaupun masih dalam status pengembangan (wip)&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Lakukan kode review sebelum masuk ke mesin produksi&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Semua kode yang akan masuk ke mesin produksi seyogyanya melewati proses review. Kode harus cukup rapi untuk dipahami. Tidak perlu berdebat sengit antara aliran spasi atau tab. Setidaknya kode dapat dibaca dan dipahami oleh rekan kerja.&lt;/p&gt;
+&lt;p&gt;Kode review dapat pula menjadi jembatan transfer knowledge (pertukaran ilmu) dan wisdom knowledge (pandangan multi perspektif) yang dapat memperkaya konsep pemograman dan teknis, selain dapat memberi sudut pandang lain apakah solusi yang diberikan dapat lebih ditingkatkan. Jangan baper ya di review ini, kita berusaha untuk menjadi lebih baik kok, bukan untuk menjatuhkan.&lt;/p&gt;
+&lt;p&gt;Untuk memudahkan standarisasi, dapat dibantu oleh linter (aplikasi analisa kode dan gaya penulisan program) seperti rubocop pada rails, linter-php untuk php, sonar dan findbugs untuk java.&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Investasi di test&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Kode tidak akan bekerja kecuali terbukti lolos tes. Kode harus dianggap tidak layak bekerja bila belum ada tesnya. Tes tidak menjamin kode 100% bebas dari bug, tapi dapat membantu apakah perubahan kode yang dilakukan merusak fungsional sistem saat ini dan dapat menjadi semacam dokumentasi teknis bagaimana fungsi dari modul berjalan.&lt;/p&gt;
+&lt;p&gt;Tes ini dapat berguna juga untuk melihat ketahanan kode kita apabila ada skenario diluar normal, semisal ketika user melakukan input sembarang apakah menyebabkan aplikasi menjadi error atau tidak.&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Dokumentasi teknis&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Dimana kita dapat meletakkan dokumentasi dalam kode:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Readme.md&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;readme.md merupakan tempat permulaan dari semua dokumentasi. Saat orang ingin mengatahui basis kode, ini merupakan titik pertama untuk melihat.&lt;/p&gt;
+&lt;p&gt;readme.md berisi setidaknya gambaran kasar atas apa yang aplikasi mampu perbuat. Ini sangat berguna pada perusahaan yang memiliki banyak repositori dimana developer dapat berpindah antar repo dan mengetahui fungsionalitas repo dalam hitungan puluhan detik.&lt;/p&gt;
+&lt;p&gt;readme.md pun dapat menjadi semacam daftar isi dari dokumentasi yang lebih rinci apabila di lain hari repositori berkembang menjadi semakin kompleks. Semisal cara menjalankan aplikasi dapat diekstrak di dokumen lain seperti install.md&lt;/p&gt;
+&lt;p&gt;2. Commit message&lt;/p&gt;
+&lt;p&gt;“Commit message” berisi deskripsi perubahan apa yang ingin dicapai developer dalam kode yang dibuat.&lt;/p&gt;
+&lt;p&gt;Commit message ini akan berperan ketika kita ingin melihat riwayat bagaimana modul atau aplikasi berkembang, apa yang dipikirkan oleh developer atas kode yang diubah.&lt;/p&gt;
+&lt;p&gt;3. Pull request&lt;/p&gt;
+&lt;p&gt;Untuk memudahkan dalam pull request, saya membuat template dengan chrome extension untuk menampilkan panduan untuk kode agar dapat direview mulai dari:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;tujuan PR dibuat&lt;/li&gt;&lt;li&gt;kode permulaan untuk direview&lt;/li&gt;&lt;li&gt;bagaimana cara menduplikasi test secara manual&lt;/li&gt;&lt;li&gt;dockup (environment test) bisa diakses dimana, dll&lt;/li&gt;&lt;/ul&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*BmEoODS3kJjsHQVKCfe0ow.png&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/sleekr-pull-request-templ/pfbiapcadmmneoecmjplcgbnefpfcohe&quot;&gt;https://chrome.google.com/webstore/detail/sleekr-pull-request-templ/pfbiapcadmmneoecmjplcgbnefpfcohe&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Poin terakhir, diperlukan keseimbangan dalam pengembangan aplikasi, dan tiap tim memiliki cara tersendiri (budaya) untuk menjalakannya. Kita dapat memiliki kode paling bersih, tingkat coverage test 100% atau dokumentasi paling lengkap dari A sampai Z, tapi disisi lain, adakah pelanggan yang menggunakan (membayar) produk kita. Atau sebaliknya, perusahaan dapat berjalan dengan kode yang acak adut tapi dapat memuaskan pelanggan dan menghasilkan uang didalamnya tapi kesulitan apabila ingin berkembang lebih besar karena perubahan kecil susah dikontrol.&lt;/p&gt;
+&lt;p&gt;Dengan sisi lain, product owner dan developer harus dapat berkolaborasi dalam kualitas kode yang dihasilkan dengan kepentingan bisnis didalamnya.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=353c814ccd6e&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 26 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/aplikasi-lebih/</link>
+        <guid isPermaLink="true">http://localhost:4000/aplikasi-lebih/</guid>
+        
+        
+        <category>agile</category>
+        
+        <category>software-development</category>
+        
+        <category>documentation</category>
+        
+      </item>
+    
+      <item>
+        <title>Create personal website on second</title>
+        <description>&lt;h3&gt;Create secure personal website on google page with jekyll&lt;/h3&gt;
+&lt;p&gt;Nowdays creating (static) website could be simple and cheap, yes, we can use google or aws with free credit for annualy. For this chapter we try to make with github and connect with custom domain.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 1 — choose a custom domain&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;skip if you want using just domain from github.io or you didn’t spend cost a penny&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png&quot; /&gt;&lt;figcaption&gt;domain registration&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;You can buy with various domain provider like godaddy, wix, 101domain or many option outside there, for this example I use namecheap.&lt;/p&gt;
+&lt;p&gt;Some domain like .com need activation via email to check owner validity.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 2 — create repository&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Now create repository with &lt;em&gt;your-username.&lt;/em&gt;github.io inhttps://github.com/new&lt;/p&gt;
+&lt;p&gt;optional choose .gitignore with jeckyll when integrate using jeckyll&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*0SIKcHgtAdqTRZmiyTwe1Q.png&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;then create repository&lt;/p&gt;
+&lt;p&gt;On local terminal grab repository git clone https://github.com/username/username.github.io&lt;/p&gt;
+&lt;p&gt;Go to selected folder with cd username.github.io&lt;/p&gt;
+&lt;p&gt;Create index.html with echo “Hello World” &amp;gt; index.html&lt;/p&gt;
+&lt;p&gt;After that commit and push git add . and git commit -m &amp;quot;first blood&amp;quot; than git push -u origin/master&lt;/p&gt;
+&lt;p&gt;Go to &lt;a href=&quot;https://username.github.io.&quot;&gt;&lt;strong&gt;https://&lt;em&gt;username&lt;/em&gt;.github.io&lt;/strong&gt;.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 3— link custom domain&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;On your repository choose setting tab.&lt;/p&gt;
+&lt;p&gt;Then scroll to below until found custom domain. Fill with your custom domain.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*Lw7WT4vhK8BltYL65faZgA.png&quot; /&gt;&lt;figcaption&gt;custom domain save&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Follow your DNS provider’s instructions to create a CNAME record that points your subdomain to your default pages domain. For example, if you own the subdomain www.example.com, you can configure a CNAME record to point www.example.com to YOUR-GITHUB-USERNAME.github.io. DNS changes can take over a full day to update, and the wait varies among DNS and hosting providers.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*hFx8fyVRxApCBqx-VyWDYg.png&quot; /&gt;&lt;figcaption&gt;cname github&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;In local terminal dig &lt;em&gt;www.example.com&lt;/em&gt; +nostats +nocomments +nocmd&lt;/p&gt;
+&lt;p&gt;Part 4 — Github https redirection&lt;/p&gt;
+&lt;p&gt;If you configured your custom domain using an A record, your A record must point to one of the following IP addresses for HTTPS to work:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;185.199.108.153&lt;/li&gt;&lt;li&gt;185.199.109.153&lt;/li&gt;&lt;li&gt;185.199.110.153&lt;/li&gt;&lt;li&gt;185.199.111.153&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;After updating any A record IP addresses, you must remove and re-add your custom domain to the repository you’re using to publish your Pages site to trigger the process of enabling HTTPS.&lt;/p&gt;
+&lt;p&gt;check with dig example.com +nostats +nocomments +nocmd&lt;/p&gt;
+&lt;p&gt;Than choose https on github repository setting&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*nMXPlwUW6kP10ovGIL6_HA.png&quot; /&gt;&lt;figcaption&gt;enforce HTTPS&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;notes: in this step https site is available, but not secure&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 5 — Using cloudflare to inject https&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Since on this writing date, github not support custom domain https, so we need redirect dns using cloud flare to force ssl.&lt;/p&gt;
+&lt;p&gt;Register first on &lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;https://www.cloudflare.com/&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/832/1*8NbToPoehLquG87WX7LcZg.png&quot; /&gt;&lt;figcaption&gt;fill custom domain name&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/666/1*kGTJWcFqvz4y_v5Jkb9ljA.png&quot; /&gt;&lt;figcaption&gt;choose free option&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*MTLjmTVwVzTVPv5nzDNuWA.png&quot; /&gt;&lt;figcaption&gt;update domain setting to using cloudflare dns&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;On your hosting change nameservers default dns into cloudflare dns.&lt;/p&gt;
+&lt;p&gt;lia.ns.cloudflare.com for dns1&lt;/p&gt;
+&lt;p&gt;west.ns.cloudflare.com for dns2&lt;/p&gt;
+&lt;p&gt;It cost several hours until days depends on domain provider, check status on overview tab.&lt;/p&gt;
+&lt;p&gt;Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*k5QAmRIl7YkbaW9PcMA3cw.png&quot; /&gt;&lt;figcaption&gt;crypto area&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Also turn check on Automatic https rewrite to make assets to use https when eligible, rather than https&lt;/p&gt;
+&lt;p&gt;Your site now already using https&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/704/1*L0eG2mrD4sV4qg4BCg9FzQ.png&quot; /&gt;&lt;figcaption&gt;already force using ssl&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Part 6 — Using jekyll to generate website&lt;/p&gt;
+&lt;p&gt;Choose theme from github page theme from &lt;a href=&quot;https://jekyllthemes.io/&quot;&gt;https://jekyllthemes.io/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or just install jekyll using jekyll new blog&lt;/p&gt;
+&lt;p&gt;Build using command bundle exec jekyll build and check with bundle exec jekyll server.&lt;/p&gt;
+&lt;p&gt;check on localhost:4000&lt;/p&gt;
+&lt;p&gt;After done some improvement. copy _site into your repo github with command cp -r _site username.github.io&lt;/p&gt;
+&lt;p&gt;Push using git push than your site already published&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*cAgnmw2WAA8LjeDBLQVbaA.png&quot; /&gt;&lt;figcaption&gt;my website with rss from medium&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Happy deploy :)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=152339342b7c&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 24 Feb 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/create-personal/</link>
+        <guid isPermaLink="true">http://localhost:4000/create-personal/</guid>
+        
+        
+        <category>ssl</category>
+        
+        <category>github-pages</category>
+        
+        <category>custom-domain</category>
+        
+        <category>jekyll</category>
+        
+      </item>
+    
+      <item>
+        <title>10 years challenge di pusaran ekonomi</title>
+        <description>&lt;p&gt;Dewasa ini media sosial kita dipenuhi dengan tantangan 10 tahun, yang menunjukkan perbandingan kondisi tubuh saat ini dan 10 tahun sebelumnya. Saya coba menerima tantangan ini dengan membandingkan aspek ekonomi.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Biaya kuliah&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Saya masuk kuliah di salah satu perguruan tinggi di Surabaya pada tahun 2008 dengan uang semester sebesar Rp 800.000,00.&lt;/p&gt;
+&lt;p&gt;Saat ini biaya semesternya adalah 500.000 – 7.500.000. Bila kita ambil nilai mediannya sebesar 4 juta rupiah, nilai perubahannya adalah&lt;strong&gt; 5x lipat selama 10 tahun&lt;/strong&gt;.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*wmk_wtNYSGENCHd-XYblhA.png&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://smits.its.ac.id/sarjana/&quot;&gt;https://smits.its.ac.id/sarjana/&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;UMR Jakarta&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Berhubung kebetulan saya menumpang hidup di ibukota, tergelitik untuk membandingkan upah minimum selama 10 tahun.&lt;br /&gt;UMR tahun 2008 adalah 972.600 dan meningkat menjadi 3.648.035 pada tahun 2008. &lt;strong&gt;Kenaikannya sekitar 4x lipat&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Coba bandingkan dengan gaji kalian 10 tahun sebelumnya dengan saat ini, berapa besar prosentasenya?&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Update UMR tahun 2019 adalah 3.940.973&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Waralaba cepat saji&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Untuk kategori ini saya sulit menemukan data tahun 2008, tapi pada tahun 2010, untuk meminang sepucuk BigMac kamu harus merogoh kocek Rp. 22.000 dan ketika membeli pada saat ini menjadi 33000, &lt;strong&gt;konsumen harus beradaptasi sebesar 50 %.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Harga cabe&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Tidak afdol bila tidak membandingkan komoditi yang menjadi pembicaraan seru emak-emak ini.Pada tahun 2018 harga cabe berkisar 13–14 ribu per kilonya. Pada tahun 2018 kisaran menjadi 30 ribu — 40 ribu. &lt;strong&gt;Sekitar 2.5 x lipat kenaikan yang harus ditanggung ibu-ibu.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Kendaraan&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Kita coba bandingkan kendaraan sejuta umat. Avanza pada 2008 dijual pada kisaran 92 juta — 113 juta. Untuk harga pada 2018 harganya menjadi 202 juta — 220 juta &lt;strong&gt;meningkat sekitar 2x lipat untuk meminang mobil baru&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;Yang aneh harga jual mobil bekas pada tahun 2018 ini sekitar 80 jutaan. Hmm menarik.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Telepon genggam&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Kita coba dengan perangkat seluler yang &lt;em&gt;apple to apple&lt;/em&gt;. Harga pada tahun 2008 butuh dana sebesar 6 juta (tanpa bundling) untuk meminang iphone 3gs. Sedangkan pada tahun 2018 dibutuhkan dana 15.8 juta untuk sebuah iphone XS. &lt;strong&gt;Peningkatan harga sebanyak 2.5 x lipat selama 1 dasawarsa&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Harga tanah&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Kita menggunakan data NJOP (bukan harga broker) agar terkesan valid. Untuk tanah di bintaro jaya pada tahun 2007 sekitar 1.2 juta — 1.8 juta. Sedangkan untuk harga pada tahun 2018 adalah 9.6 juta — 12.1 juta. &lt;strong&gt;Kenaikan selama 10 tahun sebesar 8x lipat menjadi yang paling besar.&lt;/strong&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*eJ5p4q2Oj06K6Fa9FR7FkQ.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;Demikian beberapa perbandingan harga selama 10 tahun. Kenaikan gaji sekitar 4x lipat untuk UMR sedangkan kenaikan barang dan jasa sekitar 0.5 hingga 8 x lipat.&lt;br /&gt;Kenaikan paling tinggi adalah dari segi properti kedua adalah biaya kuliah. Sehingga lebih bijak kita dapat memprioritaskan kedua komponen biaya diatas.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pranala&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;UMR&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.gajiumr.com/umr-jakarta/&quot;&gt;http://www.gajiumr.com/umr-jakarta/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.liputan6.com/news/read/3148203/anies-ump-dki-2018-perhitungkan-kepentingan-buruh-dan-pengusaha&quot;&gt;Anies: UMP DKI 2018 Perhitungkan Kepentingan Buruh dan Pengusaha&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Fastfood&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.kaskus.co.id/thread/000000000000000005584205/harga-menu-mcd-14-tahun-lalu/?order=asc&quot;&gt;Harga menu mcd 14 tahun lalu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.zomato.com/id/jakarta/mcdonalds-kemang/menu&quot;&gt;https://www.zomato.com/id/jakarta/mcdonalds-kemang/menu&lt;/a&gt; -&amp;gt; harga bisa berubah sewaktu-waktu&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Kendaraan&lt;/em&gt;&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://daihatsuxeniaindonesia.blogspot.com/2013/05/harga-daihatsu-xenia.html&quot;&gt;[Update] Daftar Harga Mobil Daihatsu Xenia dari tahun ke tahun&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.liputan6.com/otomotif/read/3605805/harga-mobil-avanza-terbaru-dan-terbaik-2018-bekas-dan-kredit-ada&quot;&gt;Harga Mobil Avanza Terbaru dan Terbaik 2018, Bekas dan Kredit Ada!&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.olx.co.id/all-results/q-xenia-2008/&quot;&gt;Xenia 2008 Murah Dengan Harga Terbaik - OLX.co.id&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;Telepon genggam&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://inet.detik.com/consumer/d-1074738/di-indonesia-iphone-3g-dibanderol-rp-25-juta&quot;&gt;Di Indonesia, iPhone 3G Dibanderol Rp 2,5 Juta?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://tekno.kompas.com/read/2018/09/13/02561767/spesifikasi-dan-harga-iphone-xs-iphone-xs-max-dan-iphone-xr&quot;&gt;https://tekno.kompas.com/read/2018/09/13/02561767/spesifikasi-dan-harga-iphone-xs-iphone-xs-max-dan-iphone-xr&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;NJOP&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://priandoyo.wordpress.com/2007/02/14/berapa-sih-harga-tanah-di-jakarta-bintaro/&quot;&gt;https://priandoyo.wordpress.com/2007/02/14/berapa-sih-harga-tanah-di-jakarta-bintaro/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://bprd.jakarta.go.id/wp-content/uploads/downloads/2018/05/PERGUB_NO_24_TAHUN_2018-PENETAPAN-NJOP-2018-71_JAKSEL.pdf&quot;&gt;https://bprd.jakarta.go.id/wp-content/uploads/downloads/2018/05/PERGUB_NO_24_TAHUN_2018-PENETAPAN-NJOP-2018-71_JAKSEL.pdf&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Cabe&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://finance.detik.com/berita-ekonomi-bisnis/d-872753/bawang-merah-dan-cabe-merah-bergejolak-di-akhir-tahun#komentar&quot;&gt;https://finance.detik.com/berita-ekonomi-bisnis/d-872753/bawang-merah-dan-cabe-merah-bergejolak-di-akhir-tahun&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://finance.detik.com/berita-ekonomi-bisnis/d-4206667/harga-cabai-turun-jadi-rp-30000kg&quot;&gt;https://finance.detik.com/berita-ekonomi-bisnis/d-4206667/harga-cabai-turun-jadi-rp-30000kg&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=1c90c24be9b7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Tue, 05 Feb 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/10-years-challe/</link>
+        <guid isPermaLink="true">http://localhost:4000/10-years-challe/</guid>
+        
+        
+        <category>10yearchallenge</category>
+        
+        <category>ekonomi</category>
+        
+        <category>harga</category>
+        
+      </item>
+    
+      <item>
+        <title>Menjaga kesehatan sebagai software engineer</title>
+        <description>&lt;h4&gt;Seringkali stigma developer adalah pekerjaan yang merusak ritme hidup dan dapat menimbun penyakit. Berikut beberapa tips untuk menjauhinya.&lt;/h4&gt;
+&lt;h4&gt;L̵e̵m̵b̵u̵r̵&lt;/h4&gt;
+&lt;p&gt;Kelelahan/burnout. Kelelahan bisa terjadi atas akumulasi kurang istirahat. Efek dari burnout antara lain:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Menyebabkan lemas, badan sakit dan susah tidur. Kerja lebih dari 40 jam seminggu &lt;a href=&quot;https://realbusiness.co.uk/40-hour-work-weeks-cause-burnout/&quot;&gt;meningkatkan resiko &lt;em&gt;burnout&lt;/em&gt;&lt;/a&gt;&lt;em&gt;.&lt;/em&gt;&lt;/li&gt;&lt;li&gt;Menjadi merasa perlu lembur untuk penghasilan tambahan. Untuk kantor yang memberlakukan insentif lembur. hal ini dapat mengakibatkan ketergantungan akan penghasilan tambahan sehingga terbersit pikiran harus lembur. Selain itu pengeluaran akan bertambah akibat dari pelampiasan lembur entah dari pengeluaran medikal atau hiburan pelepas stres.&lt;/li&gt;&lt;li&gt;Mengurangi kualitas hidup. Kita hanya bisa berada di satu tempat dalam satu waktu. dan bila sedang lembur kita akan kehilangan momen lainnya. dan semoga bukan ulang tahun anak atau acara penting lainnya. Di satu sisi uang lembur dapat meningkatkan keuangan keluarga, tapi di sisi lain keluarga akan kehilangan waktu bersamamu. Menyeimbangkan kerja dan hidup butuh usaha yang kuat, apalagi ditambah dengan lembur&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Untuk memilih kantor yang memiliki budaya non lembur, bisa dilihat di situs seperti &lt;a href=&quot;https://www.qerja.com/&quot;&gt;qerja&lt;/a&gt;, &lt;a href=&quot;https://www.glassdoor.com&quot;&gt;glassdoor&lt;/a&gt;, akan lebih baik bila mendapat referensi langsung dari teman yang bekerja di kantor tersebut&lt;/p&gt;
+&lt;h4&gt;Tidur cukup&lt;/h4&gt;
+&lt;p&gt;Seperti pada &lt;a href=&quot;https://speakerdeck.com/kuntoaji/tips-mujarab-untuk-peningkatan-produktivitas&quot;&gt;artikel kunto aji&lt;/a&gt;, tidur cukup dapat menambah konsentrasi dan vitalitas dalam beraktivitas. Tidur cukup dapat membuat karyawan fokus bekerja dan memecahkan masalah.&lt;/p&gt;
+&lt;p&gt;Cukup tidur dapat pula menjaga emosi ketika berhadapan dengan rekan kerja.&lt;/p&gt;
+&lt;h4&gt;Remote&lt;/h4&gt;
+&lt;p&gt;Apabila memerlukan fokus untuk bekerja atau membutuhkan suasana intens. Opsi remote dapat menjadi pilihan terbaik bila rumah anda di pelosok planet sehingga ongkos perjalanan mahal, atau untuk mengurangi stres akibat suasana kerja.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*sV0dEBrBA96ZFisY6Z5Cbw.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;Untuk bekerja remote pastikan anda teratur dan fokus dengan yang dikerjakan dan memiliki tool untuk berkomunikasi asinkron.&lt;/p&gt;
+&lt;h4&gt;Apabila pairing lakukan teknik pomodoro&lt;/h4&gt;
+&lt;p&gt;Teknik Pomodoro adalah teknik manajemen waktu menggunakan timer untuk memecah pekerjaan menjadi interval, secara tradisional panjangnya 25 menit, dipisahkan oleh istirahat pendek 5 menit. Setiap interval dikenal sebagai pomodoro. Perangkat lunak &lt;a href=&quot;https://itunes.apple.com/us/app/be-focused-focus-timer&quot;&gt;untuk mac&lt;/a&gt;, atau &lt;a href=&quot;https://chrome.google.com/webstore/detail/focusme-a-pomodoro-timer/koebbleaefghpjjmghelhjboilcmfpad&quot;&gt;ekstensi chrome&lt;/a&gt;&lt;/p&gt;
+&lt;h4&gt;Ambil cuti&lt;/h4&gt;
+&lt;p&gt;Mau jalan jalan atau sekedar berkumpul bersama keluarga di rumah.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.nature.com/articles/tp2016164&quot;&gt;Studi Universitas California&lt;/a&gt; menafsirkan meningkatnya relasi jaringan sel tubuh terkait fungsi penanganan stres dan imun tubuh.&lt;/p&gt;
+&lt;h4&gt;Perbanyak jalan&lt;/h4&gt;
+&lt;p&gt;Seperti di &lt;a href=&quot;https://medium.com/sleekrco/manfaat-masjid-dekat-kantor-9dc5d7d949ac&quot;&gt;artikel saya sebelumnya&lt;/a&gt;, jalan kaki merupakan cara gratis untuk menjaga vitalitas. Selain juga dapat mencari inspirasi dikala buntu menemukan solusi koding.&lt;/p&gt;
+&lt;h4&gt;Minum air putih&lt;/h4&gt;
+&lt;p&gt;Kopi dan engineer seperti dua sahabat yang tak terpisahkan. Salah satu tips untuk anda pecinta kopi adalah minum air putih pada pagi hari sebelum meminum seduhan kopi. Saat bangun pagi tubuh mengalami dehidrasi dan kopi merupakan salah satu agen dierutik (penyebab kencing).&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*orLqSXytcWplrjZV4ln2pg.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;Minum air putih berarti juga menghidrasi otak (75% kandungan air). Dan ini membantu fokus dan berpikir jernih, sehingga penting untuk pekerjaan sehari-hari.&lt;/p&gt;
+&lt;h4&gt;Pisahkan urusan kantor dan urusan rumah&lt;/h4&gt;
+&lt;p&gt;Selesaikan kerjaan di kantor dan jangan bawa urusan rumah di kantor. Fokus untuk berinteraksi dengan pasangan dan keluarga. Hindari menceritakan masalah keluarga di kantor untuk menjauhkan dari ghibah(gosip) dan membuka aib.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ad55dd14c12a&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/menjaga-kesehatan-sebagai-software-engineer-ad55dd14c12a&quot;&gt;Menjaga kesehatan sebagai software engineer&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 20 Jan 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/menjaga-kesehat/</link>
+        <guid isPermaLink="true">http://localhost:4000/menjaga-kesehat/</guid>
+        
+        
+        <category>engineer</category>
+        
+        <category>developer</category>
+        
+        <category>health</category>
+        
+        <category>work-life-balance</category>
+        
+      </item>
+    
+      <item>
+        <title>Tips mengkonversi .Net Framework ke .Net Core</title>
+        <description>&lt;h3&gt;Tips mengkonversi .Net Framework ke .Net Core&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;.NET framework&lt;/em&gt; atau biasa dikenal dengan &lt;em&gt;dot net&lt;/em&gt; adalah &lt;em&gt;framework&lt;/em&gt; perangkat lunak yang diproduksi oleh &lt;a href=&quot;https://en.wikipedia.org/wiki/Microsoft&quot;&gt;Microsoft&lt;/a&gt; dan dijalankan pada media Microsoft Windows.&lt;/p&gt;
+&lt;p&gt;Dot net berjalan pada perangkat lunak &lt;em&gt;virtual machine&lt;/em&gt; (&lt;em&gt;Common Language Runtime) &lt;/em&gt;alih-alih menggunakan perangkat keras komputer. Dan &lt;a href=&quot;https://en.wikipedia.org/wiki/Common_Language_Runtime&quot;&gt;CLR&lt;/a&gt; ini berjalan &lt;em&gt;native &lt;/em&gt;pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan &lt;em&gt;library &lt;/em&gt;Framework Class Library (&lt;a href=&quot;https://en.wikipedia.org/wiki/Framework_Class_Library&quot;&gt;FCL&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;.Net Core bersifat &lt;em&gt;open source &lt;/em&gt;dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2014/12/04/introducing-net-core/&quot;&gt;CoreFX&lt;/a&gt; yang merupakan &lt;em&gt;porting &lt;/em&gt;dari sebagian FCL&lt;/p&gt;
+&lt;p&gt;Ada beberapa &lt;em&gt;checklist&lt;/em&gt; kapan menggunakan .net kapan menggunakan .netCore.&lt;/p&gt;
+&lt;p&gt;Tetap gunakan .net ketika:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Servernya harus menggunakan Windows Server&lt;/li&gt;&lt;li&gt;Basis kode saat ini sebagian besar menggunakan .net Framework&lt;/li&gt;&lt;li&gt;&lt;em&gt;Library &lt;/em&gt;atau paket &lt;em&gt;nuget &lt;/em&gt;belum tersedia di .netcore&lt;/li&gt;&lt;li&gt;Platform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric)&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Gunakan .net Core ketika:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;membutuhkan aplikasi lintas platform&lt;/li&gt;&lt;li&gt;menggunakan Docker&lt;/li&gt;&lt;li&gt;membutuhkan &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/&quot;&gt;peforma lebih cepat&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Apabila diperlukan &lt;em&gt;porting&lt;/em&gt; .net ke .netCore dapat dilakukan dengan beberapa langkah.&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Identifikasi apakah ada &lt;em&gt;third party library &lt;/em&gt;pada projek saat ini.&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;Kita dapat melakukan pengecekan dengan beberapa cara:&lt;/p&gt;
+&lt;p&gt;a. melihat reference pada tiap-tiap proyek.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/598/1*7sB8pZ02YWjg1YfbD-YHOQ.png&quot; /&gt;&lt;figcaption&gt;TIdak ada third party&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;b. Kita dapat menggunakan &lt;a href=&quot;https://github.com/Microsoft/dotnet-apiport&quot;&gt;tools apiport&lt;/a&gt; untuk mencek kompabilitas dari libary yang kita gunakan.&lt;/p&gt;
+&lt;pre&gt;apiport analyzae -f .&lt;/pre&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png&quot; /&gt;&lt;figcaption&gt;checking library&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan.&lt;/p&gt;
+&lt;p&gt;Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*D4f7l67AvwC3FhMzCceCfg.png&quot; /&gt;&lt;figcaption&gt;portabilitas library&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*AKT2x5bQIMMg2WVXUM8azg.png&quot; /&gt;&lt;figcaption&gt;Library yang tidak ditemukan&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core&lt;/p&gt;
+&lt;p&gt;Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahulu&lt;/li&gt;&lt;li&gt;Bila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain.&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;Kita dapat juga menggunakan situs &lt;a href=&quot;https://packagesearch.azurewebsites.net/&quot;&gt;packagesearch&lt;/a&gt; untuk menemukan alternatif dari &lt;em&gt;package&lt;/em&gt; di .net&lt;/p&gt;
+&lt;p&gt;Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*3Wg2WI1hP5223jea_1SHpw.png&quot; /&gt;&lt;figcaption&gt;Target framework ke 4.7.2 keatas (hanya windows)&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;2. Langkah selanjutnya adalah melakukan konversi project.&lt;/p&gt;
+&lt;p&gt;Opsi pertama adalah melakukan konversi csproj.&lt;/p&gt;
+&lt;p&gt;Ubah csproj dengan Tools-&amp;gt; edit file&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*W6EDpNuqNFIH3Ycez04Ryg.png&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;ubah targetFramework menjadi dotnet framework dari &amp;lt;TargetFrameworkVersion&amp;gt;v4.6.2&amp;lt;/TargetFrameworkVersion&amp;gt; ke &amp;lt;TargetFramework&amp;gt;netcoreapp2.1&amp;lt;/TargetFramework&amp;gt;&lt;/p&gt;
+&lt;p&gt;Serta pada &amp;lt;ItemGroup&amp;gt; tambahkan &amp;lt;PackageReference Include=”Microsoft.AspNetCore.App” /&amp;gt;&lt;/p&gt;
+&lt;p&gt;Jalankan dotnet build untuk me-&lt;em&gt;restore&lt;/em&gt; dan &lt;em&gt;build&lt;/em&gt;, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa &lt;a href=&quot;https://docs.microsoft.com/en-us/aspnet/core/migration/proper-to-2x/?view=aspnetcore-2.2&quot;&gt;konfigurasi perbaikan&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Lakukan perbaikan apabila terjadi masalah saat build.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/580/1*p-nPl17Wl4o-QozY7Ykadw.png&quot; /&gt;&lt;figcaption&gt;build berhasil&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Contoh repository dapat dilihat &lt;a href=&quot;https://github.com/kusumandaru/message-broker&quot;&gt;disini&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Beberapa kendala yang terkadang muncul pada proses &lt;em&gt;porting&lt;/em&gt;:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Paket tidak ditemukan&lt;/li&gt;&lt;/ol&gt;
+&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
+&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
+&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
+&lt;p&gt;AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &amp;lt;PackageReference Include=”Microsoft.AspNetCore.App” /&amp;gt; di ItemGroup&lt;/p&gt;
+&lt;pre&gt;AssemblyInfo.cs(10,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyCompanyAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;pre&gt;AssemblyInfo.cs(11,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyConfigurationAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;pre&gt;AssemblyInfo.cs(12,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyFileVersionAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;pre&gt;AssemblyInfo.cs(14,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyProductAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;pre&gt;AssemblyInfo.cs(15,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyTitleAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;pre&gt;AssemblyInfo.cs(16,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyVersionAttribute&amp;#39; attribute &lt;/pre&gt;
+&lt;p&gt;Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &amp;lt;GenerateAssemblyInfo&amp;gt;false&amp;lt;/GenerateAssemblyInfo&amp;gt; di PropertyGroup&lt;/p&gt;
+&lt;p&gt;Tips personal untuk refaktor ke .net core:&lt;/p&gt;
+&lt;ol&gt;&lt;li&gt;Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net Core&lt;/li&gt;&lt;li&gt;Buat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai&lt;/li&gt;&lt;/ol&gt;
+&lt;p&gt;Selamat mengkonversi :)&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6a2445b3b8a4&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 06 Jan 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/tips-mengkonversi-net/</link>
+        <guid isPermaLink="true">http://localhost:4000/tips-mengkonversi-net/</guid>
+        
+        
+        <category>Dotnet Core</category>
+        
+        <category>Convert</category>
+        
+        <category>Dotnet</category>
+        
+      </item>
+    
+      <item>
+        <title>Manfaat masjid dekat kantor</title>
+        <description>&lt;p&gt;Ada beberapa alasan ilmiah mengapa sebaiknya kita mencari kantor yang berada dekat masjid.&lt;/p&gt;
+&lt;h4&gt;Berjalan&lt;/h4&gt;
+&lt;p&gt;Durasi jalan selama 5–10 menit per waktu siang dan sore.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*0M0CqBI-gbkQr5EfaHc2Dg.png&quot; /&gt;&lt;figcaption&gt;jarak jalan kantor masjid&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Jalan kaki adalah metode gratis untuk meningkatkan dan menjaga kesehatan tubuh secara keseluruhan. &lt;a href=&quot;https://www.betterhealth.vic.gov.au/health/healthyliving/walking-for-good-health&quot;&gt;Cukup secara teratur meluangkan waktu 30 menit setiap hari&lt;/a&gt; dapat meningkatkan kebugaran kardiovaskular, memperkuat tulang, mengurangi kelebihan lemak tubuh, dan meningkatkan kekuatan otot dan daya tahan.&lt;/p&gt;
+&lt;p&gt;Rutinitas ini juga dapat mengurangi risiko terkena penyakit jantung, diabetes tipe 2, osteoporosis dan beberapa jenis kanker. Tidak seperti beberapa bentuk latihan lainnya, berjalan tidak memerlukan peralatan atau pelatihan khusus.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*9pOR_5jSpXJcAINZu6sHsw.jpeg&quot; /&gt;&lt;figcaption&gt;Hitungan langkah kaki pada hari kerja&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;h4&gt;Lebih bersih dan segar&lt;/h4&gt;
+&lt;p&gt;Membersihkan muka dengan air segar setiap 3–6 jam sekali dan cuci tangan dapat memberikan efek segar dan bersih pada anggota tubuh.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.cdc.gov/handwashing/why-handwashing.html&quot;&gt;Menjaga tangan tetap bersih&lt;/a&gt; adalah salah satu langkah paling penting yang bisa kita ambil untuk menghindari sakit dan menyebarkan kuman ke orang lain. Banyak penyakit dan kondisi yang disebarkan dengan tidak mencuci tangan dengan air mengalir.&lt;/p&gt;
+&lt;h4&gt;Lebih fokus&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.betterhealth.vic.gov.au/health/healthyliving/walking-for-good-health&quot;&gt;Istirahat dapat mengurangi beban psikologis yang terkait dengan insensitas kerja&lt;/a&gt; yang padat, meningkatkan kinerja, dan memberi tambahan energi.&lt;/p&gt;
+&lt;p&gt;Pada titik tertentu, boleh dikatakan, karyawan harus istirahat bekerja untuk mengisi ulang baterai mereka. Istirahat pendek pada hari kerja dapat meningkatkan sumber daya mental seperti fokus, berdampak pada kinerja yang baik.&lt;/p&gt;
+&lt;h4&gt;Terpacu untuk tepat waktu&lt;/h4&gt;
+&lt;p&gt;Dengan terbiasa berusaha tepat waktu pada ibadah diharapkan dapat fokus untuk menyelesaikan target kerja. Baik pada setiap task maupun sprint goal sesuai metode kerja scrum yang digunakan saat ini.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=9dc5d7d949ac&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/manfaat-masjid-dekat-kantor-9dc5d7d949ac&quot;&gt;Manfaat masjid dekat kantor&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 15 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/manfaat-masjid-dekat/</link>
+        <guid isPermaLink="true">http://localhost:4000/manfaat-masjid-dekat/</guid>
+        
+        
+        <category>Walking</category>
+        
+        <category>Work Life Balance</category>
+        
+      </item>
     
   </channel>
 </rss>

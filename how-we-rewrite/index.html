@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>How we rewrite our code without customer aware and uninterrupted business | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>How we rewrite our code without customer aware and uninterrupted business | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="How we rewrite our code without customer aware and uninterrupted business" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid. When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff. Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like: you must allocate dedicated member and time,make regressive whole testing,hold some new feature,make sure recent feature still steady and not broken,lack of documentation how recent module work. In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in. Our progress is start on beginning of 2018. We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :) We change to ruby cause of several aspect: No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.Some UI/UX need to adapt. Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch. Strategy pattern to rewrite: We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.Make coverage test to more than 90%.Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized. Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly. And voila it works like charm. Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee. And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like: both system need redirection url between each system.Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)some data have anomaly (inconsistent ) because in new system some validation is more strict than old one. In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately. We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one. We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php. We learn some point after last deploy like: It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.Some customer already churn, and we don’t hesitating to migrate this customer on new feature.It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method. Cause of above point we try to make migrate by selected customer rather than global (whole company). With step: Coordinate business development and product owner to select and inform customer which want to migrate on new feature.Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database. https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.Set versioning migration so we can track company status migration of each company.Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate. And before customer migration, we do some improvement like: automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. see this linkMake code already in production but not active with feature toggle. (Deploy code on dormant mode).Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality Photo by José Martín Ramírez C on Unsplash &lt;hr&gt;&lt;p&gt;How we rewrite our code without customer aware and uninterrupted business was originally published in Daily Sleekr on Medium, where people are continuing the conversation by highlighting and responding to this story.&lt;/p&gt;" />
+<meta property="og:description" content="Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid. When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff. Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like: you must allocate dedicated member and time,make regressive whole testing,hold some new feature,make sure recent feature still steady and not broken,lack of documentation how recent module work. In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in. Our progress is start on beginning of 2018. We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :) We change to ruby cause of several aspect: No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.Some UI/UX need to adapt. Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch. Strategy pattern to rewrite: We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.Make coverage test to more than 90%.Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized. Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly. And voila it works like charm. Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee. And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like: both system need redirection url between each system.Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)some data have anomaly (inconsistent ) because in new system some validation is more strict than old one. In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately. We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one. We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php. We learn some point after last deploy like: It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.Some customer already churn, and we don’t hesitating to migrate this customer on new feature.It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method. Cause of above point we try to make migrate by selected customer rather than global (whole company). With step: Coordinate business development and product owner to select and inform customer which want to migrate on new feature.Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database. https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.Set versioning migration so we can track company status migration of each company.Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate. And before customer migration, we do some improvement like: automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. see this linkMake code already in production but not active with feature toggle. (Deploy code on dormant mode).Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality Photo by José Martín Ramírez C on Unsplash &lt;hr&gt;&lt;p&gt;How we rewrite our code without customer aware and uninterrupted business was originally published in Daily Sleekr on Medium, where people are continuing the conversation by highlighting and responding to this story.&lt;/p&gt;" />
+<link rel="canonical" href="http://localhost:4000/how-we-rewrite/" />
+<meta property="og:url" content="http://localhost:4000/how-we-rewrite/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-28T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/how-we-rewrite/","image":"https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"How we rewrite our code without customer aware and uninterrupted business","dateModified":"2019-08-28T00:00:00+07:00","description":"Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid. When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff. Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like: you must allocate dedicated member and time,make regressive whole testing,hold some new feature,make sure recent feature still steady and not broken,lack of documentation how recent module work. In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in. Our progress is start on beginning of 2018. We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :) We change to ruby cause of several aspect: No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.Some UI/UX need to adapt. Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch. Strategy pattern to rewrite: We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.Make coverage test to more than 90%.Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized. Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly. And voila it works like charm. Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee. And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like: both system need redirection url between each system.Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)some data have anomaly (inconsistent ) because in new system some validation is more strict than old one. In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately. We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one. We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php. We learn some point after last deploy like: It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.Some customer already churn, and we don’t hesitating to migrate this customer on new feature.It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method. Cause of above point we try to make migrate by selected customer rather than global (whole company). With step: Coordinate business development and product owner to select and inform customer which want to migrate on new feature.Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database. https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.Set versioning migration so we can track company status migration of each company.Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate. And before customer migration, we do some improvement like: automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. see this linkMake code already in production but not active with feature toggle. (Deploy code on dormant mode).Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality Photo by José Martín Ramírez C on Unsplash &lt;hr&gt;&lt;p&gt;How we rewrite our code without customer aware and uninterrupted business was originally published in Daily Sleekr on Medium, where people are continuing the conversation by highlighting and responding to this story.&lt;/p&gt;","datePublished":"2019-08-28T00:00:00+07:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/how-we-rewrite/"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=How we rewrite our code without customer aware and uninterrupted business&url=http://localhost:4000/how-we-rewrite/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/how-we-rewrite/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/how-we-rewrite/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">How we rewrite our code without customer aware and uninterrupted business</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid" src="https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg" alt="How we rewrite our code without customer aware and uninterrupted business">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <h4>Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid.</h4>
+<p>When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff.</p>
+<p>Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like:</p>
+<ul><li>you must allocate dedicated member and time,</li><li>make regressive whole testing,</li><li>hold some new feature,</li><li>make sure recent feature still steady and not broken,</li><li>lack of documentation how recent module work.</li></ul>
+<p>In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in.</p>
+<p>Our progress is start on beginning of 2018.</p>
+<p>We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :)</p>
+<p>We change to ruby cause of several aspect:</p>
+<ul><li>No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.</li><li>No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.</li><li>Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.</li><li>On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.</li><li>Some UI/UX need to adapt.</li></ul>
+<p>Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch.</p>
+<p>Strategy pattern to rewrite:</p>
+<ul><li>We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.</li><li>Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.</li><li>We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.</li><li>Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.</li><li>Make coverage test to more than 90%.</li><li>Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized.</li></ul>
+<p>Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly.</p>
+<p>And voila it works like charm.</p>
+<p>Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee.</p>
+<p>And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like:</p>
+<ul><li>both system need redirection url between each system.</li><li>Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)</li><li>some data have anomaly (inconsistent ) because in new system some validation is more strict than old one.</li></ul>
+<p>In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately.</p>
+<p>We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one.</p>
+<p>We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php.</p>
+<p>We learn some point after last deploy like:</p>
+<ul><li>It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)</li><li>There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.</li><li>Some customer already churn, and we don’t hesitating to migrate this customer on new feature.</li><li>It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.</li><li>It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.</li><li>We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method.</li></ul>
+<p>Cause of above point we try to make migrate by selected customer rather than global (whole company). With step:</p>
+<ul><li>Coordinate business development and product owner to select and inform customer which want to migrate on new feature.</li><li>Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.</li><li>Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.</li><li>Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.</li><li>Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.</li><li>Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database.</li></ul>
+<iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href">https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href</a></iframe>
+<ul><li>Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.</li><li>Set versioning migration so we can track company status migration of each company.</li><li>Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate.</li></ul>
+<p>And before customer migration, we do some improvement like:</p>
+<ul><li>automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. <a href="https://medium.com/sleekrco/the-journey-build-continuous-deployment-sleekr-69f07adb7efe">see this link</a></li><li>Make code already in production but not active with feature toggle. (Deploy code on dormant mode).</li><li>Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality</li></ul>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg" /><figcaption>Photo by <a href="https://unsplash.com/@martinirc?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">José Martín Ramírez C</a> on <a href="https://unsplash.com/search/photos/business?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption></figure>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b4590273c3c9" width="1" height="1" />&lt;hr&gt;&lt;p&gt;<a href="https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9">How we rewrite our code without customer aware and uninterrupted business</a> was originally published in <a href="https://medium.com/sleekrco">Daily Sleekr</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.&lt;/p&gt;</p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-08-28">28 Aug 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#continuous-integration">continuous-integration</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#migration">migration</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#rebuild">rebuild</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#startup">startup</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//publish-subscri/"> &laquo; Publish subscribe on ruby on rails</a>
+            
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+<!-- Categories Jumbotron
+================================================== -->
+<div class="jumbotron fortags" hidden=true>
+	<div class="d-md-flex h-100">
+		<div class="col-md-4 transpdark align-self-center text-center h-100">
+            <div class="d-md-flex align-items-center justify-content-center h-100">
+                <h2 class="d-md-block align-self-center py-1 font-weight-light">Explore <span class="d-none d-md-inline">→</span></h2>
+            </div>
+		</div>
+		<div class="col-md-8 p-5 align-self-center text-center">
+            
+            
+                
+                    <a class="mt-1 mb-1" href="/categories#Walking">Walking (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Work-Life-Balance">Work Life Balance (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet-Core">Dotnet Core (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Convert">Convert (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#Dotnet">Dotnet (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#engineer">engineer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#developer">developer (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#health">health (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#work-life-balance">work-life-balance (2)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#10yearchallenge">10yearchallenge (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ekonomi">ekonomi (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#harga">harga (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ssl">ssl (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#github-pages">github-pages (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#custom-domain">custom-domain (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#jekyll">jekyll (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#agile">agile (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#software-development">software-development (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#documentation">documentation (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#programming">programming (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#toxic">toxic (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#build">build (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#pipeline">pipeline (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#test">test (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continous-integration">continous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#publish-subscribe">publish-subscribe (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#ruby-on-rails">ruby-on-rails (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rabbitmq">rabbitmq (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#migration">migration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#rebuild">rebuild (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#continuous-integration">continuous-integration (1)</a>
+                
+                    <a class="mt-1 mb-1" href="/categories#startup">startup (1)</a>
+                
+            
+            
+		</div>
+	</div>
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

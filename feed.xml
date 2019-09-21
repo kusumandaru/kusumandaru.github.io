@@ -5,9 +5,74 @@
     <description>Collection medium story of kusumandaru</description>
     <link>/</link>
     <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 21 Sep 2019 21:55:09 +0700</pubDate>
-    <lastBuildDate>Sat, 21 Sep 2019 21:55:09 +0700</lastBuildDate>
+    <pubDate>Sat, 21 Sep 2019 23:04:57 +0700</pubDate>
+    <lastBuildDate>Sat, 21 Sep 2019 23:04:57 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>How to clone medium story into custom domain</title>
+        <description>&lt;p&gt;Duplicate your medium content on your own site using jekyll and feedjira&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Perquisites: see article &lt;/em&gt;&lt;a href=&quot;https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c&quot;&gt;&lt;em&gt;https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c&lt;/em&gt;&lt;/a&gt;&lt;em&gt; to step by step detail how to set and publish site.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;As we know since November 2017 &lt;a href=&quot;https://help.medium.com/hc/en-us/articles/115003053487-Custom-Domains-service-deprecation&quot;&gt;medium&lt;/a&gt; will not accept custom domain as part of medium. How if we want to took our content from medium and move it to our personal domain with only cost custom domain in nowadays.&lt;/p&gt;
+&lt;p&gt;Disclaimer: rather than publication will be hosted on Medium, it still using own hosting, i prefer github pages to hosting static page, cause it’s free and simple.&lt;/p&gt;
+&lt;p&gt;First of all we need Jekyll and specific template, i use template &lt;a href=&quot;https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/&quot;&gt;mediumish&lt;/a&gt; since it have sleek design and more relevant with medium design. It also have additional configuration for comment, google analytic and featured image.&lt;/p&gt;
+&lt;p&gt;Since it using markdown file (.md) as source of article&lt;/p&gt;
+&lt;pre&gt;---&lt;br /&gt;layout: post&lt;br /&gt;title:  &amp;quot;Cool title&amp;quot;&lt;br /&gt;author: angga kusumandar&lt;br /&gt;categories: [ Jekyll, tutorial ]&lt;br /&gt;image: assets/images/5.jpg&lt;br /&gt;description: &amp;quot;Something about this post here&amp;quot;&lt;br /&gt;---&lt;/pre&gt;
+&lt;p&gt;we create md file from rss of medium, example &lt;a href=&quot;https://medium.com/feed/@kusumandaru&quot;&gt;https://medium.com/feed/@kusumandaru&lt;/a&gt;, we can grab it and transform into md file. Take a note if each rss have ten latest article, and it can generate new one if new article medium exist, for old article you need create md file manually.&lt;/p&gt;
+&lt;pre&gt;url = &amp;quot;https://medium.com/feed/@#{username}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;xml = ::HTTParty.get(url).body&lt;/pre&gt;
+&lt;pre&gt;feeds = Feedjira.parse(xml)&lt;/pre&gt;
+&lt;pre&gt;feeds.entries.each do |entry|&lt;/pre&gt;
+&lt;pre&gt;  p &amp;quot;Title: #{entry.title}, published on Medium #{entry.url} #{entry}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  create_file(entry, site)&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;first we try to get rss and get entries data&lt;/p&gt;
+&lt;pre&gt;def image_url(content)&lt;/pre&gt;
+&lt;pre&gt;  doc = Nokogiri::HTML(content)&lt;/pre&gt;
+&lt;pre&gt;  doc.xpath(&amp;quot;//img&amp;quot;)[0][&amp;#39;src&amp;#39;]&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;we also parse image using Nokogiri to get first image from each article to convert as feature image&lt;/p&gt;
+&lt;pre&gt;path_file = &amp;quot;./_posts/&amp;quot; + published.strftime(&amp;#39;%F&amp;#39;) + &amp;#39;-&amp;#39; + title.parameterize.first(15) + &amp;quot;.md&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;path = site.in_source_dir(path_file)&lt;/pre&gt;
+&lt;p&gt;and than we create file with publish data and title to make unique and sort article by date&lt;/p&gt;
+&lt;pre&gt;File.open(path, &amp;#39;wb&amp;#39;) do |file|&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;---&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;layout: post&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;title: #{title}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;author: #{author}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;categories: #{category}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;image: #{image}&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;---&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write &amp;quot;\n&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;  file.write content&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;and then we create content of md file with spesific format and content&lt;/p&gt;
+&lt;p&gt;After that try to publish static page using bundle exec jekyll build. also on spesific md file, add feature: true to make artice published on top of index page. Finally publish site page in github page.&lt;/p&gt;
+&lt;p&gt;And voila your website now consist medium content.&lt;/p&gt;
+&lt;p&gt;You can see full repository code &lt;a href=&quot;https://github.com/kusumandaru/medium-rss&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png&quot; /&gt;&lt;figcaption&gt;final website&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3ab1c3c9625f&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 21 Sep 2019 00:00:00 +0700</pubDate>
+        <link>/how-to-clone-me/</link>
+        <guid isPermaLink="true">/how-to-clone-me/</guid>
+        
+        
+        <category>rss-feeds</category>
+        
+        <category>médium</category>
+        
+        <category>jekyll</category>
+        
+        <category>clone-data</category>
+        
+      </item>
     
       <item>
         <title>How we rewrite our code without customer aware and uninterrupted business</title>
@@ -586,36 +651,6 @@
         <category>Convert</category>
         
         <category>Dotnet</category>
-        
-      </item>
-    
-      <item>
-        <title>Manfaat masjid dekat kantor</title>
-        <description>&lt;p&gt;Ada beberapa alasan ilmiah mengapa sebaiknya kita mencari kantor yang berada dekat masjid.&lt;/p&gt;
-&lt;h4&gt;Berjalan&lt;/h4&gt;
-&lt;p&gt;Durasi jalan selama 5–10 menit per waktu siang dan sore.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*0M0CqBI-gbkQr5EfaHc2Dg.png&quot; /&gt;&lt;figcaption&gt;jarak jalan kantor masjid&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Jalan kaki adalah metode gratis untuk meningkatkan dan menjaga kesehatan tubuh secara keseluruhan. &lt;a href=&quot;https://www.betterhealth.vic.gov.au/health/healthyliving/walking-for-good-health&quot;&gt;Cukup secara teratur meluangkan waktu 30 menit setiap hari&lt;/a&gt; dapat meningkatkan kebugaran kardiovaskular, memperkuat tulang, mengurangi kelebihan lemak tubuh, dan meningkatkan kekuatan otot dan daya tahan.&lt;/p&gt;
-&lt;p&gt;Rutinitas ini juga dapat mengurangi risiko terkena penyakit jantung, diabetes tipe 2, osteoporosis dan beberapa jenis kanker. Tidak seperti beberapa bentuk latihan lainnya, berjalan tidak memerlukan peralatan atau pelatihan khusus.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*9pOR_5jSpXJcAINZu6sHsw.jpeg&quot; /&gt;&lt;figcaption&gt;Hitungan langkah kaki pada hari kerja&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;h4&gt;Lebih bersih dan segar&lt;/h4&gt;
-&lt;p&gt;Membersihkan muka dengan air segar setiap 3–6 jam sekali dan cuci tangan dapat memberikan efek segar dan bersih pada anggota tubuh.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.cdc.gov/handwashing/why-handwashing.html&quot;&gt;Menjaga tangan tetap bersih&lt;/a&gt; adalah salah satu langkah paling penting yang bisa kita ambil untuk menghindari sakit dan menyebarkan kuman ke orang lain. Banyak penyakit dan kondisi yang disebarkan dengan tidak mencuci tangan dengan air mengalir.&lt;/p&gt;
-&lt;h4&gt;Lebih fokus&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.betterhealth.vic.gov.au/health/healthyliving/walking-for-good-health&quot;&gt;Istirahat dapat mengurangi beban psikologis yang terkait dengan insensitas kerja&lt;/a&gt; yang padat, meningkatkan kinerja, dan memberi tambahan energi.&lt;/p&gt;
-&lt;p&gt;Pada titik tertentu, boleh dikatakan, karyawan harus istirahat bekerja untuk mengisi ulang baterai mereka. Istirahat pendek pada hari kerja dapat meningkatkan sumber daya mental seperti fokus, berdampak pada kinerja yang baik.&lt;/p&gt;
-&lt;h4&gt;Terpacu untuk tepat waktu&lt;/h4&gt;
-&lt;p&gt;Dengan terbiasa berusaha tepat waktu pada ibadah diharapkan dapat fokus untuk menyelesaikan target kerja. Baik pada setiap task maupun sprint goal sesuai metode kerja scrum yang digunakan saat ini.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=9dc5d7d949ac&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/manfaat-masjid-dekat-kantor-9dc5d7d949ac&quot;&gt;Manfaat masjid dekat kantor&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 15 Dec 2018 00:00:00 +0700</pubDate>
-        <link>/manfaat-masjid-dekat/</link>
-        <guid isPermaLink="true">/manfaat-masjid-dekat/</guid>
-        
-        
-        <category>Walking</category>
-        
-        <category>Work Life Balance</category>
         
       </item>
     

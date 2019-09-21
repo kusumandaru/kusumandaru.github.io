@@ -3,10 +3,10 @@
   <channel>
     <title>Kusumandaru</title>
     <description>Collection medium story of kusumandaru</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 21 Sep 2019 21:53:08 +0700</pubDate>
-    <lastBuildDate>Sat, 21 Sep 2019 21:53:08 +0700</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 21 Sep 2019 21:55:09 +0700</pubDate>
+    <lastBuildDate>Sat, 21 Sep 2019 21:55:09 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -43,8 +43,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b4590273c3c9&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9&quot;&gt;How we rewrite our code without customer aware and uninterrupted business&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Aug 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/how-we-rewrite/</link>
-        <guid isPermaLink="true">http://localhost:4000/how-we-rewrite/</guid>
+        <link>/how-we-rewrite/</link>
+        <guid isPermaLink="true">/how-we-rewrite/</guid>
         
         
         <category>migration</category>
@@ -155,8 +155,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6aa6893ef819&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Aug 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/publish-subscri/</link>
-        <guid isPermaLink="true">http://localhost:4000/publish-subscri/</guid>
+        <link>/publish-subscri/</link>
+        <guid isPermaLink="true">/publish-subscri/</guid>
         
         
         <category>publish-subscribe</category>
@@ -200,8 +200,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=356c2bdbb48&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 14 Jul 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/cheatsheet-depl/</link>
-        <guid isPermaLink="true">http://localhost:4000/cheatsheet-depl/</guid>
+        <link>/cheatsheet-depl/</link>
+        <guid isPermaLink="true">/cheatsheet-depl/</guid>
         
         
         <category>build</category>
@@ -283,8 +283,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3958ab020565&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 May 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/budaya-beracun/</link>
-        <guid isPermaLink="true">http://localhost:4000/budaya-beracun/</guid>
+        <link>/budaya-beracun/</link>
+        <guid isPermaLink="true">/budaya-beracun/</guid>
         
         
         <category>programming</category>
@@ -331,8 +331,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=353c814ccd6e&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 26 Mar 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/aplikasi-lebih/</link>
-        <guid isPermaLink="true">http://localhost:4000/aplikasi-lebih/</guid>
+        <link>/aplikasi-lebih/</link>
+        <guid isPermaLink="true">/aplikasi-lebih/</guid>
         
         
         <category>agile</category>
@@ -404,8 +404,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=152339342b7c&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 24 Feb 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/create-personal/</link>
-        <guid isPermaLink="true">http://localhost:4000/create-personal/</guid>
+        <link>/create-personal/</link>
+        <guid isPermaLink="true">/create-personal/</guid>
         
         
         <category>ssl</category>
@@ -463,8 +463,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=1c90c24be9b7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Feb 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/10-years-challe/</link>
-        <guid isPermaLink="true">http://localhost:4000/10-years-challe/</guid>
+        <link>/10-years-challe/</link>
+        <guid isPermaLink="true">/10-years-challe/</guid>
         
         
         <category>10yearchallenge</category>
@@ -505,8 +505,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ad55dd14c12a&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/menjaga-kesehatan-sebagai-software-engineer-ad55dd14c12a&quot;&gt;Menjaga kesehatan sebagai software engineer&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Jan 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/menjaga-kesehat/</link>
-        <guid isPermaLink="true">http://localhost:4000/menjaga-kesehat/</guid>
+        <link>/menjaga-kesehat/</link>
+        <guid isPermaLink="true">/menjaga-kesehat/</guid>
         
         
         <category>engineer</category>
@@ -577,8 +577,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6a2445b3b8a4&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 06 Jan 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/tips-mengkonversi-net/</link>
-        <guid isPermaLink="true">http://localhost:4000/tips-mengkonversi-net/</guid>
+        <link>/tips-mengkonversi-net/</link>
+        <guid isPermaLink="true">/tips-mengkonversi-net/</guid>
         
         
         <category>Dotnet Core</category>
@@ -609,8 +609,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=9dc5d7d949ac&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/manfaat-masjid-dekat-kantor-9dc5d7d949ac&quot;&gt;Manfaat masjid dekat kantor&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 15 Dec 2018 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/manfaat-masjid-dekat/</link>
-        <guid isPermaLink="true">http://localhost:4000/manfaat-masjid-dekat/</guid>
+        <link>/manfaat-masjid-dekat/</link>
+        <guid isPermaLink="true">/manfaat-masjid-dekat/</guid>
         
         
         <category>Walking</category>

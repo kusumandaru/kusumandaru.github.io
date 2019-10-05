@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Karma baik dalam unit Testing | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Karma baik dalam unit Testing | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Karma baik dalam unit Testing" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Cacat yang muncul pada fase produksi memiliki ongkos lebih besar daripada saat pengembangan." />
+<meta property="og:description" content="Cacat yang muncul pada fase produksi memiliki ongkos lebih besar daripada saat pengembangan." />
+<link rel="canonical" href="http://localhost:4000/karma-baik-dalam/" />
+<meta property="og:url" content="http://localhost:4000/karma-baik-dalam/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://miro.medium.com/max/4475/1*HHDukZRJntS_i2nc9ouNrQ.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-11T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/karma-baik-dalam/","image":"https://miro.medium.com/max/4475/1*HHDukZRJntS_i2nc9ouNrQ.png","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Karma baik dalam unit Testing","datePublished":"2018-09-11T00:00:00+07:00","description":"Cacat yang muncul pada fase produksi memiliki ongkos lebih besar daripada saat pengembangan.","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/karma-baik-dalam/"},"dateModified":"2018-09-11T00:00:00+07:00","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<!-- change your GA id in _config.yml -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-135970453-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Karma baik dalam unit Testing&url=http://localhost:4000/karma-baik-dalam/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/karma-baik-dalam/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/karma-baik-dalam/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Karma baik dalam unit Testing</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="https://miro.medium.com/max/4475/1*HHDukZRJntS_i2nc9ouNrQ.png" alt="Karma baik dalam unit Testing">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <h3 id="cacat-yang-muncul-pada-fase-produksi-memiliki-ongkos-lebih-besar-daripada-saat-pengembangan">Cacat yang muncul pada fase produksi memiliki ongkos lebih besar daripada saat pengembangan.</h3>
+
+<p>Berkaca pada <a href="https://www.forbes.com/sites/maribellopez/2017/01/22/samsung-reveals-cause-of-note-7-issue-turns-crisis-into-opportunity/#3c01110d24f1">kasus Samsung Note 4</a> yang lalu, pabrikan ini melakukan perbaikan pada segi testing menjadi lebih menyeluruh. Namun hal ini tidak mengurangi kerugian samsung sebesar <a href="https://www.usatoday.com/story/tech/2016/10/14/samsung-note-7-recall-cost-least-53-billion/92040942/">5.3 miliar dollar</a> dari segi penukaran produk maupun pengembalian dana, termasuk tergerusnya tingkat kepercayaan konsumen, hingga <a href="https://money.cnn.com/2016/10/14/technology/samsung-galaxy-note-7-flight-ban/index.html">larangan masuk ke kabin dan bagasi pesawat</a>.</p>
+
+<p>Tentunya apabila tes ini dilakukan sebelum rilis dari produk, kerugian ini dapat diminimalisir secara signifikan.</p>
+
+<p>Kembali ke ranah pengembangan aplikasi. Dalam lingkup siklus hidup pengembangan perangkat lunak ada suatu fase testing, dimana dilakukan pengecekan kelayakan sebelum produk tersebut rilis.</p>
+
+<p>Secara garis besar ada 2 jenis pengetesan pada aplikasi:</p>
+
+<ul>
+  <li>Tes secara otomatis</li>
+</ul>
+
+<p>Dilakukan dengan membuat skenario yang dijalankan melalui aplikasi internal atau eksternal. Digunakan untuk melakukan tes secara berulang secara cepat. Tipe tes ini dapat dijalankan dalam berbagai tingkatan mulai dari <em>method/function</em> di dalam <em>class</em> hingga pengetesan antar muka pengguna yang rumit.</p>
+
+<ul>
+  <li>Manual Testing</li>
+</ul>
+
+<p>Dilakukan oleh manusia, dengan melakukan klik dan interaksi melalui aplikasi atau API (postman/soap UI/paw). Relatif mahal dikarenakan memerlukan set pada environment khusus dan memiliki tendensi untuk terjadi kesalahan, atau melakukan by-passpada tes yang sering dilakukan</p>
+
+<p><strong>Mengapa perlu unit testing?</strong></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/4972/1*HHDukZRJntS_i2nc9ouNrQ.png" alt="ongkos penemuan bug" /></p>
+
+<p><em>Replikasi masalah</em></p>
+
+<p>Pada fase pengembangan aplikasi, seringkali data yang dikelola sedikit, hanya menggunakan 1 <em>browser *dan menggunakan bantuan *debugger</em>. Berbeda ketika ditemukan di fase produksi, <em>bug</em> lebih susah ditemukan penyebabnya dan di rekonstruksi ulang.</p>
+
+<p><em>Ongkos penemuan error</em></p>
+
+<p><em>Error</em> juga menjadi lebih mahal setiap melewati fase pengembangan.</p>
+
+<p>Ada beberapa poin ketika <em>bug</em> muncul di <em>production</em>:</p>
+
+<ul>
+  <li>
+    <p>Pengembang menghabiskan sumber daya untuk menemukan dan memperbaiki <em>error.</em></p>
+  </li>
+  <li>
+    <p>Hilangnya pendapatan + kepercayaan akibat ketidak puasan pelanggan.</p>
+  </li>
+</ul>
+
+<h3 id="selentingan-yang-muncul">Selentingan yang muncul…</h3>
+
+<p><strong>Unit Test hanya membuang waktu development?</strong></p>
+
+<p>Bila dihitung dari waktu pengembangan aplikasi. Bisa dikatakan benar.</p>
+
+<p>Namun bilamana terjadi temuan cacat produk. Maka diperlukan usaha untuk melakukan perbaikan. Bila hanya kode relatif bisa dikontrol. Bagaimana bila data juga tercemar. Perlu ada <em>seeder</em> dan migrasi perbaikan yang cukup menguras emosi dan tenaga.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/3056/1*1GfY_kwYlkV9Ytyl0hWGPw.png" alt="Tanpa unit test" /></p>
+
+<p>Dibandingkan dengan menggunakan unit test. Dimana waktu pengembangan seakan terlihat lebih lama tapi tidak meninggalkan residu atau hutang perbaikan di masa mendatang.</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2140/1*adzw24daMSeYL7rTpQ2o5A.png" alt="Dengan unit test" /></p>
+
+<p>Sehingga apabila dihitung dari waktu untuk memperbaiki bug saat muncul di produksi, mereplikasi bug muncul hingga mencari cara untuk perbaikan dan melakukan tes ulang, maka waktu pengerjaan setelah pengembangan aplikasi akan lebih panjang. Selain juga menyandera kita untuk menambah fitur baru.</p>
+
+<p>Atau pernahkah kita merasa khawatir bahwa fitur baru yang akan kita implementasikan akan mengganggu atau membuat rusak pada modul lain.</p>
+
+<p>Jadi masihkah kita mengesampingkan unit testing.</p>
+<blockquote>
+  <p>Menunda unit testing sama seperti kita menunda membayar hutang, yang menjadi bunga berbunga yang akan mencederai kita di kemudian hari</p>
+</blockquote>
+
+<p><strong>Bicara gampang bos, tapi bagaimana nih bila aplikasi sudah *live *namun tidak ada unit test.</strong></p>
+
+<p>Ada beberapa pendekatan yang bisa ditempuh:</p>
+
+<p><strong>Pertama</strong> tentukan prioritas dari data.</p>
+
+<ul>
+  <li>Temukan error yang sering muncul</li>
+</ul>
+
+<p><img src="https://cdn-images-1.medium.com/max/4176/1*xvgHgMLut4AHkg4gmKb_4A.png" alt="error di production" /></p>
+
+<p>— Lebih penting mana — error yang muncul 900 x</p>
+
+<p>— atau error yang muncul 29 x</p>
+
+<p>Hmm tergantung,</p>
+
+<p>Mana yang paling banyak berpengaruh pada user? Error koneksi ke database lah yang paling berpengaruh dan harus diatasi terlebih dahulu.</p>
+<blockquote>
+  <p><a href="https://www.datacenterdynamics.com/news/amazon-to-credit-customers-affected-by-outage/">Amazon</a> termasuk perusahaan yang mengukur dampak gangguan ke pelanggan sebagai prioritas. Pemrioritasan ini akan membantu mengalokasikan sumber daya secara efisien.</p>
+</blockquote>
+
+<p><strong>Kedua</strong>, pisahkan kode yang ingin dites dari konektor seperti API, database, redis. Sehingga input dapat dikontrol dan output dapat dibandingkan dengan hasil yang diinginkan.</p>
+
+<p><strong>Oke deh saya mau mencoba unit testing, darimana saya memulai</strong></p>
+
+<p>Untuk meng-otomatisasi tes. Pertama yang harus dilakukan adalah menulis skenario menggunakan kerangka tes yang sesuai dengan aplikasi. <a href="https://phpunit.de/">PHPUnit</a>, <a href="https://mochajs.org/">Mocha</a>, <a href="http://rspec.info/">RSpec</a>, <a href="https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-with-nunit">NUnit</a>, <a href="https://junit.org/">JUnit</a> adalah contoh untuk penggunaan PHP, Javascript, Ruby, .Net dan Java. Tentunya banyak alternatif berhadiran untuk setiap bahasa pemograman yang dapat diriset dan didiskusikan pada komunitas pengembang, mana yang paling cocok untuk diimplementasikan.</p>
+
+<p><strong>Kita sudah punya unit test, apa nih langkah seterusnya</strong></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/2000/0*Y5UlNQYmZQXltfP1" alt="" /></p>
+
+<p>Tes harus berjalan sebelum fase rilis. Bila tidak tes akan menjadi kadaluarsa. Unit test yang dijalankan di lokal juga seringkali di-<em>bypass</em> sebab terkadang memerlukan waktu lama untuk eksekusi.</p>
+
+<p>Setelah tes berhasil dieksekusi via <em>script terminal</em>, kita bisa mengimplementasikan secara otomatis melalui <em>Continuous Integration Server *seperti Ba<a href="https://de.atlassian.com/software/bamboo">mboo</a>, <a href="https://jenkins.io/">Jenkins</a> atau layanan awan seperti <a href="https://bitbucket.org/product/features/pipelines">Bitbucket Pipelines</a>. Layanan ini akan membantu memonitor *repositories *dan menjalankan *test suite</em> kapanpun perubahan diunggah ke repository</p>
+
+<p><img src="https://cdn-images-1.medium.com/max/3720/1*r2tBWvmv1XDTrST527FcpQ.png" alt="Hasil test di Bitbucket" /></p>
+
+<p>Detail dari tes yang dijalankan melalui <em>continous integration.</em></p>
+
+<p><img src="https://cdn-images-1.medium.com/max/3376/1*-EubVMct_QywhfehQBsnsg.png" alt="Unit test sebagai salah satu pengecekan" /></p>
+
+<p>Sehingga setiap kode baru/perubahan yang rilis dipastikan telah lolos inspeksi. Baik secara fungsionalitas maupun tidak mengganggu kode yang telah berjalan.</p>
+<blockquote>
+  <p>Unit testing tidak menghilangkan 100 % bug namun dapat mencegah defect yang diprediksi tidak muncul kembali.</p>
+</blockquote>
+
+<p>Tentunya ketika kita diterjunkan ke aplikasi yang sudah berjalan kita ingin dapat mudah memahami alur prosesnya. Dan kepastian bahwa kode yang kita kerjakan tidak merusak fungsi lain di aplikasi akan memberi kenyamanan bagi pengembang.</p>
+
+<p>Akhir kata, <em>unit testing</em> akan menjadi warisan bagi pengembang aplikasi selanjutnya untuk meneruskan kerja kita dan menjadi salah satu pengingat kode yang telah dihasilkan.</p>
+<blockquote>
+  <p>Unit test yang baik akan membantu pengembang lain untuk mengembangkan kode yang kita buat, serta membantu pengecekan bahwa kode yang mereka buat tidak merusak kode yang kita hasilkan.</p>
+</blockquote>
+
+<h3 id="jadi-warisan-seperti-apakah-yang-akan-kita-tinggalkan">Jadi warisan seperti apakah yang akan kita tinggalkan?</h3>
+
+<p>Pranala :</p>
+
+<p><a href="https://www.atlassian.com/continuous-delivery/different-types-of-software-testing">different types of testing in software</a> — attlasian</p>
+
+<p><a href="https://www.utest.com/articles/what-is-the-cost-of-defects-in-software-testing">what is the cost of defects in software testing </a>— uTest</p>
+
+<p><a href="https://www.astegic.com/the-cost-defects-software-testing/">cost of defects in software testing</a> — astegic</p>
+
+<p><a href="https://raygun.com/blog/cost-of-software-errors/">cost of software errors</a> — raygun</p>
+
+<p><a href="http://tryqa.com/what-is-the-cost-of-defects-in-software-testing/">what is the cost of defects in software testing</a> — tryqa</p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2018-09-11">11 Sep 2018</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Karma">Karma</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Software-Development">Software Development</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Software-Engineering">Software Engineering</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#Unit-Testing">Unit Testing</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//memindah-akun-pritunl/"> &laquo; Memindah akun Pritunl</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="//membuat-personal-touch/">Menggunakan macbook pro seharga 600 ribu &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+<script src="/assets/js/lazyload.js"></script>
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

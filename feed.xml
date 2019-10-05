@@ -3,15 +3,16 @@
   <channel>
     <title>Kusumandaru</title>
     <description>Collection medium story of kusumandaru</description>
-    <link>/</link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 22 Sep 2019 14:55:44 +0700</pubDate>
-    <lastBuildDate>Sun, 22 Sep 2019 14:55:44 +0700</lastBuildDate>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 05 Oct 2019 15:26:28 +0700</pubDate>
+    <lastBuildDate>Sat, 05 Oct 2019 15:26:28 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
         <title>How to clone medium story into custom domain</title>
-        <description>&lt;p&gt;Duplicate your medium content on your own site using jekyll and feedjira&lt;/p&gt;
+        <description>&lt;h3&gt;How to build custom domain medium today&lt;/h3&gt;
+&lt;p&gt;Duplicate your medium content on your own site using jekyll and feedjira&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Perquisites: see article &lt;/em&gt;&lt;a href=&quot;https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c&quot;&gt;&lt;em&gt;https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c&lt;/em&gt;&lt;/a&gt;&lt;em&gt; to step by step detail how to set and publish site.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;As we know since November 2017 &lt;a href=&quot;https://help.medium.com/hc/en-us/articles/115003053487-Custom-Domains-service-deprecation&quot;&gt;medium&lt;/a&gt; will not accept custom domain as part of medium. How if we want to took our content from medium and move it to our personal domain with only cost custom domain in nowadays.&lt;/p&gt;
 &lt;p&gt;Disclaimer: rather than publication will be hosted on Medium, it still using own hosting, i prefer github pages to hosting static page, cause it’s free and simple.&lt;/p&gt;
@@ -53,15 +54,15 @@
 &lt;pre&gt;  file.write content&lt;/pre&gt;
 &lt;pre&gt;end&lt;/pre&gt;
 &lt;p&gt;and then we create content of md file with spesific format and content&lt;/p&gt;
-&lt;p&gt;After that try to publish static page using bundle exec jekyll build. also on spesific md file, add feature: true to make artice published on top of index page. Finally publish site page in github page.&lt;/p&gt;
+&lt;p&gt;After that try to publish static page using JEKYLL_ENV=production bundle exec jekyll build. also on spesific md file, add feature: true to make artice published on top of index page. Finally publish site page in github page.&lt;/p&gt;
 &lt;p&gt;And voila your website now consist medium content.&lt;/p&gt;
 &lt;p&gt;You can see full repository code &lt;a href=&quot;https://github.com/kusumandaru/medium-rss&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png&quot; /&gt;&lt;figcaption&gt;final website&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3ab1c3c9625f&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Sep 2019 00:00:00 +0700</pubDate>
-        <link>/how-to-clone-me/</link>
-        <guid isPermaLink="true">/how-to-clone-me/</guid>
+        <link>http://localhost:4000/how-to-clone-me/</link>
+        <guid isPermaLink="true">http://localhost:4000/how-to-clone-me/</guid>
         
         
         <category>rss-feeds</category>
@@ -108,8 +109,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b4590273c3c9&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9&quot;&gt;How we rewrite our code without customer aware and uninterrupted business&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Aug 2019 00:00:00 +0700</pubDate>
-        <link>/how-we-rewrite/</link>
-        <guid isPermaLink="true">/how-we-rewrite/</guid>
+        <link>http://localhost:4000/how-we-rewrite/</link>
+        <guid isPermaLink="true">http://localhost:4000/how-we-rewrite/</guid>
         
         
         <category>migration</category>
@@ -126,7 +127,9 @@
         <title>Publish subscribe on ruby on rails</title>
         <description>&lt;p&gt;Using RabbitMQ bunny and sneakers&lt;/p&gt;
 &lt;p&gt;This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation.&lt;/p&gt;
-&lt;p&gt;First of all, we create skeleton of rails using command rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.&lt;/p&gt;
+&lt;p&gt;I got idea from &lt;a href=&quot;https://medium.com/@himang27s/background-job-in-rails-using-rabbitmq-and-sneaker-449c07284abf&quot;&gt;this&lt;/a&gt; medium post and adding some additional step.&lt;/p&gt;
+&lt;h4&gt;Initiation and environment setup&lt;/h4&gt;
+&lt;p&gt;First of all, we create skeleton of rails, using command: rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.&lt;/p&gt;
 &lt;p&gt;After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password.&lt;/p&gt;
 &lt;pre&gt;default: &amp;amp;default  &lt;br /&gt;adapter: mysql2  encoding: utf8  pool: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_MAX_THREADS&amp;quot;) { 5 } %&amp;gt;  host: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_HOST_DB&amp;quot;) %&amp;gt;  username: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_USERNAME_DB&amp;quot;) %&amp;gt;  password: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_PASSWORD_DB&amp;quot;) %&amp;gt;  socket: /tmp/mysql.sock&lt;/pre&gt;
 &lt;p&gt;For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &amp;#39;dotenv-rails&amp;#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like&lt;/p&gt;
@@ -139,8 +142,9 @@
 &lt;pre&gt;gem ‘rspec-rails’&lt;/pre&gt;
 &lt;pre&gt;gem ‘shoulda-matchers’&lt;/pre&gt;
 &lt;p&gt;and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper&lt;/p&gt;
-&lt;p&gt;and we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable&lt;/p&gt;
-&lt;p&gt;Install rabbitmq client, one of gem is &lt;a href=&quot;https://github.com/ruby-amqp/bunny&quot;&gt;bunny&lt;/a&gt; with gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded.&lt;/p&gt;
+&lt;p&gt;Finally we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable&lt;/p&gt;
+&lt;h4&gt;Set publisher&lt;/h4&gt;
+&lt;p&gt;Install rabbitMq client, one of gem is &lt;a href=&quot;https://github.com/ruby-amqp/bunny&quot;&gt;bunny&lt;/a&gt; using command:gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded.&lt;/p&gt;
 &lt;p&gt;create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&amp;quot;amqp://guest:guest@localhost:5672&amp;quot;) but we can also set more advance setting like :&lt;/p&gt;
 &lt;pre&gt;@connection ||= begin&lt;/pre&gt;
 &lt;pre&gt;  instance = Bunny.new(&lt;/pre&gt;
@@ -169,7 +173,8 @@
 &lt;pre&gt;  exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers)&lt;/pre&gt;
 &lt;pre&gt;end&lt;/pre&gt;
 &lt;p&gt;make sure queue name in publisher same with customer, than publisher ready to use.&lt;/p&gt;
-&lt;p&gt;For background processing consumer we use &lt;a href=&quot;https://github.com/jondot/sneakers&quot;&gt;sneakers&lt;/a&gt;, install via gem install sneakers&lt;/p&gt;
+&lt;h4&gt;Set consumer&lt;/h4&gt;
+&lt;p&gt;For background processing consumer we choose &lt;a href=&quot;https://github.com/jondot/sneakers&quot;&gt;sneakers&lt;/a&gt;, install via gem install sneakers&lt;/p&gt;
 &lt;p&gt;create initializer on config/initializers/sneakers.rb and set configuration:&lt;/p&gt;
 &lt;pre&gt;Sneakers.configure  connection: Connection.sneakers,&lt;/pre&gt;
 &lt;pre&gt;  exchange: ENV[&amp;#39;SNEAKER_AMQP_EXCHANGE&amp;#39;], # AMQP exchange&lt;/pre&gt;
@@ -192,7 +197,7 @@
 &lt;pre&gt;  retry_timeout: 3 * 60 * 1000 &lt;/pre&gt;
 &lt;pre&gt;Sneakers.logger = Rails.logger&lt;/pre&gt;
 &lt;pre&gt;Sneakers.logger.level = Logger::WARN&lt;/pre&gt;
-&lt;p&gt;we choose ack to be true to make sure message must be acknowledge when process is success on consumer&lt;/p&gt;
+&lt;p&gt;we choose &lt;strong&gt;ack&lt;/strong&gt; option to be true to make sure message must be acknowledge when process is finished on consumer&lt;/p&gt;
 &lt;p&gt;and then we create worker on app/workers/user_create.rb&lt;/p&gt;
 &lt;pre&gt;include Sneakers::Worker&lt;/pre&gt;
 &lt;pre&gt;QUEUE_NAME = ::UserPublisher::QUEUE_NAME&lt;/pre&gt;
@@ -207,21 +212,22 @@
 &lt;pre&gt;  create_log(false, data, message: e.message)&lt;/pre&gt;
 &lt;pre&gt;  reject!&lt;/pre&gt;
 &lt;pre&gt;end&lt;/pre&gt;
-&lt;p&gt;so on above code we gate msg from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed&lt;/p&gt;
+&lt;p&gt;so on above code we get message from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed&lt;/p&gt;
 &lt;p&gt;now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Test publishing and consuming&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;To publish you can call UserPublisher and it will consumed automatically.&lt;/p&gt;
 &lt;pre&gt;irb(main):002:0&amp;gt; user_params = [{id: 1, first_name: &amp;#39;first&amp;#39;}]&lt;br /&gt;=&amp;gt; [{:id=&amp;gt;1, :first_name=&amp;gt;&amp;quot;first&amp;quot;}]&lt;br /&gt;irb(main):003:0&amp;gt; UserPublisher.new(user_params).publish&lt;/pre&gt;
 &lt;p&gt;on cosumer it will wait for any message&lt;/p&gt;
 &lt;pre&gt;rake sneakers:run           &lt;br /&gt;&lt;br /&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: subscribing.&lt;/pre&gt;
 &lt;pre&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: I&amp;#39;m alive.&lt;/pre&gt;
 &lt;pre&gt;2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] Working off: &amp;quot;{\&amp;quot;users\&amp;quot;:[{\&amp;quot;id\&amp;quot;:1,\&amp;quot;first_name\&amp;quot;:\&amp;quot;first\&amp;quot;}]}&amp;quot;&lt;/pre&gt;
-&lt;p&gt;You can trace repository in &lt;a href=&quot;https://github.com/kusumandaru/rails_queue&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You can trace repository in &lt;a href=&quot;https://github.com/kusumandaru/rails_queue&quot;&gt;&lt;strong&gt;here&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg&quot; /&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6aa6893ef819&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Aug 2019 00:00:00 +0700</pubDate>
-        <link>/publish-subscri/</link>
-        <guid isPermaLink="true">/publish-subscri/</guid>
+        <link>http://localhost:4000/publish-subscri/</link>
+        <guid isPermaLink="true">http://localhost:4000/publish-subscri/</guid>
         
         
         <category>publish-subscribe</category>
@@ -265,8 +271,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=356c2bdbb48&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 14 Jul 2019 00:00:00 +0700</pubDate>
-        <link>/cheatsheet-depl/</link>
-        <guid isPermaLink="true">/cheatsheet-depl/</guid>
+        <link>http://localhost:4000/cheatsheet-depl/</link>
+        <guid isPermaLink="true">http://localhost:4000/cheatsheet-depl/</guid>
         
         
         <category>build</category>
@@ -348,8 +354,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3958ab020565&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 May 2019 00:00:00 +0700</pubDate>
-        <link>/budaya-beracun/</link>
-        <guid isPermaLink="true">/budaya-beracun/</guid>
+        <link>http://localhost:4000/budaya-beracun/</link>
+        <guid isPermaLink="true">http://localhost:4000/budaya-beracun/</guid>
         
         
         <category>programming</category>
@@ -396,8 +402,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=353c814ccd6e&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 26 Mar 2019 00:00:00 +0700</pubDate>
-        <link>/aplikasi-lebih/</link>
-        <guid isPermaLink="true">/aplikasi-lebih/</guid>
+        <link>http://localhost:4000/aplikasi-lebih/</link>
+        <guid isPermaLink="true">http://localhost:4000/aplikasi-lebih/</guid>
         
         
         <category>agile</category>
@@ -469,8 +475,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=152339342b7c&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 24 Feb 2019 00:00:00 +0700</pubDate>
-        <link>/create-personal/</link>
-        <guid isPermaLink="true">/create-personal/</guid>
+        <link>http://localhost:4000/create-personal/</link>
+        <guid isPermaLink="true">http://localhost:4000/create-personal/</guid>
         
         
         <category>ssl</category>
@@ -528,8 +534,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=1c90c24be9b7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Feb 2019 00:00:00 +0700</pubDate>
-        <link>/10-years-challe/</link>
-        <guid isPermaLink="true">/10-years-challe/</guid>
+        <link>http://localhost:4000/10-years-challe/</link>
+        <guid isPermaLink="true">http://localhost:4000/10-years-challe/</guid>
         
         
         <category>10yearchallenge</category>
@@ -570,8 +576,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ad55dd14c12a&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/menjaga-kesehatan-sebagai-software-engineer-ad55dd14c12a&quot;&gt;Menjaga kesehatan sebagai software engineer&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Jan 2019 00:00:00 +0700</pubDate>
-        <link>/menjaga-kesehat/</link>
-        <guid isPermaLink="true">/menjaga-kesehat/</guid>
+        <link>http://localhost:4000/menjaga-kesehat/</link>
+        <guid isPermaLink="true">http://localhost:4000/menjaga-kesehat/</guid>
         
         
         <category>engineer</category>
@@ -642,8 +648,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6a2445b3b8a4&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 06 Jan 2019 00:00:00 +0700</pubDate>
-        <link>/tips-mengkonversi-net/</link>
-        <guid isPermaLink="true">/tips-mengkonversi-net/</guid>
+        <link>http://localhost:4000/tips-mengkonversi-net/</link>
+        <guid isPermaLink="true">http://localhost:4000/tips-mengkonversi-net/</guid>
         
         
         <category>Dotnet Core</category>

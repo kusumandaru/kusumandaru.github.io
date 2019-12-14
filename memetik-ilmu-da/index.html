@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Memetik ilmu dari pemogram senior | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Memetik ilmu dari pemogram senior | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Memetik ilmu dari pemogram senior" />
+<meta name="author" content="angga kusumandaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Apa yang dapat dipelajari dari maestro perangkat lunak dari bermacam perusahaan mulai dari IT konsultan, startup hingga perusahaan konvensional. Saya bersyukur memiliki pengalaman untuk bekerja bersama para ahli IT di berbagai macam bidang. Ini merupakan rangkuman dari hal-hal baik yang dibagikan kepada kami. Softskill Rela untuk terus belajar Di ranah IT teknologi terus bergerak dengan cepat, selain itu metodologi baru akan terus dikembangkan dan diperbarui semisal xtreme programming, agile, scrum. Bahkan pada bahasa yang sama semisal PHP niscaya terus bergerak versi serta frameworknya. Untuk itu kita harus senantiasa mengikuti perkembangan teknologi dan dapat membandingkannya apakah sesuai dengan kebutuhan. Namun di sisi lainnya tidak asal mengikuti tren masal (hype driven design) di seminar atau forum online tanpa melakukan analisis kelayakan. Harus ada keseimbangan berapa persen kecocokan teknologi yang digunakan dengan kebutuhan bisnis, selain itu dipertimbangkan pula kemudahan merekrut tim sesuai kondisi pasar bila ada pertimbangan untuk bertumbuh dengan cepat. Serta tidak kalah penting bagaimana dukungan layanan serta komunitas yang matang untuk jangka panjangnya. Poin lainnya, kita juga harus dapat mendengar pendapat tim kita tentang pemikirannya dalam mendesain atau memilih pendekatan bagaimana sistem dibuat sebelum melakukan koding untuk dapat melihat perspektif secara luas dan membantu kita menemukan celah bug yang mungkin tidak kita pikirkan sebelumnya. Rela untuk berbagi Terkadang kita takut kalau kita menjelaskan kode yang kita buat maka kita tidak mempunyai bargain untuk bertahan atau kata lain kita menjadi mudah tergantikan. Tapi dengan kita membagi konsep kita, ada nilai positif didalamnya. Pertama ketika kita liburan, kita tidak terganggu apabila ada bug sebab ada yang bisa menindaklanjuti. Kedua ketika kita berbagi kode yang kita buat, kita tertantang untuk mengerti basis kode yang kita buat serta menambah pemahaman kita sendiri dan memperoleh masukan yang lebih baik. Menjaga integritas Di indonesia untuk bidang IT saat ini, seringkali kita bekerja sama atau menemui rekan kerja yang itu itu saja. Elo lagi elo lagi kasarannya. Dan ketika kita pindah kerja ternyata kita punya kenalan dengan kolega yang sama atau setidaknya memiliki info si A seperti apa atau si B direkomendasikan bagus oleh banyak pihak. Sehingga nama baik dan relasi dalam dunia IT patut dijaga dalam bentuk integritas. Referensi seringkali juga menjadi poin tambahan ketika ada perekrutan kerja. Apalagi ketika lowongan itu bersifat close recruitment atau tertutup. Menjaga nama baik itu penting sebab dunia IT itu sempit Menempatkan situasi sesuai tempatnya Biarkan masalah ada yang di rumah tetap di rumah dan masalah di kantor tetap di kantor. Ini diluar kasus khusus semisal ada keluarga sakit atau berduka maka kita gunakan ijin kantor untuk fokus menanganinya. Sementara apabila kita berada pada jam kantor sebaiknya urusan personal dapat dikesampingkan karena salah satu amanah adalah menghabiskan jam kerja untuk urusan kerja. Kalau kita kerja untuk keluarga, sepatutnya bila sudah di rumah kita dapat menghargai waktu untuk keluarga secara adil. Sebab kerjaan itu pasti selalu ada. Jangan sampai cuti liburan masih membawa laptop atau membalas email. Menjaga kesehatan Membuat aplikasi bukan kontes lari sprint untuk beberapa hari atau minggu namun merupakan buah dari perjuangan maraton bulanan hingga tahunan usaha dan perjuangan tim. Kebanyakan lembur malah akan mengurangi produktivitas dalam jangka panjang. Kegiatan kecil seperti peregangan otot, jalan kecil dan minum air putih secara sering dapat mengurangi efek negatif kebanyakan duduk. Selain itu usahakan posisi mata sejajar monitor dan kurangi menunduk agar leher tidak sakit. Hardskill Penamaan variable Pernahkan saat kita akan memperbaiki bug dan menemukan kode tersebut acak adut atau tidak jelas fungsinya apa, sehingga kita jengkel dan ketika melakukan git blame ternyata penulisnya adalah kita sendiri. Penamaan variable sebisa mungkin bersifat eksplisit, jelas dan ringkas untuk apa variable itu digunakan. semisal sendSms hanya untuk mengirim sms, atau close_session untuk mengakhiri sesi yang dilakukan. Selain itu penamaan variable sebisa mungkin tidak melampui fungsi didalamnya semisal sendSms ternyata juga melakukan pengiriman notifikasi pada fcm. Penamaan yang spesifik juga membantu dalam pengkategorian test. Contoh apabila ada nama variable save_all , bisa terjadi ambiguitas atau pertanyaan susulan, fungsi yang disimpan itu model mana saja atau transaksi yang terjadi didalamnya apa saja. Apabila dipecah menjadi fungsi lebih kecil akan memudahkan batasan test atau cara mengetes variable ini. Terkecuali untuk transaksi yang bersifat atomik, semisal ketika melakukan debet akun, akun kreditnya juga harus ikut berubah. Dokumentasi teknis Dokumentasi teknis lebih baik berada dalam bentuk repository dibanding dokumen terpisah (kecuali high level documentation atau memang perjanjian dengan klien yang membutuhkan dokumentasi tertulis). Alasan kenapa dokumentasi berada pada repository (commit message), sebab kode seringkali berubah sesuai kebutuhan di lapangan, dan seringkali dokumentasi yang terpisah jarang untuk diupdate. Sebisa mungkin untuk commit message beri penjelasan singkat kenapa kode berubah dan kelompokkan berdasar kode yang berubah. Jangan melakukan 1 commit message untuk 100 kode yang berubah. selain membuat rancu dokumentasi ini juga lebih susah untuk direvert apabila ada kode yang ingin di rollback. Untuk kode yang memerlukan api, bisa menggunakan swagger untuk dokumentasi input, output maupun test api didalamnya. Untuk dokumentasi di dalam kode masukkan apabila ada aturan bisnis yang diperlukan mengapa kode itu perlu dibuat dan tidak semua fungsi perlu didokumentasikan asal penamaan kode jelas dan fungsi bersifat terbatas bukan kode sapu jagad. Anda dapat melihat pendokumentasian teknis disini TLDR anggap apa yang kita dokumentasikan ini menjadi petunjuk apabila ada developer baru itu masuk sehingga mengerti apa yang kita kerjakan. Kode review Kode review memberi aspek positif bagi reviewer dan pembuat request. Pembuat request dapat mendapat masukan bagaimana kode yang bekerja lebih efisien atau menghilangkan bug yang kasat mata. Bagi reviewer ia mendapat ilmu bagaimana tugas yang diberikan diterjemahkan dalam bentuk kode, fungsi baru yang diperkenalkan oleh pembuat request. Dan menjadi prasarana untuk transfer knowledge berbagi pengetahuan mengenai apa yang dikerjakan dan standar kode yang berlaku dalam organisasi tersebut. Tips untuk kode review, sebisa mungkin jangan melakukan blaming tapi tanyakan pertanyaan secara konstruktif semisal: Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance. dibanding Kenapa fungsi ini punya 100 baris kode? Untuk pull request sebisa mungkin dipecah ke satuan task, sehingga pull request tidak terlalu besar dan menyebabkan reviewer menjadi pusing dan malas untuk mereview puluhan hingga ratusan perubahan file. Apabila dirasa perubahan kode tidak bisa di masukkan ke branch master secara sedikit, coba buat feature branchyang berasal dari master atau lakukan feature flag untuk kode tersebut tidak langsung aktif ketika dimerge ke master. Selain itu jangan baper di pull request, dan merasa ditekan. Ingat konflik hanya ada di atas komentar, tidak ada personal feeling di dalamnya. Melakukan test Ada dua tipe test yang setidaknya dibuat sebagai perekayasa perangkat lunak. Unit test Unit test merupakan unit terkecil pengecekan kode yang dibuat berdasar fungsi tiap kelas. 1 kelas unit test bertanggung jawab untuk mengecek 1 kelas yang ada. Setidaknya ada 3 pengecekan yang dilakukan pada unit test: test yang dilakukan agar response berjalan sesuai dengan keinginan kitatest yang dilakukan agar error ditemukan (predictable error)test yang dilakukan apabila input program tidak sesuai Integration test / system testing Tes ini dilakukan untuk menerjemahkan kebutuhan bisnis apakah sesuai dengan kode yang kita kembangkan. Tes ini bersifat high level, tes ini bersifat apakah input yang diberikan user mempengaruhi modul mana saja, servis yang dijalankan dan tidak dijalankan mana saja, apakah ada validasi di model lain rusak ketika ada inputan dimasukkan. Dan apabila ada skenario yang tidak normal, respon yang diberikan sesuai misal tidak error 500 tapi menampilkan halaman ilustrasi permintaan maaf. Menghadapi error Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti. Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)Apakah konfigurasi yang dijalankan pada production sudah sesuai.Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolomCek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian. - sekian, murid pamit dulu untuk menimba ilmu lainnya" />
+<meta property="og:description" content="Apa yang dapat dipelajari dari maestro perangkat lunak dari bermacam perusahaan mulai dari IT konsultan, startup hingga perusahaan konvensional. Saya bersyukur memiliki pengalaman untuk bekerja bersama para ahli IT di berbagai macam bidang. Ini merupakan rangkuman dari hal-hal baik yang dibagikan kepada kami. Softskill Rela untuk terus belajar Di ranah IT teknologi terus bergerak dengan cepat, selain itu metodologi baru akan terus dikembangkan dan diperbarui semisal xtreme programming, agile, scrum. Bahkan pada bahasa yang sama semisal PHP niscaya terus bergerak versi serta frameworknya. Untuk itu kita harus senantiasa mengikuti perkembangan teknologi dan dapat membandingkannya apakah sesuai dengan kebutuhan. Namun di sisi lainnya tidak asal mengikuti tren masal (hype driven design) di seminar atau forum online tanpa melakukan analisis kelayakan. Harus ada keseimbangan berapa persen kecocokan teknologi yang digunakan dengan kebutuhan bisnis, selain itu dipertimbangkan pula kemudahan merekrut tim sesuai kondisi pasar bila ada pertimbangan untuk bertumbuh dengan cepat. Serta tidak kalah penting bagaimana dukungan layanan serta komunitas yang matang untuk jangka panjangnya. Poin lainnya, kita juga harus dapat mendengar pendapat tim kita tentang pemikirannya dalam mendesain atau memilih pendekatan bagaimana sistem dibuat sebelum melakukan koding untuk dapat melihat perspektif secara luas dan membantu kita menemukan celah bug yang mungkin tidak kita pikirkan sebelumnya. Rela untuk berbagi Terkadang kita takut kalau kita menjelaskan kode yang kita buat maka kita tidak mempunyai bargain untuk bertahan atau kata lain kita menjadi mudah tergantikan. Tapi dengan kita membagi konsep kita, ada nilai positif didalamnya. Pertama ketika kita liburan, kita tidak terganggu apabila ada bug sebab ada yang bisa menindaklanjuti. Kedua ketika kita berbagi kode yang kita buat, kita tertantang untuk mengerti basis kode yang kita buat serta menambah pemahaman kita sendiri dan memperoleh masukan yang lebih baik. Menjaga integritas Di indonesia untuk bidang IT saat ini, seringkali kita bekerja sama atau menemui rekan kerja yang itu itu saja. Elo lagi elo lagi kasarannya. Dan ketika kita pindah kerja ternyata kita punya kenalan dengan kolega yang sama atau setidaknya memiliki info si A seperti apa atau si B direkomendasikan bagus oleh banyak pihak. Sehingga nama baik dan relasi dalam dunia IT patut dijaga dalam bentuk integritas. Referensi seringkali juga menjadi poin tambahan ketika ada perekrutan kerja. Apalagi ketika lowongan itu bersifat close recruitment atau tertutup. Menjaga nama baik itu penting sebab dunia IT itu sempit Menempatkan situasi sesuai tempatnya Biarkan masalah ada yang di rumah tetap di rumah dan masalah di kantor tetap di kantor. Ini diluar kasus khusus semisal ada keluarga sakit atau berduka maka kita gunakan ijin kantor untuk fokus menanganinya. Sementara apabila kita berada pada jam kantor sebaiknya urusan personal dapat dikesampingkan karena salah satu amanah adalah menghabiskan jam kerja untuk urusan kerja. Kalau kita kerja untuk keluarga, sepatutnya bila sudah di rumah kita dapat menghargai waktu untuk keluarga secara adil. Sebab kerjaan itu pasti selalu ada. Jangan sampai cuti liburan masih membawa laptop atau membalas email. Menjaga kesehatan Membuat aplikasi bukan kontes lari sprint untuk beberapa hari atau minggu namun merupakan buah dari perjuangan maraton bulanan hingga tahunan usaha dan perjuangan tim. Kebanyakan lembur malah akan mengurangi produktivitas dalam jangka panjang. Kegiatan kecil seperti peregangan otot, jalan kecil dan minum air putih secara sering dapat mengurangi efek negatif kebanyakan duduk. Selain itu usahakan posisi mata sejajar monitor dan kurangi menunduk agar leher tidak sakit. Hardskill Penamaan variable Pernahkan saat kita akan memperbaiki bug dan menemukan kode tersebut acak adut atau tidak jelas fungsinya apa, sehingga kita jengkel dan ketika melakukan git blame ternyata penulisnya adalah kita sendiri. Penamaan variable sebisa mungkin bersifat eksplisit, jelas dan ringkas untuk apa variable itu digunakan. semisal sendSms hanya untuk mengirim sms, atau close_session untuk mengakhiri sesi yang dilakukan. Selain itu penamaan variable sebisa mungkin tidak melampui fungsi didalamnya semisal sendSms ternyata juga melakukan pengiriman notifikasi pada fcm. Penamaan yang spesifik juga membantu dalam pengkategorian test. Contoh apabila ada nama variable save_all , bisa terjadi ambiguitas atau pertanyaan susulan, fungsi yang disimpan itu model mana saja atau transaksi yang terjadi didalamnya apa saja. Apabila dipecah menjadi fungsi lebih kecil akan memudahkan batasan test atau cara mengetes variable ini. Terkecuali untuk transaksi yang bersifat atomik, semisal ketika melakukan debet akun, akun kreditnya juga harus ikut berubah. Dokumentasi teknis Dokumentasi teknis lebih baik berada dalam bentuk repository dibanding dokumen terpisah (kecuali high level documentation atau memang perjanjian dengan klien yang membutuhkan dokumentasi tertulis). Alasan kenapa dokumentasi berada pada repository (commit message), sebab kode seringkali berubah sesuai kebutuhan di lapangan, dan seringkali dokumentasi yang terpisah jarang untuk diupdate. Sebisa mungkin untuk commit message beri penjelasan singkat kenapa kode berubah dan kelompokkan berdasar kode yang berubah. Jangan melakukan 1 commit message untuk 100 kode yang berubah. selain membuat rancu dokumentasi ini juga lebih susah untuk direvert apabila ada kode yang ingin di rollback. Untuk kode yang memerlukan api, bisa menggunakan swagger untuk dokumentasi input, output maupun test api didalamnya. Untuk dokumentasi di dalam kode masukkan apabila ada aturan bisnis yang diperlukan mengapa kode itu perlu dibuat dan tidak semua fungsi perlu didokumentasikan asal penamaan kode jelas dan fungsi bersifat terbatas bukan kode sapu jagad. Anda dapat melihat pendokumentasian teknis disini TLDR anggap apa yang kita dokumentasikan ini menjadi petunjuk apabila ada developer baru itu masuk sehingga mengerti apa yang kita kerjakan. Kode review Kode review memberi aspek positif bagi reviewer dan pembuat request. Pembuat request dapat mendapat masukan bagaimana kode yang bekerja lebih efisien atau menghilangkan bug yang kasat mata. Bagi reviewer ia mendapat ilmu bagaimana tugas yang diberikan diterjemahkan dalam bentuk kode, fungsi baru yang diperkenalkan oleh pembuat request. Dan menjadi prasarana untuk transfer knowledge berbagi pengetahuan mengenai apa yang dikerjakan dan standar kode yang berlaku dalam organisasi tersebut. Tips untuk kode review, sebisa mungkin jangan melakukan blaming tapi tanyakan pertanyaan secara konstruktif semisal: Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance. dibanding Kenapa fungsi ini punya 100 baris kode? Untuk pull request sebisa mungkin dipecah ke satuan task, sehingga pull request tidak terlalu besar dan menyebabkan reviewer menjadi pusing dan malas untuk mereview puluhan hingga ratusan perubahan file. Apabila dirasa perubahan kode tidak bisa di masukkan ke branch master secara sedikit, coba buat feature branchyang berasal dari master atau lakukan feature flag untuk kode tersebut tidak langsung aktif ketika dimerge ke master. Selain itu jangan baper di pull request, dan merasa ditekan. Ingat konflik hanya ada di atas komentar, tidak ada personal feeling di dalamnya. Melakukan test Ada dua tipe test yang setidaknya dibuat sebagai perekayasa perangkat lunak. Unit test Unit test merupakan unit terkecil pengecekan kode yang dibuat berdasar fungsi tiap kelas. 1 kelas unit test bertanggung jawab untuk mengecek 1 kelas yang ada. Setidaknya ada 3 pengecekan yang dilakukan pada unit test: test yang dilakukan agar response berjalan sesuai dengan keinginan kitatest yang dilakukan agar error ditemukan (predictable error)test yang dilakukan apabila input program tidak sesuai Integration test / system testing Tes ini dilakukan untuk menerjemahkan kebutuhan bisnis apakah sesuai dengan kode yang kita kembangkan. Tes ini bersifat high level, tes ini bersifat apakah input yang diberikan user mempengaruhi modul mana saja, servis yang dijalankan dan tidak dijalankan mana saja, apakah ada validasi di model lain rusak ketika ada inputan dimasukkan. Dan apabila ada skenario yang tidak normal, respon yang diberikan sesuai misal tidak error 500 tapi menampilkan halaman ilustrasi permintaan maaf. Menghadapi error Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti. Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)Apakah konfigurasi yang dijalankan pada production sudah sesuai.Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolomCek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian. - sekian, murid pamit dulu untuk menimba ilmu lainnya" />
+<link rel="canonical" href="http://localhost:4000/memetik-ilmu-da/" />
+<meta property="og:url" content="http://localhost:4000/memetik-ilmu-da/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://miro.medium.com/max/1152/1*8Ak7RPdV2bxbU5lw-2Eing.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-12-11T00:00:00+07:00" />
+<script type="application/ld+json">
+{"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/assets/images/logo.png"},"name":"angga kusumandaru"},"url":"http://localhost:4000/memetik-ilmu-da/","image":"https://miro.medium.com/max/1152/1*8Ak7RPdV2bxbU5lw-2Eing.jpeg","author":{"@type":"Person","name":"angga kusumandaru"},"headline":"Memetik ilmu dari pemogram senior","datePublished":"2019-12-11T00:00:00+07:00","description":"Apa yang dapat dipelajari dari maestro perangkat lunak dari bermacam perusahaan mulai dari IT konsultan, startup hingga perusahaan konvensional. Saya bersyukur memiliki pengalaman untuk bekerja bersama para ahli IT di berbagai macam bidang. Ini merupakan rangkuman dari hal-hal baik yang dibagikan kepada kami. Softskill Rela untuk terus belajar Di ranah IT teknologi terus bergerak dengan cepat, selain itu metodologi baru akan terus dikembangkan dan diperbarui semisal xtreme programming, agile, scrum. Bahkan pada bahasa yang sama semisal PHP niscaya terus bergerak versi serta frameworknya. Untuk itu kita harus senantiasa mengikuti perkembangan teknologi dan dapat membandingkannya apakah sesuai dengan kebutuhan. Namun di sisi lainnya tidak asal mengikuti tren masal (hype driven design) di seminar atau forum online tanpa melakukan analisis kelayakan. Harus ada keseimbangan berapa persen kecocokan teknologi yang digunakan dengan kebutuhan bisnis, selain itu dipertimbangkan pula kemudahan merekrut tim sesuai kondisi pasar bila ada pertimbangan untuk bertumbuh dengan cepat. Serta tidak kalah penting bagaimana dukungan layanan serta komunitas yang matang untuk jangka panjangnya. Poin lainnya, kita juga harus dapat mendengar pendapat tim kita tentang pemikirannya dalam mendesain atau memilih pendekatan bagaimana sistem dibuat sebelum melakukan koding untuk dapat melihat perspektif secara luas dan membantu kita menemukan celah bug yang mungkin tidak kita pikirkan sebelumnya. Rela untuk berbagi Terkadang kita takut kalau kita menjelaskan kode yang kita buat maka kita tidak mempunyai bargain untuk bertahan atau kata lain kita menjadi mudah tergantikan. Tapi dengan kita membagi konsep kita, ada nilai positif didalamnya. Pertama ketika kita liburan, kita tidak terganggu apabila ada bug sebab ada yang bisa menindaklanjuti. Kedua ketika kita berbagi kode yang kita buat, kita tertantang untuk mengerti basis kode yang kita buat serta menambah pemahaman kita sendiri dan memperoleh masukan yang lebih baik. Menjaga integritas Di indonesia untuk bidang IT saat ini, seringkali kita bekerja sama atau menemui rekan kerja yang itu itu saja. Elo lagi elo lagi kasarannya. Dan ketika kita pindah kerja ternyata kita punya kenalan dengan kolega yang sama atau setidaknya memiliki info si A seperti apa atau si B direkomendasikan bagus oleh banyak pihak. Sehingga nama baik dan relasi dalam dunia IT patut dijaga dalam bentuk integritas. Referensi seringkali juga menjadi poin tambahan ketika ada perekrutan kerja. Apalagi ketika lowongan itu bersifat close recruitment atau tertutup. Menjaga nama baik itu penting sebab dunia IT itu sempit Menempatkan situasi sesuai tempatnya Biarkan masalah ada yang di rumah tetap di rumah dan masalah di kantor tetap di kantor. Ini diluar kasus khusus semisal ada keluarga sakit atau berduka maka kita gunakan ijin kantor untuk fokus menanganinya. Sementara apabila kita berada pada jam kantor sebaiknya urusan personal dapat dikesampingkan karena salah satu amanah adalah menghabiskan jam kerja untuk urusan kerja. Kalau kita kerja untuk keluarga, sepatutnya bila sudah di rumah kita dapat menghargai waktu untuk keluarga secara adil. Sebab kerjaan itu pasti selalu ada. Jangan sampai cuti liburan masih membawa laptop atau membalas email. Menjaga kesehatan Membuat aplikasi bukan kontes lari sprint untuk beberapa hari atau minggu namun merupakan buah dari perjuangan maraton bulanan hingga tahunan usaha dan perjuangan tim. Kebanyakan lembur malah akan mengurangi produktivitas dalam jangka panjang. Kegiatan kecil seperti peregangan otot, jalan kecil dan minum air putih secara sering dapat mengurangi efek negatif kebanyakan duduk. Selain itu usahakan posisi mata sejajar monitor dan kurangi menunduk agar leher tidak sakit. Hardskill Penamaan variable Pernahkan saat kita akan memperbaiki bug dan menemukan kode tersebut acak adut atau tidak jelas fungsinya apa, sehingga kita jengkel dan ketika melakukan git blame ternyata penulisnya adalah kita sendiri. Penamaan variable sebisa mungkin bersifat eksplisit, jelas dan ringkas untuk apa variable itu digunakan. semisal sendSms hanya untuk mengirim sms, atau close_session untuk mengakhiri sesi yang dilakukan. Selain itu penamaan variable sebisa mungkin tidak melampui fungsi didalamnya semisal sendSms ternyata juga melakukan pengiriman notifikasi pada fcm. Penamaan yang spesifik juga membantu dalam pengkategorian test. Contoh apabila ada nama variable save_all , bisa terjadi ambiguitas atau pertanyaan susulan, fungsi yang disimpan itu model mana saja atau transaksi yang terjadi didalamnya apa saja. Apabila dipecah menjadi fungsi lebih kecil akan memudahkan batasan test atau cara mengetes variable ini. Terkecuali untuk transaksi yang bersifat atomik, semisal ketika melakukan debet akun, akun kreditnya juga harus ikut berubah. Dokumentasi teknis Dokumentasi teknis lebih baik berada dalam bentuk repository dibanding dokumen terpisah (kecuali high level documentation atau memang perjanjian dengan klien yang membutuhkan dokumentasi tertulis). Alasan kenapa dokumentasi berada pada repository (commit message), sebab kode seringkali berubah sesuai kebutuhan di lapangan, dan seringkali dokumentasi yang terpisah jarang untuk diupdate. Sebisa mungkin untuk commit message beri penjelasan singkat kenapa kode berubah dan kelompokkan berdasar kode yang berubah. Jangan melakukan 1 commit message untuk 100 kode yang berubah. selain membuat rancu dokumentasi ini juga lebih susah untuk direvert apabila ada kode yang ingin di rollback. Untuk kode yang memerlukan api, bisa menggunakan swagger untuk dokumentasi input, output maupun test api didalamnya. Untuk dokumentasi di dalam kode masukkan apabila ada aturan bisnis yang diperlukan mengapa kode itu perlu dibuat dan tidak semua fungsi perlu didokumentasikan asal penamaan kode jelas dan fungsi bersifat terbatas bukan kode sapu jagad. Anda dapat melihat pendokumentasian teknis disini TLDR anggap apa yang kita dokumentasikan ini menjadi petunjuk apabila ada developer baru itu masuk sehingga mengerti apa yang kita kerjakan. Kode review Kode review memberi aspek positif bagi reviewer dan pembuat request. Pembuat request dapat mendapat masukan bagaimana kode yang bekerja lebih efisien atau menghilangkan bug yang kasat mata. Bagi reviewer ia mendapat ilmu bagaimana tugas yang diberikan diterjemahkan dalam bentuk kode, fungsi baru yang diperkenalkan oleh pembuat request. Dan menjadi prasarana untuk transfer knowledge berbagi pengetahuan mengenai apa yang dikerjakan dan standar kode yang berlaku dalam organisasi tersebut. Tips untuk kode review, sebisa mungkin jangan melakukan blaming tapi tanyakan pertanyaan secara konstruktif semisal: Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance. dibanding Kenapa fungsi ini punya 100 baris kode? Untuk pull request sebisa mungkin dipecah ke satuan task, sehingga pull request tidak terlalu besar dan menyebabkan reviewer menjadi pusing dan malas untuk mereview puluhan hingga ratusan perubahan file. Apabila dirasa perubahan kode tidak bisa di masukkan ke branch master secara sedikit, coba buat feature branchyang berasal dari master atau lakukan feature flag untuk kode tersebut tidak langsung aktif ketika dimerge ke master. Selain itu jangan baper di pull request, dan merasa ditekan. Ingat konflik hanya ada di atas komentar, tidak ada personal feeling di dalamnya. Melakukan test Ada dua tipe test yang setidaknya dibuat sebagai perekayasa perangkat lunak. Unit test Unit test merupakan unit terkecil pengecekan kode yang dibuat berdasar fungsi tiap kelas. 1 kelas unit test bertanggung jawab untuk mengecek 1 kelas yang ada. Setidaknya ada 3 pengecekan yang dilakukan pada unit test: test yang dilakukan agar response berjalan sesuai dengan keinginan kitatest yang dilakukan agar error ditemukan (predictable error)test yang dilakukan apabila input program tidak sesuai Integration test / system testing Tes ini dilakukan untuk menerjemahkan kebutuhan bisnis apakah sesuai dengan kode yang kita kembangkan. Tes ini bersifat high level, tes ini bersifat apakah input yang diberikan user mempengaruhi modul mana saja, servis yang dijalankan dan tidak dijalankan mana saja, apakah ada validasi di model lain rusak ketika ada inputan dimasukkan. Dan apabila ada skenario yang tidak normal, respon yang diberikan sesuai misal tidak error 500 tapi menampilkan halaman ilustrasi permintaan maaf. Menghadapi error Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti. Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)Apakah konfigurasi yang dijalankan pada production sudah sesuai.Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolomCek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian. - sekian, murid pamit dulu untuk menimba ilmu lainnya","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/memetik-ilmu-da/"},"dateModified":"2019-12-11T00:00:00+07:00","@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<!-- change your GA id in _config.yml -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-135970453-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection medium story of kusumandaru
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Memetik ilmu dari pemogram senior&url=http://localhost:4000/memetik-ilmu-da/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=http://localhost:4000/memetik-ilmu-da/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/memetik-ilmu-da/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/?s=250&d=mm&r=x" alt="">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href=""></a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description"></span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Memetik ilmu dari pemogram senior</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="https://miro.medium.com/max/1152/1*8Ak7RPdV2bxbU5lw-2Eing.jpeg" alt="Memetik ilmu dari pemogram senior">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>Apa yang dapat dipelajari dari maestro perangkat lunak dari bermacam perusahaan mulai dari IT konsultan, startup hingga perusahaan konvensional.</p>
+<p>Saya bersyukur memiliki pengalaman untuk bekerja bersama para ahli IT di berbagai macam bidang. Ini merupakan rangkuman dari hal-hal baik yang dibagikan kepada kami.</p>
+<h3>Softskill</h3>
+<h4><strong>Rela untuk terus belajar</strong></h4>
+<p>Di ranah IT teknologi terus bergerak dengan cepat, selain itu metodologi baru akan terus dikembangkan dan diperbarui semisal xtreme programming, agile, scrum. Bahkan pada bahasa yang sama semisal PHP niscaya terus bergerak versi serta frameworknya. Untuk itu kita harus senantiasa mengikuti perkembangan teknologi dan dapat membandingkannya apakah sesuai dengan kebutuhan. Namun di sisi lainnya tidak asal mengikuti tren masal (hype driven design) di seminar atau forum online tanpa melakukan analisis kelayakan.</p>
+<p>Harus ada keseimbangan berapa persen kecocokan teknologi yang digunakan dengan kebutuhan bisnis, selain itu dipertimbangkan pula kemudahan merekrut tim sesuai kondisi pasar bila ada pertimbangan untuk bertumbuh dengan cepat. Serta tidak kalah penting bagaimana dukungan layanan serta komunitas yang matang untuk jangka panjangnya.</p>
+<p>Poin lainnya, kita juga harus dapat mendengar pendapat tim kita tentang pemikirannya dalam mendesain atau memilih pendekatan bagaimana sistem dibuat sebelum melakukan koding untuk dapat melihat perspektif secara luas dan membantu kita menemukan celah bug yang mungkin tidak kita pikirkan sebelumnya.</p>
+<h4>Rela untuk berbagi</h4>
+<p>Terkadang kita takut kalau kita menjelaskan kode yang kita buat maka kita tidak mempunyai <em>bargain </em>untuk bertahan atau kata lain kita menjadi mudah tergantikan. Tapi dengan kita membagi konsep kita, ada nilai positif didalamnya. Pertama ketika kita liburan, kita tidak terganggu apabila ada bug sebab ada yang bisa menindaklanjuti. Kedua ketika kita berbagi kode yang kita buat, kita tertantang untuk mengerti basis kode yang kita buat serta menambah pemahaman kita sendiri dan memperoleh masukan yang lebih baik.</p>
+<h4>Menjaga integritas</h4>
+<p>Di indonesia untuk bidang IT saat ini, seringkali kita bekerja sama atau menemui rekan kerja yang itu itu saja. Elo lagi elo lagi kasarannya. Dan ketika kita pindah kerja ternyata kita punya kenalan dengan kolega yang sama atau setidaknya memiliki info si A seperti apa atau si B direkomendasikan bagus oleh banyak pihak. Sehingga nama baik dan relasi dalam dunia IT patut dijaga dalam bentuk integritas.</p>
+<p>Referensi seringkali juga menjadi poin tambahan ketika ada perekrutan kerja. Apalagi ketika lowongan itu bersifat close recruitment atau tertutup.</p>
+<p>Menjaga nama baik itu penting sebab dunia IT itu sempit</p>
+<h4>Menempatkan situasi sesuai tempatnya</h4>
+<p>Biarkan masalah ada yang di rumah tetap di rumah dan masalah di kantor tetap di kantor. Ini diluar kasus khusus semisal ada keluarga sakit atau berduka maka kita gunakan ijin kantor untuk fokus menanganinya. Sementara apabila kita berada pada jam kantor sebaiknya urusan personal dapat dikesampingkan karena salah satu amanah adalah menghabiskan jam kerja untuk urusan kerja.</p>
+<p>Kalau kita kerja untuk keluarga, sepatutnya bila sudah di rumah kita dapat menghargai waktu untuk keluarga secara adil. Sebab kerjaan itu pasti selalu ada.</p>
+<p>Jangan sampai cuti liburan masih membawa laptop atau membalas email.</p>
+<h4>Menjaga kesehatan</h4>
+<p>Membuat aplikasi bukan kontes lari sprint untuk beberapa hari atau minggu namun merupakan buah dari perjuangan maraton bulanan hingga tahunan usaha dan perjuangan tim.</p>
+<p>Kebanyakan lembur malah akan <a href="https://lengstorf.com/overtime-hurts-productivity/">mengurangi produktivitas</a> dalam jangka panjang.</p>
+<p>Kegiatan kecil seperti peregangan otot, jalan kecil dan minum air putih secara sering dapat mengurangi efek negatif kebanyakan duduk. Selain itu usahakan posisi mata sejajar monitor dan kurangi menunduk agar leher tidak sakit.</p>
+<h3>Hardskill</h3>
+<h4>Penamaan variable</h4>
+<p>Pernahkan saat kita akan memperbaiki bug dan menemukan kode tersebut acak adut atau tidak jelas fungsinya apa, sehingga kita jengkel dan ketika melakukan git blame ternyata penulisnya adalah kita sendiri.</p>
+<p>Penamaan variable sebisa mungkin bersifat eksplisit, jelas dan ringkas untuk apa variable itu digunakan. semisal sendSms hanya untuk mengirim sms, atau close_session untuk mengakhiri sesi yang dilakukan.</p>
+<p>Selain itu penamaan variable sebisa mungkin tidak melampui fungsi didalamnya semisal sendSms ternyata juga melakukan pengiriman notifikasi pada <em>fcm</em>.</p>
+<p>Penamaan yang spesifik juga membantu dalam pengkategorian test. Contoh apabila ada nama variable save_all , bisa terjadi ambiguitas atau pertanyaan susulan, fungsi yang disimpan itu model mana saja atau transaksi yang terjadi didalamnya apa saja. Apabila dipecah menjadi fungsi lebih kecil akan memudahkan batasan test atau cara mengetes variable ini.</p>
+<p>Terkecuali untuk transaksi yang bersifat atomik, semisal ketika melakukan debet akun, akun kreditnya juga harus ikut berubah.</p>
+<h4>Dokumentasi teknis</h4>
+<p>Dokumentasi teknis lebih baik berada dalam bentuk repository dibanding dokumen terpisah (kecuali high level documentation atau memang perjanjian dengan klien yang membutuhkan dokumentasi tertulis).</p>
+<p>Alasan kenapa dokumentasi berada pada repository (commit message), sebab kode seringkali berubah sesuai kebutuhan di lapangan, dan seringkali dokumentasi yang terpisah jarang untuk diupdate.</p>
+<p>Sebisa mungkin untuk commit message beri penjelasan singkat kenapa kode berubah dan kelompokkan berdasar kode yang berubah. Jangan melakukan 1 commit message untuk 100 kode yang berubah. selain membuat rancu dokumentasi ini juga lebih susah untuk direvert apabila ada kode yang ingin di rollback.</p>
+<p>Untuk kode yang memerlukan api, bisa menggunakan <a href="https://swagger.io/">swagger</a> untuk dokumentasi input, output maupun test api didalamnya.</p>
+<p>Untuk dokumentasi di dalam kode masukkan apabila ada aturan bisnis yang diperlukan mengapa kode itu perlu dibuat dan tidak semua fungsi perlu didokumentasikan asal penamaan kode jelas dan fungsi bersifat terbatas bukan kode sapu jagad.</p>
+<p>Anda dapat melihat pendokumentasian teknis <a href="https://medium.com/@kusumandaru/aplikasi-lebih-dari-dokumentasi-tepatkah-353c814ccd6e">disini</a></p>
+<p>TLDR anggap apa yang kita dokumentasikan ini menjadi petunjuk apabila ada developer baru itu masuk sehingga mengerti apa yang kita kerjakan.</p>
+<h4>Kode review</h4>
+<p>Kode review memberi aspek positif bagi reviewer dan pembuat <em>request</em>. Pembuat <em>request</em> dapat mendapat masukan bagaimana kode yang bekerja lebih efisien atau menghilangkan bug yang kasat mata. Bagi <em>reviewer</em> ia mendapat ilmu bagaimana tugas yang diberikan diterjemahkan dalam bentuk kode, fungsi baru yang diperkenalkan oleh pembuat request. Dan menjadi prasarana untuk <em>transfer knowledge</em> berbagi pengetahuan mengenai apa yang dikerjakan dan standar kode yang berlaku dalam organisasi tersebut.</p>
+<p>Tips untuk kode review, sebisa mungkin jangan melakukan <em>blaming</em> tapi tanyakan pertanyaan secara konstruktif semisal:</p>
+<p>Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance. <strong><em>dibanding</em></strong><em> </em>Kenapa fungsi ini punya 100 baris kode?</p>
+<p>Untuk pull request sebisa mungkin dipecah ke satuan task, sehingga pull request tidak terlalu besar dan menyebabkan reviewer menjadi pusing dan malas untuk mereview puluhan hingga ratusan perubahan file.</p>
+<p>Apabila dirasa perubahan kode tidak bisa di masukkan ke <em>branch master</em> secara sedikit, coba buat feature branchyang berasal dari master atau lakukan feature flag untuk kode tersebut tidak langsung aktif ketika di<em>merge</em> ke master.</p>
+<p>Selain itu jangan baper di pull request, dan merasa ditekan. Ingat konflik hanya ada di atas komentar, tidak ada <em>personal feeling</em> di dalamnya.</p>
+<h4><strong>Melakukan test</strong></h4>
+<p>Ada dua tipe test yang setidaknya dibuat sebagai perekayasa perangkat lunak.</p>
+<p><strong>Unit test</strong></p>
+<p>Unit test merupakan unit terkecil pengecekan kode yang dibuat berdasar fungsi tiap kelas. 1 kelas unit test bertanggung jawab untuk mengecek 1 kelas yang ada.</p>
+<p>Setidaknya ada 3 pengecekan yang dilakukan pada unit test:</p>
+<ul><li>test yang dilakukan agar response berjalan sesuai dengan keinginan kita</li><li>test yang dilakukan agar error ditemukan (predictable error)</li><li>test yang dilakukan apabila input program tidak sesuai</li></ul>
+<p><strong>Integration test / system testing</strong></p>
+<p>Tes ini dilakukan untuk menerjemahkan kebutuhan bisnis apakah sesuai dengan kode yang kita kembangkan.</p>
+<p>Tes ini bersifat <em>high level</em>, tes ini bersifat apakah input yang diberikan user mempengaruhi modul mana saja, servis yang dijalankan dan tidak dijalankan mana saja, apakah ada validasi di model lain rusak ketika ada inputan dimasukkan.</p>
+<p>Dan apabila ada skenario yang tidak normal, respon yang diberikan sesuai misal tidak error 500 tapi menampilkan halaman ilustrasi permintaan maaf.</p>
+<h4>Menghadapi error</h4>
+<p>Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti.</p>
+<ul><li>Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)</li><li>Apakah konfigurasi yang dijalankan pada production sudah sesuai.</li><li>Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolom</li><li>Cek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)</li><li>Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian.</li></ul>
+<blockquote>- sekian, murid pamit dulu untuk menimba ilmu lainnya</blockquote>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d441249c5002" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2019-12-11">11 Dec 2019</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#experience">experience</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#software-development">software-development</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#technology">technology</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="//how-to-clone-me/"> &laquo; How to clone medium story into custom domain</a>
+            
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2019 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+<script src="/assets/js/lazyload.js"></script>
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

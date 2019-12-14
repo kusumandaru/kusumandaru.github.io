@@ -5,9 +5,83 @@
     <description>Collection medium story of kusumandaru</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 05 Oct 2019 15:28:37 +0700</pubDate>
-    <lastBuildDate>Sat, 05 Oct 2019 15:28:37 +0700</lastBuildDate>
+    <pubDate>Sat, 14 Dec 2019 11:19:03 +0700</pubDate>
+    <lastBuildDate>Sat, 14 Dec 2019 11:19:03 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Memetik ilmu dari pemogram senior</title>
+        <description>&lt;p&gt;Apa yang dapat dipelajari dari maestro perangkat lunak dari bermacam perusahaan mulai dari IT konsultan, startup hingga perusahaan konvensional.&lt;/p&gt;
+&lt;p&gt;Saya bersyukur memiliki pengalaman untuk bekerja bersama para ahli IT di berbagai macam bidang. Ini merupakan rangkuman dari hal-hal baik yang dibagikan kepada kami.&lt;/p&gt;
+&lt;h3&gt;Softskill&lt;/h3&gt;
+&lt;h4&gt;&lt;strong&gt;Rela untuk terus belajar&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Di ranah IT teknologi terus bergerak dengan cepat, selain itu metodologi baru akan terus dikembangkan dan diperbarui semisal xtreme programming, agile, scrum. Bahkan pada bahasa yang sama semisal PHP niscaya terus bergerak versi serta frameworknya. Untuk itu kita harus senantiasa mengikuti perkembangan teknologi dan dapat membandingkannya apakah sesuai dengan kebutuhan. Namun di sisi lainnya tidak asal mengikuti tren masal (hype driven design) di seminar atau forum online tanpa melakukan analisis kelayakan.&lt;/p&gt;
+&lt;p&gt;Harus ada keseimbangan berapa persen kecocokan teknologi yang digunakan dengan kebutuhan bisnis, selain itu dipertimbangkan pula kemudahan merekrut tim sesuai kondisi pasar bila ada pertimbangan untuk bertumbuh dengan cepat. Serta tidak kalah penting bagaimana dukungan layanan serta komunitas yang matang untuk jangka panjangnya.&lt;/p&gt;
+&lt;p&gt;Poin lainnya, kita juga harus dapat mendengar pendapat tim kita tentang pemikirannya dalam mendesain atau memilih pendekatan bagaimana sistem dibuat sebelum melakukan koding untuk dapat melihat perspektif secara luas dan membantu kita menemukan celah bug yang mungkin tidak kita pikirkan sebelumnya.&lt;/p&gt;
+&lt;h4&gt;Rela untuk berbagi&lt;/h4&gt;
+&lt;p&gt;Terkadang kita takut kalau kita menjelaskan kode yang kita buat maka kita tidak mempunyai &lt;em&gt;bargain &lt;/em&gt;untuk bertahan atau kata lain kita menjadi mudah tergantikan. Tapi dengan kita membagi konsep kita, ada nilai positif didalamnya. Pertama ketika kita liburan, kita tidak terganggu apabila ada bug sebab ada yang bisa menindaklanjuti. Kedua ketika kita berbagi kode yang kita buat, kita tertantang untuk mengerti basis kode yang kita buat serta menambah pemahaman kita sendiri dan memperoleh masukan yang lebih baik.&lt;/p&gt;
+&lt;h4&gt;Menjaga integritas&lt;/h4&gt;
+&lt;p&gt;Di indonesia untuk bidang IT saat ini, seringkali kita bekerja sama atau menemui rekan kerja yang itu itu saja. Elo lagi elo lagi kasarannya. Dan ketika kita pindah kerja ternyata kita punya kenalan dengan kolega yang sama atau setidaknya memiliki info si A seperti apa atau si B direkomendasikan bagus oleh banyak pihak. Sehingga nama baik dan relasi dalam dunia IT patut dijaga dalam bentuk integritas.&lt;/p&gt;
+&lt;p&gt;Referensi seringkali juga menjadi poin tambahan ketika ada perekrutan kerja. Apalagi ketika lowongan itu bersifat close recruitment atau tertutup.&lt;/p&gt;
+&lt;p&gt;Menjaga nama baik itu penting sebab dunia IT itu sempit&lt;/p&gt;
+&lt;h4&gt;Menempatkan situasi sesuai tempatnya&lt;/h4&gt;
+&lt;p&gt;Biarkan masalah ada yang di rumah tetap di rumah dan masalah di kantor tetap di kantor. Ini diluar kasus khusus semisal ada keluarga sakit atau berduka maka kita gunakan ijin kantor untuk fokus menanganinya. Sementara apabila kita berada pada jam kantor sebaiknya urusan personal dapat dikesampingkan karena salah satu amanah adalah menghabiskan jam kerja untuk urusan kerja.&lt;/p&gt;
+&lt;p&gt;Kalau kita kerja untuk keluarga, sepatutnya bila sudah di rumah kita dapat menghargai waktu untuk keluarga secara adil. Sebab kerjaan itu pasti selalu ada.&lt;/p&gt;
+&lt;p&gt;Jangan sampai cuti liburan masih membawa laptop atau membalas email.&lt;/p&gt;
+&lt;h4&gt;Menjaga kesehatan&lt;/h4&gt;
+&lt;p&gt;Membuat aplikasi bukan kontes lari sprint untuk beberapa hari atau minggu namun merupakan buah dari perjuangan maraton bulanan hingga tahunan usaha dan perjuangan tim.&lt;/p&gt;
+&lt;p&gt;Kebanyakan lembur malah akan &lt;a href=&quot;https://lengstorf.com/overtime-hurts-productivity/&quot;&gt;mengurangi produktivitas&lt;/a&gt; dalam jangka panjang.&lt;/p&gt;
+&lt;p&gt;Kegiatan kecil seperti peregangan otot, jalan kecil dan minum air putih secara sering dapat mengurangi efek negatif kebanyakan duduk. Selain itu usahakan posisi mata sejajar monitor dan kurangi menunduk agar leher tidak sakit.&lt;/p&gt;
+&lt;h3&gt;Hardskill&lt;/h3&gt;
+&lt;h4&gt;Penamaan variable&lt;/h4&gt;
+&lt;p&gt;Pernahkan saat kita akan memperbaiki bug dan menemukan kode tersebut acak adut atau tidak jelas fungsinya apa, sehingga kita jengkel dan ketika melakukan git blame ternyata penulisnya adalah kita sendiri.&lt;/p&gt;
+&lt;p&gt;Penamaan variable sebisa mungkin bersifat eksplisit, jelas dan ringkas untuk apa variable itu digunakan. semisal sendSms hanya untuk mengirim sms, atau close_session untuk mengakhiri sesi yang dilakukan.&lt;/p&gt;
+&lt;p&gt;Selain itu penamaan variable sebisa mungkin tidak melampui fungsi didalamnya semisal sendSms ternyata juga melakukan pengiriman notifikasi pada &lt;em&gt;fcm&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Penamaan yang spesifik juga membantu dalam pengkategorian test. Contoh apabila ada nama variable save_all , bisa terjadi ambiguitas atau pertanyaan susulan, fungsi yang disimpan itu model mana saja atau transaksi yang terjadi didalamnya apa saja. Apabila dipecah menjadi fungsi lebih kecil akan memudahkan batasan test atau cara mengetes variable ini.&lt;/p&gt;
+&lt;p&gt;Terkecuali untuk transaksi yang bersifat atomik, semisal ketika melakukan debet akun, akun kreditnya juga harus ikut berubah.&lt;/p&gt;
+&lt;h4&gt;Dokumentasi teknis&lt;/h4&gt;
+&lt;p&gt;Dokumentasi teknis lebih baik berada dalam bentuk repository dibanding dokumen terpisah (kecuali high level documentation atau memang perjanjian dengan klien yang membutuhkan dokumentasi tertulis).&lt;/p&gt;
+&lt;p&gt;Alasan kenapa dokumentasi berada pada repository (commit message), sebab kode seringkali berubah sesuai kebutuhan di lapangan, dan seringkali dokumentasi yang terpisah jarang untuk diupdate.&lt;/p&gt;
+&lt;p&gt;Sebisa mungkin untuk commit message beri penjelasan singkat kenapa kode berubah dan kelompokkan berdasar kode yang berubah. Jangan melakukan 1 commit message untuk 100 kode yang berubah. selain membuat rancu dokumentasi ini juga lebih susah untuk direvert apabila ada kode yang ingin di rollback.&lt;/p&gt;
+&lt;p&gt;Untuk kode yang memerlukan api, bisa menggunakan &lt;a href=&quot;https://swagger.io/&quot;&gt;swagger&lt;/a&gt; untuk dokumentasi input, output maupun test api didalamnya.&lt;/p&gt;
+&lt;p&gt;Untuk dokumentasi di dalam kode masukkan apabila ada aturan bisnis yang diperlukan mengapa kode itu perlu dibuat dan tidak semua fungsi perlu didokumentasikan asal penamaan kode jelas dan fungsi bersifat terbatas bukan kode sapu jagad.&lt;/p&gt;
+&lt;p&gt;Anda dapat melihat pendokumentasian teknis &lt;a href=&quot;https://medium.com/@kusumandaru/aplikasi-lebih-dari-dokumentasi-tepatkah-353c814ccd6e&quot;&gt;disini&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;TLDR anggap apa yang kita dokumentasikan ini menjadi petunjuk apabila ada developer baru itu masuk sehingga mengerti apa yang kita kerjakan.&lt;/p&gt;
+&lt;h4&gt;Kode review&lt;/h4&gt;
+&lt;p&gt;Kode review memberi aspek positif bagi reviewer dan pembuat &lt;em&gt;request&lt;/em&gt;. Pembuat &lt;em&gt;request&lt;/em&gt; dapat mendapat masukan bagaimana kode yang bekerja lebih efisien atau menghilangkan bug yang kasat mata. Bagi &lt;em&gt;reviewer&lt;/em&gt; ia mendapat ilmu bagaimana tugas yang diberikan diterjemahkan dalam bentuk kode, fungsi baru yang diperkenalkan oleh pembuat request. Dan menjadi prasarana untuk &lt;em&gt;transfer knowledge&lt;/em&gt; berbagi pengetahuan mengenai apa yang dikerjakan dan standar kode yang berlaku dalam organisasi tersebut.&lt;/p&gt;
+&lt;p&gt;Tips untuk kode review, sebisa mungkin jangan melakukan &lt;em&gt;blaming&lt;/em&gt; tapi tanyakan pertanyaan secara konstruktif semisal:&lt;/p&gt;
+&lt;p&gt;Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance. &lt;strong&gt;&lt;em&gt;dibanding&lt;/em&gt;&lt;/strong&gt;&lt;em&gt; &lt;/em&gt;Kenapa fungsi ini punya 100 baris kode?&lt;/p&gt;
+&lt;p&gt;Untuk pull request sebisa mungkin dipecah ke satuan task, sehingga pull request tidak terlalu besar dan menyebabkan reviewer menjadi pusing dan malas untuk mereview puluhan hingga ratusan perubahan file.&lt;/p&gt;
+&lt;p&gt;Apabila dirasa perubahan kode tidak bisa di masukkan ke &lt;em&gt;branch master&lt;/em&gt; secara sedikit, coba buat feature branchyang berasal dari master atau lakukan feature flag untuk kode tersebut tidak langsung aktif ketika di&lt;em&gt;merge&lt;/em&gt; ke master.&lt;/p&gt;
+&lt;p&gt;Selain itu jangan baper di pull request, dan merasa ditekan. Ingat konflik hanya ada di atas komentar, tidak ada &lt;em&gt;personal feeling&lt;/em&gt; di dalamnya.&lt;/p&gt;
+&lt;h4&gt;&lt;strong&gt;Melakukan test&lt;/strong&gt;&lt;/h4&gt;
+&lt;p&gt;Ada dua tipe test yang setidaknya dibuat sebagai perekayasa perangkat lunak.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Unit test&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Unit test merupakan unit terkecil pengecekan kode yang dibuat berdasar fungsi tiap kelas. 1 kelas unit test bertanggung jawab untuk mengecek 1 kelas yang ada.&lt;/p&gt;
+&lt;p&gt;Setidaknya ada 3 pengecekan yang dilakukan pada unit test:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;test yang dilakukan agar response berjalan sesuai dengan keinginan kita&lt;/li&gt;&lt;li&gt;test yang dilakukan agar error ditemukan (predictable error)&lt;/li&gt;&lt;li&gt;test yang dilakukan apabila input program tidak sesuai&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Integration test / system testing&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Tes ini dilakukan untuk menerjemahkan kebutuhan bisnis apakah sesuai dengan kode yang kita kembangkan.&lt;/p&gt;
+&lt;p&gt;Tes ini bersifat &lt;em&gt;high level&lt;/em&gt;, tes ini bersifat apakah input yang diberikan user mempengaruhi modul mana saja, servis yang dijalankan dan tidak dijalankan mana saja, apakah ada validasi di model lain rusak ketika ada inputan dimasukkan.&lt;/p&gt;
+&lt;p&gt;Dan apabila ada skenario yang tidak normal, respon yang diberikan sesuai misal tidak error 500 tapi menampilkan halaman ilustrasi permintaan maaf.&lt;/p&gt;
+&lt;h4&gt;Menghadapi error&lt;/h4&gt;
+&lt;p&gt;Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti.&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)&lt;/li&gt;&lt;li&gt;Apakah konfigurasi yang dijalankan pada production sudah sesuai.&lt;/li&gt;&lt;li&gt;Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolom&lt;/li&gt;&lt;li&gt;Cek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)&lt;/li&gt;&lt;li&gt;Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian.&lt;/li&gt;&lt;/ul&gt;
+&lt;blockquote&gt;- sekian, murid pamit dulu untuk menimba ilmu lainnya&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d441249c5002&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 Dec 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/memetik-ilmu-da/</link>
+        <guid isPermaLink="true">http://localhost:4000/memetik-ilmu-da/</guid>
+        
+        
+        <category>software-development</category>
+        
+        <category>technology</category>
+        
+        <category>experience</category>
+        
+      </item>
     
       <item>
         <title>How to clone medium story into custom domain</title>
@@ -587,76 +661,6 @@
         <category>health</category>
         
         <category>work-life-balance</category>
-        
-      </item>
-    
-      <item>
-        <title>Tips mengkonversi .Net Framework ke .Net Core</title>
-        <description>&lt;h3&gt;Tips mengkonversi .Net Framework ke .Net Core&lt;/h3&gt;
-&lt;p&gt;&lt;em&gt;.NET framework&lt;/em&gt; atau biasa dikenal dengan &lt;em&gt;dot net&lt;/em&gt; adalah &lt;em&gt;framework&lt;/em&gt; perangkat lunak yang diproduksi oleh &lt;a href=&quot;https://en.wikipedia.org/wiki/Microsoft&quot;&gt;Microsoft&lt;/a&gt; dan dijalankan pada media Microsoft Windows.&lt;/p&gt;
-&lt;p&gt;Dot net berjalan pada perangkat lunak &lt;em&gt;virtual machine&lt;/em&gt; (&lt;em&gt;Common Language Runtime) &lt;/em&gt;alih-alih menggunakan perangkat keras komputer. Dan &lt;a href=&quot;https://en.wikipedia.org/wiki/Common_Language_Runtime&quot;&gt;CLR&lt;/a&gt; ini berjalan &lt;em&gt;native &lt;/em&gt;pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan &lt;em&gt;library &lt;/em&gt;Framework Class Library (&lt;a href=&quot;https://en.wikipedia.org/wiki/Framework_Class_Library&quot;&gt;FCL&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;.Net Core bersifat &lt;em&gt;open source &lt;/em&gt;dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2014/12/04/introducing-net-core/&quot;&gt;CoreFX&lt;/a&gt; yang merupakan &lt;em&gt;porting &lt;/em&gt;dari sebagian FCL&lt;/p&gt;
-&lt;p&gt;Ada beberapa &lt;em&gt;checklist&lt;/em&gt; kapan menggunakan .net kapan menggunakan .netCore.&lt;/p&gt;
-&lt;p&gt;Tetap gunakan .net ketika:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Servernya harus menggunakan Windows Server&lt;/li&gt;&lt;li&gt;Basis kode saat ini sebagian besar menggunakan .net Framework&lt;/li&gt;&lt;li&gt;&lt;em&gt;Library &lt;/em&gt;atau paket &lt;em&gt;nuget &lt;/em&gt;belum tersedia di .netcore&lt;/li&gt;&lt;li&gt;Platform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric)&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Gunakan .net Core ketika:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;membutuhkan aplikasi lintas platform&lt;/li&gt;&lt;li&gt;menggunakan Docker&lt;/li&gt;&lt;li&gt;membutuhkan &lt;a href=&quot;https://blogs.msdn.microsoft.com/dotnet/2017/06/07/performance-improvements-in-net-core/&quot;&gt;peforma lebih cepat&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Apabila diperlukan &lt;em&gt;porting&lt;/em&gt; .net ke .netCore dapat dilakukan dengan beberapa langkah.&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Identifikasi apakah ada &lt;em&gt;third party library &lt;/em&gt;pada projek saat ini.&lt;/li&gt;&lt;/ol&gt;
-&lt;p&gt;Kita dapat melakukan pengecekan dengan beberapa cara:&lt;/p&gt;
-&lt;p&gt;a. melihat reference pada tiap-tiap proyek.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/598/1*7sB8pZ02YWjg1YfbD-YHOQ.png&quot; /&gt;&lt;figcaption&gt;TIdak ada third party&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;b. Kita dapat menggunakan &lt;a href=&quot;https://github.com/Microsoft/dotnet-apiport&quot;&gt;tools apiport&lt;/a&gt; untuk mencek kompabilitas dari libary yang kita gunakan.&lt;/p&gt;
-&lt;pre&gt;apiport analyzae -f .&lt;/pre&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png&quot; /&gt;&lt;figcaption&gt;checking library&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan.&lt;/p&gt;
-&lt;p&gt;Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*D4f7l67AvwC3FhMzCceCfg.png&quot; /&gt;&lt;figcaption&gt;portabilitas library&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*AKT2x5bQIMMg2WVXUM8azg.png&quot; /&gt;&lt;figcaption&gt;Library yang tidak ditemukan&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core&lt;/p&gt;
-&lt;p&gt;Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan:&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahulu&lt;/li&gt;&lt;li&gt;Bila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain.&lt;/li&gt;&lt;/ol&gt;
-&lt;p&gt;Kita dapat juga menggunakan situs &lt;a href=&quot;https://packagesearch.azurewebsites.net/&quot;&gt;packagesearch&lt;/a&gt; untuk menemukan alternatif dari &lt;em&gt;package&lt;/em&gt; di .net&lt;/p&gt;
-&lt;p&gt;Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*3Wg2WI1hP5223jea_1SHpw.png&quot; /&gt;&lt;figcaption&gt;Target framework ke 4.7.2 keatas (hanya windows)&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;2. Langkah selanjutnya adalah melakukan konversi project.&lt;/p&gt;
-&lt;p&gt;Opsi pertama adalah melakukan konversi csproj.&lt;/p&gt;
-&lt;p&gt;Ubah csproj dengan Tools-&amp;gt; edit file&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*W6EDpNuqNFIH3Ycez04Ryg.png&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;ubah targetFramework menjadi dotnet framework dari &amp;lt;TargetFrameworkVersion&amp;gt;v4.6.2&amp;lt;/TargetFrameworkVersion&amp;gt; ke &amp;lt;TargetFramework&amp;gt;netcoreapp2.1&amp;lt;/TargetFramework&amp;gt;&lt;/p&gt;
-&lt;p&gt;Serta pada &amp;lt;ItemGroup&amp;gt; tambahkan &amp;lt;PackageReference Include=”Microsoft.AspNetCore.App” /&amp;gt;&lt;/p&gt;
-&lt;p&gt;Jalankan dotnet build untuk me-&lt;em&gt;restore&lt;/em&gt; dan &lt;em&gt;build&lt;/em&gt;, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa &lt;a href=&quot;https://docs.microsoft.com/en-us/aspnet/core/migration/proper-to-2x/?view=aspnetcore-2.2&quot;&gt;konfigurasi perbaikan&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Lakukan perbaikan apabila terjadi masalah saat build.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/580/1*p-nPl17Wl4o-QozY7Ykadw.png&quot; /&gt;&lt;figcaption&gt;build berhasil&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Contoh repository dapat dilihat &lt;a href=&quot;https://github.com/kusumandaru/message-broker&quot;&gt;disini&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Beberapa kendala yang terkadang muncul pada proses &lt;em&gt;porting&lt;/em&gt;:&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Paket tidak ditemukan&lt;/li&gt;&lt;/ol&gt;
-&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
-&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
-&lt;pre&gt;Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org&lt;/pre&gt;
-&lt;p&gt;AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &amp;lt;PackageReference Include=”Microsoft.AspNetCore.App” /&amp;gt; di ItemGroup&lt;/p&gt;
-&lt;pre&gt;AssemblyInfo.cs(10,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyCompanyAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;pre&gt;AssemblyInfo.cs(11,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyConfigurationAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;pre&gt;AssemblyInfo.cs(12,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyFileVersionAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;pre&gt;AssemblyInfo.cs(14,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyProductAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;pre&gt;AssemblyInfo.cs(15,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyTitleAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;pre&gt;AssemblyInfo.cs(16,12): error CS0579: Duplicate &amp;#39;System.Reflection.AssemblyVersionAttribute&amp;#39; attribute &lt;/pre&gt;
-&lt;p&gt;Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &amp;lt;GenerateAssemblyInfo&amp;gt;false&amp;lt;/GenerateAssemblyInfo&amp;gt; di PropertyGroup&lt;/p&gt;
-&lt;p&gt;Tips personal untuk refaktor ke .net core:&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net Core&lt;/li&gt;&lt;li&gt;Buat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai&lt;/li&gt;&lt;/ol&gt;
-&lt;p&gt;Selamat mengkonversi :)&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6a2445b3b8a4&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 06 Jan 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/tips-mengkonversi-net/</link>
-        <guid isPermaLink="true">http://localhost:4000/tips-mengkonversi-net/</guid>
-        
-        
-        <category>Dotnet Core</category>
-        
-        <category>Convert</category>
-        
-        <category>Dotnet</category>
         
       </item>
     

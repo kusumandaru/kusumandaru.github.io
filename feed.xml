@@ -5,8 +5,8 @@
     <description>Collection medium story of kusumandaru</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 14 Dec 2019 11:19:03 +0700</pubDate>
-    <lastBuildDate>Sat, 14 Dec 2019 11:19:03 +0700</lastBuildDate>
+    <pubDate>Mon, 23 Dec 2019 18:33:26 +0700</pubDate>
+    <lastBuildDate>Mon, 23 Dec 2019 18:33:26 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -205,7 +205,7 @@
 &lt;h4&gt;Initiation and environment setup&lt;/h4&gt;
 &lt;p&gt;First of all, we create skeleton of rails, using command: rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.&lt;/p&gt;
 &lt;p&gt;After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password.&lt;/p&gt;
-&lt;pre&gt;default: &amp;amp;default  &lt;br /&gt;adapter: mysql2  encoding: utf8  pool: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_MAX_THREADS&amp;quot;) { 5 } %&amp;gt;  host: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_HOST_DB&amp;quot;) %&amp;gt;  username: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_USERNAME_DB&amp;quot;) %&amp;gt;  password: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_PASSWORD_DB&amp;quot;) %&amp;gt;  socket: /tmp/mysql.sock&lt;/pre&gt;
+&lt;pre&gt;default: &amp;amp;default  &lt;br /&gt;adapter: mysql2&lt;br /&gt;encoding: utf8  &lt;br /&gt;pool: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_MAX_THREADS&amp;quot;) { 5 } %&amp;gt;  &lt;br /&gt;host: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_HOST_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;username: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_USERNAME_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;password: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_PASSWORD_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;socket: /tmp/mysql.sock&lt;/pre&gt;
 &lt;p&gt;For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &amp;#39;dotenv-rails&amp;#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like&lt;/p&gt;
 &lt;pre&gt;RAILS_HOST_DB=127.0.0.1&lt;br /&gt;RAILS_USERNAME_DB=root&lt;br /&gt;RAILS_PASSWORD_DB=secret_password&lt;/pre&gt;
 &lt;p&gt;also on config/application.rb add new line Dotenv::Railtie.load&lt;/p&gt;
@@ -222,13 +222,10 @@
 &lt;p&gt;create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&amp;quot;amqp://guest:guest@localhost:5672&amp;quot;) but we can also set more advance setting like :&lt;/p&gt;
 &lt;pre&gt;@connection ||= begin&lt;/pre&gt;
 &lt;pre&gt;  instance = Bunny.new(&lt;/pre&gt;
-&lt;pre&gt;    addresses: ENV[&amp;#39;AMQP_ADDRESSES&amp;#39;].try(:split, &amp;#39;,&amp;#39;),&lt;/pre&gt;
-&lt;pre&gt;    username: ENV[&amp;#39;AMQP_USER&amp;#39;],&lt;/pre&gt;
-&lt;pre&gt;    password: ENV[&amp;#39;AMQP_PASSWORD&amp;#39;],&lt;/pre&gt;
-&lt;pre&gt;    vhost: ENV[&amp;#39;AMQP_VHOST&amp;#39;],&lt;/pre&gt;
-&lt;pre&gt;    automatically_recover: true,&lt;/pre&gt;
-&lt;pre&gt;    connection_timeout: 2,&lt;/pre&gt;
-&lt;pre&gt;    continuation_timeout: (ENV[&amp;#39;CONTINUATION_TIMEOUT&amp;#39;] || 10_000).to_i,&lt;/pre&gt;
+&lt;pre&gt;    addresses: &amp;#39;localhost:5672&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;    username: &amp;#39;guest&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;    password: &amp;#39;guest&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;    vhost: &amp;#39;/&amp;#39;,&lt;/pre&gt;
 &lt;pre&gt;    logger: Rails.logger&lt;/pre&gt;
 &lt;pre&gt;  )&lt;/pre&gt;
 &lt;pre&gt;  instance.start&lt;/pre&gt;
@@ -239,7 +236,7 @@
 &lt;pre&gt;def publish(options = {})&lt;/pre&gt;
 &lt;pre&gt;  channel = ::Publisher::BunnyPublisher.connection.create_channel&lt;/pre&gt;
 &lt;pre&gt;  exchange = channel.exchange(&lt;/pre&gt;
-&lt;pre&gt;    ENV[&amp;#39;AMQP_EXCHANGE&amp;#39;],&lt;/pre&gt;
+&lt;pre&gt;    &amp;#39;sneakers&amp;#39;,&lt;/pre&gt;
 &lt;pre&gt;    type: &amp;#39;direct&amp;#39;,&lt;/pre&gt;
 &lt;pre&gt;    durable: true&lt;/pre&gt;
 &lt;pre&gt;  )&lt;/pre&gt;
@@ -251,24 +248,19 @@
 &lt;p&gt;For background processing consumer we choose &lt;a href=&quot;https://github.com/jondot/sneakers&quot;&gt;sneakers&lt;/a&gt;, install via gem install sneakers&lt;/p&gt;
 &lt;p&gt;create initializer on config/initializers/sneakers.rb and set configuration:&lt;/p&gt;
 &lt;pre&gt;Sneakers.configure  connection: Connection.sneakers,&lt;/pre&gt;
-&lt;pre&gt;  exchange: ENV[&amp;#39;SNEAKER_AMQP_EXCHANGE&amp;#39;], # AMQP exchange&lt;/pre&gt;
+&lt;pre&gt;  exchange: &amp;#39;sneakers,&lt;/pre&gt;
 &lt;pre&gt;  exchange_type: :direct,&lt;/pre&gt;
 &lt;pre&gt;  runner_config_file: nil,&lt;/pre&gt;
 &lt;pre&gt;  metric: nil,&lt;/pre&gt;
-&lt;pre&gt;  daemonize: false,&lt;/pre&gt;
-&lt;pre&gt;  workers: ENV[&amp;#39;SNEAKERS_WORKER&amp;#39;].to_i,&lt;/pre&gt;
+&lt;pre&gt;  workers: 1,&lt;/pre&gt;
 &lt;pre&gt;  log: STDOUT,&lt;/pre&gt;
 &lt;pre&gt;  pid_path: &amp;#39;sneakers.pid&amp;#39;,&lt;/pre&gt;
 &lt;pre&gt;  timeout_job_after: 5.minutes,&lt;/pre&gt;
-&lt;pre&gt;  prefetch: ENV[&amp;#39;SNEAKERS_PREFETCH&amp;#39;].to_i,&lt;/pre&gt;
-&lt;pre&gt;  threads: ENV[&amp;#39;SNEAKERS_THREADS&amp;#39;].to_i,&lt;/pre&gt;
 &lt;pre&gt;  env: ENV[&amp;#39;RAILS_ENV&amp;#39;], &lt;/pre&gt;
 &lt;pre&gt;  durable: true,&lt;/pre&gt;
 &lt;pre&gt;  ack: true,&lt;/pre&gt;
-&lt;pre&gt;  heartbeat: 5,&lt;/pre&gt;
-&lt;pre&gt;  handler: Sneakers::Handlers::Maxretry,&lt;/pre&gt;
-&lt;pre&gt;  retry_max_times: 10,&lt;/pre&gt;
-&lt;pre&gt;  retry_timeout: 3 * 60 * 1000 &lt;/pre&gt;
+&lt;pre&gt;  heartbeat: 2,&lt;/pre&gt;
+&lt;pre&gt;  handler: Sneakers::Handlers::Maxretry&lt;/pre&gt;
 &lt;pre&gt;Sneakers.logger = Rails.logger&lt;/pre&gt;
 &lt;pre&gt;Sneakers.logger.level = Logger::WARN&lt;/pre&gt;
 &lt;p&gt;we choose &lt;strong&gt;ack&lt;/strong&gt; option to be true to make sure message must be acknowledge when process is finished on consumer&lt;/p&gt;

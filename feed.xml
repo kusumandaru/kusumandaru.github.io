@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kusumandaru</title>
-    <description>Collection medium story of kusumandaru</description>
-    <link>http://localhost:4000/</link>
-    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Mon, 23 Dec 2019 18:33:26 +0700</pubDate>
-    <lastBuildDate>Mon, 23 Dec 2019 18:33:26 +0700</lastBuildDate>
+    <description>Collection of medium story</description>
+    <link>https://kusumandaru.com/</link>
+    <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Sat, 15 Feb 2020 14:22:11 +0700</pubDate>
+    <lastBuildDate>Sat, 15 Feb 2020 14:22:11 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
     
       <item>
@@ -71,8 +71,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d441249c5002&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Dec 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/memetik-ilmu-da/</link>
-        <guid isPermaLink="true">http://localhost:4000/memetik-ilmu-da/</guid>
+        <link>https://kusumandaru.com/memetik-ilmu-da/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/memetik-ilmu-da/</guid>
         
         
         <category>software-development</category>
@@ -135,8 +135,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3ab1c3c9625f&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Sep 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/how-to-clone-me/</link>
-        <guid isPermaLink="true">http://localhost:4000/how-to-clone-me/</guid>
+        <link>https://kusumandaru.com/how-to-clone-me/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/how-to-clone-me/</guid>
         
         
         <category>rss-feeds</category>
@@ -183,8 +183,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b4590273c3c9&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9&quot;&gt;How we rewrite our code without customer aware and uninterrupted business&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 28 Aug 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/how-we-rewrite/</link>
-        <guid isPermaLink="true">http://localhost:4000/how-we-rewrite/</guid>
+        <link>https://kusumandaru.com/how-we-rewrite/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/how-we-rewrite/</guid>
         
         
         <category>migration</category>
@@ -292,8 +292,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6aa6893ef819&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 17 Aug 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/publish-subscri/</link>
-        <guid isPermaLink="true">http://localhost:4000/publish-subscri/</guid>
+        <link>https://kusumandaru.com/publish-subscri/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/publish-subscri/</guid>
         
         
         <category>publish-subscribe</category>
@@ -337,8 +337,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=356c2bdbb48&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 14 Jul 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/cheatsheet-depl/</link>
-        <guid isPermaLink="true">http://localhost:4000/cheatsheet-depl/</guid>
+        <link>https://kusumandaru.com/cheatsheet-depl/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/cheatsheet-depl/</guid>
         
         
         <category>build</category>
@@ -420,8 +420,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3958ab020565&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 19 May 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/budaya-beracun/</link>
-        <guid isPermaLink="true">http://localhost:4000/budaya-beracun/</guid>
+        <link>https://kusumandaru.com/budaya-beracun/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/budaya-beracun/</guid>
         
         
         <category>programming</category>
@@ -468,8 +468,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=353c814ccd6e&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 26 Mar 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/aplikasi-lebih/</link>
-        <guid isPermaLink="true">http://localhost:4000/aplikasi-lebih/</guid>
+        <link>https://kusumandaru.com/aplikasi-lebih/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/aplikasi-lebih/</guid>
         
         
         <category>agile</category>
@@ -541,8 +541,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=152339342b7c&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 24 Feb 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/create-personal/</link>
-        <guid isPermaLink="true">http://localhost:4000/create-personal/</guid>
+        <link>https://kusumandaru.com/create-personal/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/create-personal/</guid>
         
         
         <category>ssl</category>
@@ -600,8 +600,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=1c90c24be9b7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Tue, 05 Feb 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/10-years-challe/</link>
-        <guid isPermaLink="true">http://localhost:4000/10-years-challe/</guid>
+        <link>https://kusumandaru.com/10-years-challe/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/10-years-challe/</guid>
         
         
         <category>10yearchallenge</category>
@@ -642,8 +642,8 @@
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ad55dd14c12a&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/menjaga-kesehatan-sebagai-software-engineer-ad55dd14c12a&quot;&gt;Menjaga kesehatan sebagai software engineer&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 20 Jan 2019 00:00:00 +0700</pubDate>
-        <link>http://localhost:4000/menjaga-kesehat/</link>
-        <guid isPermaLink="true">http://localhost:4000/menjaga-kesehat/</guid>
+        <link>https://kusumandaru.com/menjaga-kesehat/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/menjaga-kesehat/</guid>
         
         
         <category>engineer</category>

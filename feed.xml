@@ -5,9 +5,69 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 15 Feb 2020 14:41:03 +0700</pubDate>
-    <lastBuildDate>Sat, 15 Feb 2020 14:41:03 +0700</lastBuildDate>
+    <pubDate>Sat, 14 Mar 2020 16:26:55 +0700</pubDate>
+    <lastBuildDate>Sat, 14 Mar 2020 16:26:55 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Streaming json data to Big Query using Rails 6</title>
+        <description>&lt;p&gt;&lt;strong&gt;How to stream data using job and test it using RSpec.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Bigquery is SAAS using REST api to managed data warehouse which provided by google. It can be combine with mapreduce and have machine learning capability.&lt;/p&gt;
+&lt;p&gt;This topic is try to send data to bigQuery, there is any way to send data using ruby, such as:&lt;/p&gt;
+&lt;pre&gt;# upload using csv&lt;br /&gt;table.load &amp;quot;gs://my-bucket/file-name.csv&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;# load using json&lt;br /&gt;table.insert data_rows&lt;/pre&gt;
+&lt;p&gt;For these tutorial we try to send via last one (streaming json), for complete description see &lt;a href=&quot;https://googleapis.dev/ruby/google-cloud-bigquery/latest/index.html&quot;&gt;this link&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Step 1: Create service account and install gemfile&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;It assume you already install Rails 6. First of all make sure some of gem below are already insert in Gemfile.lock. rspec and webmock used for test bigquery service&lt;/p&gt;
+&lt;pre&gt;gem &amp;#39;google-cloud-bigquery&amp;#39;group :test do&lt;br /&gt;  gem &amp;#39;rspec-rails&amp;#39;&lt;br /&gt;  gem &amp;#39;webmock&amp;#39;end&lt;/pre&gt;
+&lt;pre&gt;end&lt;/pre&gt;
+&lt;p&gt;After that, install with command bundle install .&lt;/p&gt;
+&lt;p&gt;These gem using key from Service Account, before we create key, we need to define Role for these service account, since we only need to steam data and avoid alter or delete table, we register these roles:&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&quot;&gt;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;Example give this roles name BigQuery Stream&lt;/p&gt;
+&lt;p&gt;Back into service account create new one, than assign role into this service,&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*EcHLUnNNl_2SwKkJ.png&quot; /&gt;&lt;figcaption&gt;service account generation&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Choose json file for key generation, save into local computer. (Securing these file, and never put these file on repository)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Step 2: Create service for stream account&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Set environment variable on for path and project_id, also make sure credential json file not on same project, so it not accidentally push on repository.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*008l5QIKVFsRJEg3.png&quot; /&gt;&lt;figcaption&gt;project ID&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;pre&gt;BIGQUERY_CREDENTIAL_PATH=/path-to-file/bigquery.json&lt;br /&gt;BIGQUERY_PROJECT_ID=bigquery-test-270003&lt;/pre&gt;
+&lt;p&gt;After that create base service file to connect to bigquery, like base.rb&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&quot;&gt;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;We load library bigquery also use active model for catch error on header filer&lt;/p&gt;
+&lt;p&gt;We load configuration using environment variable and initialize instance on initialise method.&lt;/p&gt;
+&lt;p&gt;Since we make base class as superclass and inheritance dataset and table id we must define on base.rb and than we load these dataset and table, after that we call method to send json data into bigquery.&lt;/p&gt;
+&lt;p&gt;We need check if table is exist on bigquery before we stream data, and than we send data into bigquery and check if response is success or not, if response file than we catch errors to show to user and return false value, otherwise we return true response.&lt;/p&gt;
+&lt;p&gt;Than we can define subclass for sent data, for example, we try send user model&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&quot;&gt;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;We then define DATASET_ID and TABLE_ID for these service and convert model into json using as_json method&lt;/p&gt;
+&lt;p&gt;we define shared example to mock bigquery, catch response form response and define on json for each request&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&quot;&gt;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;and we create spec by test this class:&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&quot;&gt;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;For final step we create job so, streaming data running on background task&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&quot;&gt;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;We check model is exist before we send and we call service to run job&lt;/p&gt;
+&lt;p&gt;for spec test we check using these command&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&quot;&gt;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;And you can call by using command:&lt;/p&gt;
+&lt;p&gt;BigQuery::UserStreamJob.perform_later(some_user.id)&lt;/p&gt;
+&lt;p&gt;Check on bigquery console when data is succesfully inserted&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*a-7b53oaGAZ58qAh.png&quot; /&gt;&lt;figcaption&gt;user table&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=c422ac47d520&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 14 Mar 2020 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/streaming-json/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/streaming-json/</guid>
+        
+        
+        <category>rails</category>
+        
+        <category>streaming</category>
+        
+        <category>bigquery</category>
+        
+      </item>
     
       <item>
         <title>Memetik ilmu dari pemogram senior</title>
@@ -609,50 +669,6 @@
         <category>ekonomi</category>
         
         <category>harga</category>
-        
-      </item>
-    
-      <item>
-        <title>Menjaga kesehatan sebagai software engineer</title>
-        <description>&lt;h4&gt;Seringkali stigma developer adalah pekerjaan yang merusak ritme hidup dan dapat menimbun penyakit. Berikut beberapa tips untuk menjauhinya.&lt;/h4&gt;
-&lt;h4&gt;L̵e̵m̵b̵u̵r̵&lt;/h4&gt;
-&lt;p&gt;Kelelahan/burnout. Kelelahan bisa terjadi atas akumulasi kurang istirahat. Efek dari burnout antara lain:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Menyebabkan lemas, badan sakit dan susah tidur. Kerja lebih dari 40 jam seminggu &lt;a href=&quot;https://realbusiness.co.uk/40-hour-work-weeks-cause-burnout/&quot;&gt;meningkatkan resiko &lt;em&gt;burnout&lt;/em&gt;&lt;/a&gt;&lt;em&gt;.&lt;/em&gt;&lt;/li&gt;&lt;li&gt;Menjadi merasa perlu lembur untuk penghasilan tambahan. Untuk kantor yang memberlakukan insentif lembur. hal ini dapat mengakibatkan ketergantungan akan penghasilan tambahan sehingga terbersit pikiran harus lembur. Selain itu pengeluaran akan bertambah akibat dari pelampiasan lembur entah dari pengeluaran medikal atau hiburan pelepas stres.&lt;/li&gt;&lt;li&gt;Mengurangi kualitas hidup. Kita hanya bisa berada di satu tempat dalam satu waktu. dan bila sedang lembur kita akan kehilangan momen lainnya. dan semoga bukan ulang tahun anak atau acara penting lainnya. Di satu sisi uang lembur dapat meningkatkan keuangan keluarga, tapi di sisi lain keluarga akan kehilangan waktu bersamamu. Menyeimbangkan kerja dan hidup butuh usaha yang kuat, apalagi ditambah dengan lembur&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Untuk memilih kantor yang memiliki budaya non lembur, bisa dilihat di situs seperti &lt;a href=&quot;https://www.qerja.com/&quot;&gt;qerja&lt;/a&gt;, &lt;a href=&quot;https://www.glassdoor.com&quot;&gt;glassdoor&lt;/a&gt;, akan lebih baik bila mendapat referensi langsung dari teman yang bekerja di kantor tersebut&lt;/p&gt;
-&lt;h4&gt;Tidur cukup&lt;/h4&gt;
-&lt;p&gt;Seperti pada &lt;a href=&quot;https://speakerdeck.com/kuntoaji/tips-mujarab-untuk-peningkatan-produktivitas&quot;&gt;artikel kunto aji&lt;/a&gt;, tidur cukup dapat menambah konsentrasi dan vitalitas dalam beraktivitas. Tidur cukup dapat membuat karyawan fokus bekerja dan memecahkan masalah.&lt;/p&gt;
-&lt;p&gt;Cukup tidur dapat pula menjaga emosi ketika berhadapan dengan rekan kerja.&lt;/p&gt;
-&lt;h4&gt;Remote&lt;/h4&gt;
-&lt;p&gt;Apabila memerlukan fokus untuk bekerja atau membutuhkan suasana intens. Opsi remote dapat menjadi pilihan terbaik bila rumah anda di pelosok planet sehingga ongkos perjalanan mahal, atau untuk mengurangi stres akibat suasana kerja.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*sV0dEBrBA96ZFisY6Z5Cbw.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;Untuk bekerja remote pastikan anda teratur dan fokus dengan yang dikerjakan dan memiliki tool untuk berkomunikasi asinkron.&lt;/p&gt;
-&lt;h4&gt;Apabila pairing lakukan teknik pomodoro&lt;/h4&gt;
-&lt;p&gt;Teknik Pomodoro adalah teknik manajemen waktu menggunakan timer untuk memecah pekerjaan menjadi interval, secara tradisional panjangnya 25 menit, dipisahkan oleh istirahat pendek 5 menit. Setiap interval dikenal sebagai pomodoro. Perangkat lunak &lt;a href=&quot;https://itunes.apple.com/us/app/be-focused-focus-timer&quot;&gt;untuk mac&lt;/a&gt;, atau &lt;a href=&quot;https://chrome.google.com/webstore/detail/focusme-a-pomodoro-timer/koebbleaefghpjjmghelhjboilcmfpad&quot;&gt;ekstensi chrome&lt;/a&gt;&lt;/p&gt;
-&lt;h4&gt;Ambil cuti&lt;/h4&gt;
-&lt;p&gt;Mau jalan jalan atau sekedar berkumpul bersama keluarga di rumah.&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.nature.com/articles/tp2016164&quot;&gt;Studi Universitas California&lt;/a&gt; menafsirkan meningkatnya relasi jaringan sel tubuh terkait fungsi penanganan stres dan imun tubuh.&lt;/p&gt;
-&lt;h4&gt;Perbanyak jalan&lt;/h4&gt;
-&lt;p&gt;Seperti di &lt;a href=&quot;https://medium.com/sleekrco/manfaat-masjid-dekat-kantor-9dc5d7d949ac&quot;&gt;artikel saya sebelumnya&lt;/a&gt;, jalan kaki merupakan cara gratis untuk menjaga vitalitas. Selain juga dapat mencari inspirasi dikala buntu menemukan solusi koding.&lt;/p&gt;
-&lt;h4&gt;Minum air putih&lt;/h4&gt;
-&lt;p&gt;Kopi dan engineer seperti dua sahabat yang tak terpisahkan. Salah satu tips untuk anda pecinta kopi adalah minum air putih pada pagi hari sebelum meminum seduhan kopi. Saat bangun pagi tubuh mengalami dehidrasi dan kopi merupakan salah satu agen dierutik (penyebab kencing).&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*orLqSXytcWplrjZV4ln2pg.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;Minum air putih berarti juga menghidrasi otak (75% kandungan air). Dan ini membantu fokus dan berpikir jernih, sehingga penting untuk pekerjaan sehari-hari.&lt;/p&gt;
-&lt;h4&gt;Pisahkan urusan kantor dan urusan rumah&lt;/h4&gt;
-&lt;p&gt;Selesaikan kerjaan di kantor dan jangan bawa urusan rumah di kantor. Fokus untuk berinteraksi dengan pasangan dan keluarga. Hindari menceritakan masalah keluarga di kantor untuk menjauhkan dari ghibah(gosip) dan membuka aib.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ad55dd14c12a&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/menjaga-kesehatan-sebagai-software-engineer-ad55dd14c12a&quot;&gt;Menjaga kesehatan sebagai software engineer&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 20 Jan 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/menjaga-kesehat/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/menjaga-kesehat/</guid>
-        
-        
-        <category>engineer</category>
-        
-        <category>developer</category>
-        
-        <category>health</category>
-        
-        <category>work-life-balance</category>
         
       </item>
     

@@ -5,9 +5,47 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 14 Mar 2020 16:26:55 +0700</pubDate>
-    <lastBuildDate>Sat, 14 Mar 2020 16:26:55 +0700</lastBuildDate>
+    <pubDate>Sat, 02 May 2020 22:23:12 +0700</pubDate>
+    <lastBuildDate>Sat, 02 May 2020 22:23:12 +0700</lastBuildDate>
     <generator>Jekyll v3.8.5</generator>
+    
+      <item>
+        <title>Encrypt decrypt Rails attribute using MessageEncryptor</title>
+        <description>&lt;p&gt;How we secure sensitive data using Rails MessageEncryptor, from plain attributes to secured one.&lt;/p&gt;
+&lt;p&gt;This article combined from &lt;a href=&quot;https://security.stackexchange.com/questions/17421/how-to-store-salt&quot;&gt;store salt beside hashed attributes&lt;/a&gt; and article from Pawel urbanek about &lt;a href=&quot;https://pawelurbanek.com/rails-secure-encrypt-decrypt&quot;&gt;message encryptor&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;For this example each salt is located in same record encrypted attribute. It use a salt ‘works’ by making sure the hash result unique to each used instance. This is done by picking a different random salt value for each computed hash.&lt;/p&gt;
+&lt;p&gt;MessageEncryptor is rails function which have ability to encrypt decrypt value use base64 encoded. It using key which generate from combination password , salt and length . For now it use ActiveSupport::MessageEncryptor.key_len which have 32 since ruby from version 2.4.0 forward use open ssl which have 32 bytes length.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Service to encrypt and decrypt&lt;/strong&gt;&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&quot;&gt;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;It define initialise, so each new method will create encryptor/decryptor based on salt record. Then it can encrypt or decrypt attribute.&lt;/p&gt;
+&lt;p&gt;It read key ENCRYPT_KEY_BASE from environment variable, make sure key not uploaded to repository and try to make unique for production and staging environment. Also create using hard random key like SecureRandom.base64 or SecureRandom.random_bytes&lt;/p&gt;
+&lt;h4&gt;Define concern&lt;/h4&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&quot;&gt;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;We use meta programming ruby to override class method attr_encrypted for each attribute which assigned and and assign value to encrypted_attribute&lt;/p&gt;
+&lt;p&gt;Example: attr_encrypted :mother_name, on_model user, it will overriding attribute mother_name with decrypted value and reassign value for attribute encrypted_mother_name with encrypted value. You can assign multiple attribute also on these class method&lt;/p&gt;
+&lt;p&gt;It send salt from record and encrypted_attribute to encryption service, either to encrypt or decrypt data.&lt;/p&gt;
+&lt;p&gt;When salt not exist on those record, it also built automatically use ActiveActiveSupport::MessageEncryptor.key_len a.k.a SecureRandom.random_bytes(32)&lt;/p&gt;
+&lt;h4&gt;Migrate plain attributes to encrypted one&lt;/h4&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&quot;&gt;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;After service and model already done we try to migrate unencrypted data, we define new column with prefix encrypted_ and we add salt with type binary, in postgres it will save with format bytea. Cause salt cannot save in format string.&lt;/p&gt;
+&lt;p&gt;We also define user.mother_name = user.mother_name_was since method mother_name already override on above concern, and mother_name_was is directly call active record.&lt;/p&gt;
+&lt;p&gt;For better security try to store salt in different source. Like different database, or access by another endpoint, so when database was breach, key is on another world.&lt;/p&gt;
+&lt;p&gt;Alternatively you can use third party cryptography service like aws/google cloud KMS, vault, or thales.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*Ze_S6uRvYBZLQxS4xBysHg.jpeg&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://unsplash.com/photos/0Yiy0XajJHQ&quot;&gt;https://unsplash.com/photos/0Yiy0XajJHQ&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=85e10dfe90d7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 02 May 2020 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/encrypt-decrypt/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/encrypt-decrypt/</guid>
+        
+        
+        <category>encryption</category>
+        
+        <category>rails</category>
+        
+        <category>salt</category>
+        
+      </item>
     
       <item>
         <title>Streaming json data to Big Query using Rails 6</title>
@@ -128,6 +166,7 @@
 &lt;p&gt;Jangan kedepankan asumsi, coba lakukan beberapa pengecekan terlebih dahulu seperti.&lt;/p&gt;
 &lt;ul&gt;&lt;li&gt;Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)&lt;/li&gt;&lt;li&gt;Apakah konfigurasi yang dijalankan pada production sudah sesuai.&lt;/li&gt;&lt;li&gt;Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolom&lt;/li&gt;&lt;li&gt;Cek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)&lt;/li&gt;&lt;li&gt;Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian.&lt;/li&gt;&lt;/ul&gt;
 &lt;blockquote&gt;- sekian, murid pamit dulu untuk menimba ilmu lainnya&lt;/blockquote&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*8Ak7RPdV2bxbU5lw-2Eing.jpeg&quot; /&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d441249c5002&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Dec 2019 00:00:00 +0700</pubDate>
@@ -612,63 +651,6 @@
         <category>custom-domain</category>
         
         <category>jekyll</category>
-        
-      </item>
-    
-      <item>
-        <title>10 years challenge di pusaran ekonomi</title>
-        <description>&lt;p&gt;Dewasa ini media sosial kita dipenuhi dengan tantangan 10 tahun, yang menunjukkan perbandingan kondisi tubuh saat ini dan 10 tahun sebelumnya. Saya coba menerima tantangan ini dengan membandingkan aspek ekonomi.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Biaya kuliah&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Saya masuk kuliah di salah satu perguruan tinggi di Surabaya pada tahun 2008 dengan uang semester sebesar Rp 800.000,00.&lt;/p&gt;
-&lt;p&gt;Saat ini biaya semesternya adalah 500.000 – 7.500.000. Bila kita ambil nilai mediannya sebesar 4 juta rupiah, nilai perubahannya adalah&lt;strong&gt; 5x lipat selama 10 tahun&lt;/strong&gt;.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*wmk_wtNYSGENCHd-XYblhA.png&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://smits.its.ac.id/sarjana/&quot;&gt;https://smits.its.ac.id/sarjana/&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;strong&gt;UMR Jakarta&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Berhubung kebetulan saya menumpang hidup di ibukota, tergelitik untuk membandingkan upah minimum selama 10 tahun.&lt;br /&gt;UMR tahun 2008 adalah 972.600 dan meningkat menjadi 3.648.035 pada tahun 2008. &lt;strong&gt;Kenaikannya sekitar 4x lipat&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Coba bandingkan dengan gaji kalian 10 tahun sebelumnya dengan saat ini, berapa besar prosentasenya?&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Update UMR tahun 2019 adalah 3.940.973&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Waralaba cepat saji&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Untuk kategori ini saya sulit menemukan data tahun 2008, tapi pada tahun 2010, untuk meminang sepucuk BigMac kamu harus merogoh kocek Rp. 22.000 dan ketika membeli pada saat ini menjadi 33000, &lt;strong&gt;konsumen harus beradaptasi sebesar 50 %.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Harga cabe&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Tidak afdol bila tidak membandingkan komoditi yang menjadi pembicaraan seru emak-emak ini.Pada tahun 2018 harga cabe berkisar 13–14 ribu per kilonya. Pada tahun 2018 kisaran menjadi 30 ribu — 40 ribu. &lt;strong&gt;Sekitar 2.5 x lipat kenaikan yang harus ditanggung ibu-ibu.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Kendaraan&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Kita coba bandingkan kendaraan sejuta umat. Avanza pada 2008 dijual pada kisaran 92 juta — 113 juta. Untuk harga pada 2018 harganya menjadi 202 juta — 220 juta &lt;strong&gt;meningkat sekitar 2x lipat untuk meminang mobil baru&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;Yang aneh harga jual mobil bekas pada tahun 2018 ini sekitar 80 jutaan. Hmm menarik.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Telepon genggam&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Kita coba dengan perangkat seluler yang &lt;em&gt;apple to apple&lt;/em&gt;. Harga pada tahun 2008 butuh dana sebesar 6 juta (tanpa bundling) untuk meminang iphone 3gs. Sedangkan pada tahun 2018 dibutuhkan dana 15.8 juta untuk sebuah iphone XS. &lt;strong&gt;Peningkatan harga sebanyak 2.5 x lipat selama 1 dasawarsa&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Harga tanah&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Kita menggunakan data NJOP (bukan harga broker) agar terkesan valid. Untuk tanah di bintaro jaya pada tahun 2007 sekitar 1.2 juta — 1.8 juta. Sedangkan untuk harga pada tahun 2018 adalah 9.6 juta — 12.1 juta. &lt;strong&gt;Kenaikan selama 10 tahun sebesar 8x lipat menjadi yang paling besar.&lt;/strong&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*eJ5p4q2Oj06K6Fa9FR7FkQ.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;Demikian beberapa perbandingan harga selama 10 tahun. Kenaikan gaji sekitar 4x lipat untuk UMR sedangkan kenaikan barang dan jasa sekitar 0.5 hingga 8 x lipat.&lt;br /&gt;Kenaikan paling tinggi adalah dari segi properti kedua adalah biaya kuliah. Sehingga lebih bijak kita dapat memprioritaskan kedua komponen biaya diatas.&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Pranala&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;UMR&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://www.gajiumr.com/umr-jakarta/&quot;&gt;http://www.gajiumr.com/umr-jakarta/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.liputan6.com/news/read/3148203/anies-ump-dki-2018-perhitungkan-kepentingan-buruh-dan-pengusaha&quot;&gt;Anies: UMP DKI 2018 Perhitungkan Kepentingan Buruh dan Pengusaha&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Fastfood&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.kaskus.co.id/thread/000000000000000005584205/harga-menu-mcd-14-tahun-lalu/?order=asc&quot;&gt;Harga menu mcd 14 tahun lalu&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.zomato.com/id/jakarta/mcdonalds-kemang/menu&quot;&gt;https://www.zomato.com/id/jakarta/mcdonalds-kemang/menu&lt;/a&gt; -&amp;gt; harga bisa berubah sewaktu-waktu&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Kendaraan&lt;/em&gt;&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;http://daihatsuxeniaindonesia.blogspot.com/2013/05/harga-daihatsu-xenia.html&quot;&gt;[Update] Daftar Harga Mobil Daihatsu Xenia dari tahun ke tahun&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.liputan6.com/otomotif/read/3605805/harga-mobil-avanza-terbaru-dan-terbaik-2018-bekas-dan-kredit-ada&quot;&gt;Harga Mobil Avanza Terbaru dan Terbaik 2018, Bekas dan Kredit Ada!&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.olx.co.id/all-results/q-xenia-2008/&quot;&gt;Xenia 2008 Murah Dengan Harga Terbaik - OLX.co.id&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;&lt;em&gt;Telepon genggam&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://inet.detik.com/consumer/d-1074738/di-indonesia-iphone-3g-dibanderol-rp-25-juta&quot;&gt;Di Indonesia, iPhone 3G Dibanderol Rp 2,5 Juta?&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://tekno.kompas.com/read/2018/09/13/02561767/spesifikasi-dan-harga-iphone-xs-iphone-xs-max-dan-iphone-xr&quot;&gt;https://tekno.kompas.com/read/2018/09/13/02561767/spesifikasi-dan-harga-iphone-xs-iphone-xs-max-dan-iphone-xr&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;NJOP&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://priandoyo.wordpress.com/2007/02/14/berapa-sih-harga-tanah-di-jakarta-bintaro/&quot;&gt;https://priandoyo.wordpress.com/2007/02/14/berapa-sih-harga-tanah-di-jakarta-bintaro/&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://bprd.jakarta.go.id/wp-content/uploads/downloads/2018/05/PERGUB_NO_24_TAHUN_2018-PENETAPAN-NJOP-2018-71_JAKSEL.pdf&quot;&gt;https://bprd.jakarta.go.id/wp-content/uploads/downloads/2018/05/PERGUB_NO_24_TAHUN_2018-PENETAPAN-NJOP-2018-71_JAKSEL.pdf&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;Cabe&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://finance.detik.com/berita-ekonomi-bisnis/d-872753/bawang-merah-dan-cabe-merah-bergejolak-di-akhir-tahun#komentar&quot;&gt;https://finance.detik.com/berita-ekonomi-bisnis/d-872753/bawang-merah-dan-cabe-merah-bergejolak-di-akhir-tahun&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://finance.detik.com/berita-ekonomi-bisnis/d-4206667/harga-cabai-turun-jadi-rp-30000kg&quot;&gt;https://finance.detik.com/berita-ekonomi-bisnis/d-4206667/harga-cabai-turun-jadi-rp-30000kg&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=1c90c24be9b7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 05 Feb 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/10-years-challe/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/10-years-challe/</guid>
-        
-        
-        <category>10yearchallenge</category>
-        
-        <category>ekonomi</category>
-        
-        <category>harga</category>
         
       </item>
     

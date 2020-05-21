@@ -5,8 +5,8 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 May 2020 12:53:19 +0700</pubDate>
-    <lastBuildDate>Thu, 21 May 2020 12:53:19 +0700</lastBuildDate>
+    <pubDate>Thu, 21 May 2020 13:22:18 +0700</pubDate>
+    <lastBuildDate>Thu, 21 May 2020 13:22:18 +0700</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -72,17 +72,20 @@
 &lt;p&gt;For this example each salt is located in same record encrypted attribute. It use a salt ‘works’ by making sure the hash result unique to each used instance. This is done by picking a different random salt value for each computed hash.&lt;/p&gt;
 &lt;p&gt;MessageEncryptor is rails function which have ability to encrypt decrypt value use base64 encoded. It using key which generate from combination password , salt and length . For now it use ActiveSupport::MessageEncryptor.key_len which have 32 since ruby from version 2.4.0 forward use open ssl which have 32 bytes length.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Service to encrypt and decrypt&lt;/strong&gt;&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&quot;&gt;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/03a6b220ed3706dc5c49dd2a4b48b167.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;It define initialise, so each new method will create encryptor/decryptor based on salt record. Then it can encrypt or decrypt attribute.&lt;/p&gt;
 &lt;p&gt;It read key ENCRYPT_KEY_BASE from environment variable, make sure key not uploaded to repository and try to make unique for production and staging environment. Also create using hard random key like SecureRandom.base64 or SecureRandom.random_bytes&lt;/p&gt;
 &lt;h4&gt;Define concern&lt;/h4&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&quot;&gt;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/356de4bf1c5115589a80465b5bec5683.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;We use meta programming ruby to override class method attr_encrypted for each attribute which assigned and and assign value to encrypted_attribute&lt;/p&gt;
 &lt;p&gt;Example: attr_encrypted :mother_name, on_model user, it will overriding attribute mother_name with decrypted value and reassign value for attribute encrypted_mother_name with encrypted value. You can assign multiple attribute also on these class method&lt;/p&gt;
 &lt;p&gt;It send salt from record and encrypted_attribute to encryption service, either to encrypt or decrypt data.&lt;/p&gt;
 &lt;p&gt;When salt not exist on those record, it also built automatically use ActiveActiveSupport::MessageEncryptor.key_len a.k.a SecureRandom.random_bytes(32)&lt;/p&gt;
 &lt;h4&gt;Migrate plain attributes to encrypted one&lt;/h4&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&quot;&gt;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/054b3dd7ed8d10ea75ce0e9efb45ca30.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;After service and model already done we try to migrate unencrypted data, we define new column with prefix encrypted_ and we add salt with type binary, in postgres it will save with format bytea. Cause salt cannot save in format string.&lt;/p&gt;
 &lt;p&gt;We also define user.mother_name = user.mother_name_was since method mother_name already override on above concern, and mother_name_was is directly call active record.&lt;/p&gt;
 &lt;p&gt;For better security try to store salt in different source. Like different database, or access by another endpoint, so when database was breach, key is on another world.&lt;/p&gt;
@@ -117,7 +120,8 @@
 &lt;pre&gt;end&lt;/pre&gt;
 &lt;p&gt;After that, install with command bundle install .&lt;/p&gt;
 &lt;p&gt;These gem using key from Service Account, before we create key, we need to define Role for these service account, since we only need to steam data and avoid alter or delete table, we register these roles:&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&quot;&gt;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/e1b3ddb34e96edd9a4a3452d060bf1c3.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;Example give this roles name BigQuery Stream&lt;/p&gt;
 &lt;p&gt;Back into service account create new one, than assign role into this service,&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*EcHLUnNNl_2SwKkJ.png&quot; /&gt;&lt;figcaption&gt;service account generation&lt;/figcaption&gt;&lt;/figure&gt;
@@ -127,23 +131,29 @@
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*008l5QIKVFsRJEg3.png&quot; /&gt;&lt;figcaption&gt;project ID&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;pre&gt;BIGQUERY_CREDENTIAL_PATH=/path-to-file/bigquery.json&lt;br /&gt;BIGQUERY_PROJECT_ID=bigquery-test-270003&lt;/pre&gt;
 &lt;p&gt;After that create base service file to connect to bigquery, like base.rb&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&quot;&gt;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/8fab31f9b014e3d0df18b5ff9ec66de8.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;We load library bigquery also use active model for catch error on header filer&lt;/p&gt;
 &lt;p&gt;We load configuration using environment variable and initialize instance on initialise method.&lt;/p&gt;
 &lt;p&gt;Since we make base class as superclass and inheritance dataset and table id we must define on base.rb and than we load these dataset and table, after that we call method to send json data into bigquery.&lt;/p&gt;
 &lt;p&gt;We need check if table is exist on bigquery before we stream data, and than we send data into bigquery and check if response is success or not, if response file than we catch errors to show to user and return false value, otherwise we return true response.&lt;/p&gt;
 &lt;p&gt;Than we can define subclass for sent data, for example, we try send user model&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&quot;&gt;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/2d56682d521f143b9563e2b2e83a132d.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;We then define DATASET_ID and TABLE_ID for these service and convert model into json using as_json method&lt;/p&gt;
 &lt;p&gt;we define shared example to mock bigquery, catch response form response and define on json for each request&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&quot;&gt;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/57de95c5248452c6e9df80d694d6678d.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;and we create spec by test this class:&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&quot;&gt;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/b47f0262efc2a142ea7267d40f64359f.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;For final step we create job so, streaming data running on background task&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&quot;&gt;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/a3d2fc9ec0f83531dc512ff36ff6e0b3.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;We check model is exist before we send and we call service to run job&lt;/p&gt;
 &lt;p&gt;for spec test we check using these command&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&quot;&gt;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/54d21ce01b085fc575bf7382251ae27e.js&quot;&gt;&lt;/script&gt;
+
 &lt;p&gt;And you can call by using command:&lt;/p&gt;
 &lt;p&gt;BigQuery::UserStreamJob.perform_later(some_user.id)&lt;/p&gt;
 &lt;p&gt;Check on bigquery console when data is succesfully inserted&lt;/p&gt;
@@ -329,8 +339,10 @@
 &lt;p&gt;We learn some point after last deploy like:&lt;/p&gt;
 &lt;ul&gt;&lt;li&gt;It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)&lt;/li&gt;&lt;li&gt;There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.&lt;/li&gt;&lt;li&gt;Some customer already churn, and we don’t hesitating to migrate this customer on new feature.&lt;/li&gt;&lt;li&gt;It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.&lt;/li&gt;&lt;li&gt;It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.&lt;/li&gt;&lt;li&gt;We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method.&lt;/li&gt;&lt;/ul&gt;
 &lt;p&gt;Cause of above point we try to make migrate by selected customer rather than global (whole company). With step:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Coordinate business development and product owner to select and inform customer which want to migrate on new feature.&lt;/li&gt;&lt;li&gt;Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.&lt;/li&gt;&lt;li&gt;Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.&lt;/li&gt;&lt;li&gt;Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.&lt;/li&gt;&lt;li&gt;Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.&lt;/li&gt;&lt;li&gt;Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database.&lt;/li&gt;&lt;/ul&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href&quot;&gt;https://medium.com/media/c8e70dfe0db6fa4b30ef0ecce505907e/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;ul&gt;&lt;li&gt;Coordinate business development and product owner to select and inform customer which want to migrate on new feature.&lt;/li&gt;&lt;li&gt;Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.&lt;/li&gt;&lt;li&gt;Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.&lt;/li&gt;&lt;li&gt;Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.&lt;/li&gt;&lt;li&gt;Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.&lt;/li&gt;&lt;li&gt;Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/8f1eb6259e49f7178a0ac3fa94e6921b.js&quot;&gt;&lt;/script&gt;
+
 &lt;ul&gt;&lt;li&gt;Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.&lt;/li&gt;&lt;li&gt;Set versioning migration so we can track company status migration of each company.&lt;/li&gt;&lt;li&gt;Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate.&lt;/li&gt;&lt;/ul&gt;
 &lt;p&gt;And before customer migration, we do some improvement like:&lt;/p&gt;
 &lt;ul&gt;&lt;li&gt;automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. &lt;a href=&quot;https://medium.com/sleekrco/the-journey-build-continuous-deployment-sleekr-69f07adb7efe&quot;&gt;see this link&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Make code already in production but not active with feature toggle. (Deploy code on dormant mode).&lt;/li&gt;&lt;li&gt;Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality&lt;/li&gt;&lt;/ul&gt;

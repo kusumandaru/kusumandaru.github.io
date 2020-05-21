@@ -5,8 +5,8 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 May 2020 12:18:34 +0700</pubDate>
-    <lastBuildDate>Thu, 21 May 2020 12:18:34 +0700</lastBuildDate>
+    <pubDate>Thu, 21 May 2020 12:53:19 +0700</pubDate>
+    <lastBuildDate>Thu, 21 May 2020 12:53:19 +0700</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
     
       <item>
@@ -28,7 +28,7 @@
 &lt;p&gt;On model we set serializer on rails and create function to search:&lt;/p&gt;
 &lt;pre&gt;class MyModel &amp;lt; ActiveRecord::Base&lt;br /&gt;  serialize(:email, ActiveRecord::PGCrypto::SymmetricCoder)&lt;br /&gt;&lt;br /&gt;  def self.decrypted_email&lt;br /&gt;    ActiveRecord::PGCrypto::SymmetricCoder&lt;br /&gt;      .decrypted_arel_text(arel_table[:email])&lt;br /&gt;  end&lt;br /&gt;end&lt;/pre&gt;
 &lt;p&gt;But since above implementation is redundant and attribute to encrypted is more than one, we create metaprogramming and create concern for these one:&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/0848b276775325a5d3ee5d006dfe48ea/href&quot;&gt;https://medium.com/media/0848b276775325a5d3ee5d006dfe48ea/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/164db80b7ff8c4512a3dd917fd8fb29d.js&quot;&gt;&lt;/script&gt;
 &lt;p&gt;&lt;em&gt;decrypted_#{attribute}&lt;/em&gt; on above method will return arel query like below&lt;/p&gt;
 &lt;pre&gt;# return Arel::Nodes::NamedFunction, it can use like Arel::Nodes::Matches&lt;/pre&gt;
 &lt;pre&gt;# example User.where(User.decrypted_email.matches(&amp;#39;raisa@random.com&amp;#39;))&lt;/pre&gt;
@@ -36,7 +36,7 @@
 &lt;pre&gt;&amp;quot;SELECT \&amp;quot;users\&amp;quot;.* FROM \&amp;quot;users\&amp;quot; WHERE ENCODE(PGP_SYM_DECRYPT_BYTEA(\&amp;quot;users\&amp;quot;.\&amp;quot;email\&amp;quot;, CRYPTOGRAPHY_KEY), &amp;#39;escape&amp;#39;)ILIKE &amp;#39;raisa@random.com&amp;#39;&amp;quot;&lt;/pre&gt;
 &lt;p&gt;We need to test those concern with shared_examples&lt;/p&gt;
 &lt;p&gt;We try to create shared example to test model which have these function&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/7c793ef8f560ea52b4f4d35e9612bb66/href&quot;&gt;https://medium.com/media/7c793ef8f560ea52b4f4d35e9612bb66/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/c5bd949d2c06da0efb17c23d30e3a89a.js&quot;&gt;&lt;/script&gt;
 &lt;p&gt;After that we refactor previous model to become:&lt;/p&gt;
 &lt;pre&gt;class MyModel &amp;lt; ActiveRecord::Base&lt;br /&gt;  include PgCryptoable&lt;/pre&gt;
 &lt;pre&gt;  attr_pgcrypto :email, :full_name, :gender&lt;br /&gt;end&lt;/pre&gt;
@@ -44,7 +44,7 @@
 &lt;pre&gt;it_behaves_like &amp;#39;pgcryptoable model&amp;#39;&lt;/pre&gt;
 &lt;pre&gt;is_expected.to have_pgcryptoable_attribute(:email)&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Step 3: migrate plain attributes&lt;/strong&gt;&lt;/p&gt;
-&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/3d41a7261632058728564fc24aec620c/href&quot;&gt;https://medium.com/media/3d41a7261632058728564fc24aec620c/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;script src=&quot;https://gist.github.com/kusumandaru/e61ba2c1d4c9f03ad8aa66f23283fb00.js&quot;&gt;&lt;/script&gt;
 &lt;p&gt;On these step we enable extension pgcrypto on postgres using command enable_extension .&lt;/p&gt;
 &lt;p&gt;After that we rename recent attribute into temporary field and do migration, when update method called, it will called serializer to encrypt data&lt;/p&gt;
 &lt;p&gt;Thats all and now database is encrypted and query search not decrease significanly&lt;/p&gt;

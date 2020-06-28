@@ -5,9 +5,46 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 May 2020 13:22:18 +0700</pubDate>
-    <lastBuildDate>Thu, 21 May 2020 13:22:18 +0700</lastBuildDate>
+    <pubDate>Sun, 28 Jun 2020 14:20:41 +0700</pubDate>
+    <lastBuildDate>Sun, 28 Jun 2020 14:20:41 +0700</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>Google Cloud Platform (GCP) Jakarta now alive</title>
+        <description>&lt;p&gt;Compare pricing and function for GCP Southeast Asia&lt;/p&gt;
+&lt;p&gt;For previous year, GCP asia southeast region only have Singapore as data centre, for nowadays Jakarta region is become new member of southeast. It will give privileges for Financial institution to deploy application and data center inside indonesia to comply with regulation of Personally identifiable information. Also reduce network latency rather than region outside indonesia. Jakarta now becomes one of 24 regions and 73 zones along 17 countries with served by google cloud.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Regions&lt;/em&gt; are independent geographic areas that consist of &lt;em&gt;zones&lt;/em&gt;. Locations within regions tend to have round-trip network latencies of under &amp;lt;1ms on the 95th percentile. For example jakarta located on asia-southeast2 and have 3 zone asia-southeast2-a, asia-southeast2-b, and asia-southeast2-c&lt;/p&gt;
+&lt;p&gt;Jakarta region provides services such of Compute engine, Kubernetes, Cloud SQL, Cloud Spanner, BigTable and bigQuery. Hybrid customer also can have direct link via Dedicated Interconnect service.&lt;/p&gt;
+&lt;p&gt;We try to compare based on these article written date (8–6–2020). Also &lt;a href=&quot;https://cloud.google.com/products/calculator&quot;&gt;google pricing calculator&lt;/a&gt; still not updated yet. TLDR; pricing is same with singapore region, so when your service running in singapore, these is great momentum to move it closer to your customer.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*Pk3Oh7iAw4esRnBg-JzPyg.png&quot; /&gt;&lt;figcaption&gt;Jakarta Region&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*SaMSQ7eGYWEcNOqEjm547A.png&quot; /&gt;&lt;figcaption&gt;Singapore region&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Both region have same pricing schema, even for upgraded VM like second generation CPU it goes have par pricing for $60.79 each month.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/946/1*Nbzcqry24ASrDNM48nwtuw.png&quot; /&gt;&lt;figcaption&gt;OS Selection for VM&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Jakarta region also already support multiple OS&lt;br /&gt;For database it also support for PostgreSql, MySql, and SQL Server&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/986/1*JHVlRLZ4rQ9Ryw1ap3Ad3g.png&quot; /&gt;&lt;figcaption&gt;support Relational Database&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;For bucket storage, google cloud storage now support for Jakarta region.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*3mZ-l6a9qkAa1JTwf2eFWg.png&quot; /&gt;&lt;figcaption&gt;Google cloud storage bucket&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;For Kubernetes it now support region and multi zone or specific zone for deploy those cluster&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*aCwiQdxFLzw2tuiV1n13lw.png&quot; /&gt;&lt;figcaption&gt;Kubernetes region selection&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Unfortunately for Redis is still not supported on Indonesia&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*3Jf1-w1aq63x4cbhaSKw8Q.png&quot; /&gt;&lt;figcaption&gt;redis instance&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;We also waiting Amazon Web Service to release data center in Jakarta to give head to head alternative for our as customer.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d56318ac79cb&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 08 Jun 2020 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/google-cloud-pl/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/google-cloud-pl/</guid>
+        
+        
+        <category>google-cloud-platform</category>
+        
+        <category>indonesia</category>
+        
+        <category>jakarta</category>
+        
+        <category>gcp</category>
+        
+      </item>
     
       <item>
         <title>How to implement Postgre PgCrypto and migrate data to encrypted on Ruby on Rails</title>
@@ -596,54 +633,6 @@
         <category>work-life-balance</category>
         
         <category>toxic</category>
-        
-      </item>
-    
-      <item>
-        <title>Aplikasi lebih dari dokumentasi, tepatkah?</title>
-        <description>&lt;h4&gt;Salah satu agile manifesto yang berisi keutamaan aplikasi yang berjalan dibanding dokumentasi yang komprehensif dapat menjadi pisau bermata dua&lt;/h4&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*tRKc9_iyJlzFC-o1OYhnYw.jpeg&quot; /&gt;&lt;figcaption&gt;dokumentasi&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Saya bukan anti agile, tapi penerapan ini dapat mengakibatkan blunder bila tidak disikapi dengan hati-hati.&lt;/p&gt;
-&lt;p&gt;Penghilangan dokumentasi dapat menjadikan developer menjadi kuncen (juru kunci) atas modul / fitur yang ditulisnya, karena developer lain merasa was-was apabila melakukan perubahan kode, atau product manager merasa delivery lebih cepat apabila dilakukan oleh developer yang mengerjakan modul itu sebelumnya;&lt;/p&gt;
-&lt;p&gt;Atau ketika developer itu berpindah kerja, maka developer penggantinya susah untuk melanjutkan atau melakukan optimasi kode tersebut, sebab kode yang tersedia susah dipahami atau apabila melakukan perubahan didalamnya, akan berpengaruh ke modul lain (senggol bacok kasarannya).&lt;/p&gt;
-&lt;p&gt;Untuk itu perlu beberapa pendekatan untuk memitigasi tantangan tersebut.&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Unggah kode ke repository secara teratur.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Pastikan setiap kode tersimpan di repository, untuk memudahkan gunakan awalan no tiket pada branch yang ingin dibuat. Usahakan setiap selesai kerja untuk mem-push kode pada repository, berjaga-jaga apabila gawai yang digunakan mengalami masalah.&lt;/p&gt;
-&lt;p&gt;Developer yang baik tidak akan takut untuk menunjukkan hasil kerja mereka, walaupun masih dalam status pengembangan (wip)&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Lakukan kode review sebelum masuk ke mesin produksi&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Semua kode yang akan masuk ke mesin produksi seyogyanya melewati proses review. Kode harus cukup rapi untuk dipahami. Tidak perlu berdebat sengit antara aliran spasi atau tab. Setidaknya kode dapat dibaca dan dipahami oleh rekan kerja.&lt;/p&gt;
-&lt;p&gt;Kode review dapat pula menjadi jembatan transfer knowledge (pertukaran ilmu) dan wisdom knowledge (pandangan multi perspektif) yang dapat memperkaya konsep pemograman dan teknis, selain dapat memberi sudut pandang lain apakah solusi yang diberikan dapat lebih ditingkatkan. Jangan baper ya di review ini, kita berusaha untuk menjadi lebih baik kok, bukan untuk menjatuhkan.&lt;/p&gt;
-&lt;p&gt;Untuk memudahkan standarisasi, dapat dibantu oleh linter (aplikasi analisa kode dan gaya penulisan program) seperti rubocop pada rails, linter-php untuk php, sonar dan findbugs untuk java.&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Investasi di test&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Kode tidak akan bekerja kecuali terbukti lolos tes. Kode harus dianggap tidak layak bekerja bila belum ada tesnya. Tes tidak menjamin kode 100% bebas dari bug, tapi dapat membantu apakah perubahan kode yang dilakukan merusak fungsional sistem saat ini dan dapat menjadi semacam dokumentasi teknis bagaimana fungsi dari modul berjalan.&lt;/p&gt;
-&lt;p&gt;Tes ini dapat berguna juga untuk melihat ketahanan kode kita apabila ada skenario diluar normal, semisal ketika user melakukan input sembarang apakah menyebabkan aplikasi menjadi error atau tidak.&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Dokumentasi teknis&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Dimana kita dapat meletakkan dokumentasi dalam kode:&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Readme.md&lt;/li&gt;&lt;/ol&gt;
-&lt;p&gt;readme.md merupakan tempat permulaan dari semua dokumentasi. Saat orang ingin mengatahui basis kode, ini merupakan titik pertama untuk melihat.&lt;/p&gt;
-&lt;p&gt;readme.md berisi setidaknya gambaran kasar atas apa yang aplikasi mampu perbuat. Ini sangat berguna pada perusahaan yang memiliki banyak repositori dimana developer dapat berpindah antar repo dan mengetahui fungsionalitas repo dalam hitungan puluhan detik.&lt;/p&gt;
-&lt;p&gt;readme.md pun dapat menjadi semacam daftar isi dari dokumentasi yang lebih rinci apabila di lain hari repositori berkembang menjadi semakin kompleks. Semisal cara menjalankan aplikasi dapat diekstrak di dokumen lain seperti install.md&lt;/p&gt;
-&lt;p&gt;2. Commit message&lt;/p&gt;
-&lt;p&gt;“Commit message” berisi deskripsi perubahan apa yang ingin dicapai developer dalam kode yang dibuat.&lt;/p&gt;
-&lt;p&gt;Commit message ini akan berperan ketika kita ingin melihat riwayat bagaimana modul atau aplikasi berkembang, apa yang dipikirkan oleh developer atas kode yang diubah.&lt;/p&gt;
-&lt;p&gt;3. Pull request&lt;/p&gt;
-&lt;p&gt;Untuk memudahkan dalam pull request, saya membuat template dengan chrome extension untuk menampilkan panduan untuk kode agar dapat direview mulai dari:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;tujuan PR dibuat&lt;/li&gt;&lt;li&gt;kode permulaan untuk direview&lt;/li&gt;&lt;li&gt;bagaimana cara menduplikasi test secara manual&lt;/li&gt;&lt;li&gt;dockup (environment test) bisa diakses dimana, dll&lt;/li&gt;&lt;/ul&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*BmEoODS3kJjsHQVKCfe0ow.png&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://chrome.google.com/webstore/detail/sleekr-pull-request-templ/pfbiapcadmmneoecmjplcgbnefpfcohe&quot;&gt;https://chrome.google.com/webstore/detail/sleekr-pull-request-templ/pfbiapcadmmneoecmjplcgbnefpfcohe&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Poin terakhir, diperlukan keseimbangan dalam pengembangan aplikasi, dan tiap tim memiliki cara tersendiri (budaya) untuk menjalakannya. Kita dapat memiliki kode paling bersih, tingkat coverage test 100% atau dokumentasi paling lengkap dari A sampai Z, tapi disisi lain, adakah pelanggan yang menggunakan (membayar) produk kita. Atau sebaliknya, perusahaan dapat berjalan dengan kode yang acak adut tapi dapat memuaskan pelanggan dan menghasilkan uang didalamnya tapi kesulitan apabila ingin berkembang lebih besar karena perubahan kecil susah dikontrol.&lt;/p&gt;
-&lt;p&gt;Dengan sisi lain, product owner dan developer harus dapat berkolaborasi dalam kualitas kode yang dihasilkan dengan kepentingan bisnis didalamnya.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=353c814ccd6e&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Tue, 26 Mar 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/aplikasi-lebih/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/aplikasi-lebih/</guid>
-        
-        
-        <category>agile</category>
-        
-        <category>software-development</category>
-        
-        <category>documentation</category>
         
       </item>
     

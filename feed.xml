@@ -5,9 +5,130 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 28 Jun 2020 14:20:41 +0700</pubDate>
-    <lastBuildDate>Sun, 28 Jun 2020 14:20:41 +0700</lastBuildDate>
+    <pubDate>Tue, 28 Jul 2020 21:19:46 +0700</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2020 21:19:46 +0700</lastBuildDate>
     <generator>Jekyll v3.8.7</generator>
+    
+      <item>
+        <title>Mask Detector using TensorFlow Lite</title>
+        <description>&lt;p&gt;It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M&quot; /&gt;&lt;figcaption&gt;Photo by &lt;a href=&quot;https://unsplash.com/@adamsky1973?utm_source=medium&amp;amp;utm_medium=referral&quot;&gt;Adam Nieścioruk&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com?utm_source=medium&amp;amp;utm_medium=referral&quot;&gt;Unsplash&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend.&lt;/p&gt;
+&lt;p&gt;Because of that Isearch and found repository of &lt;a href=&quot;https://github.com/AIZOOTech/FaceMaskDetection&quot;&gt;Facemask detection&lt;/a&gt; and give some improvement to save image when some frame was detected and send into slack.&lt;/p&gt;
+&lt;p&gt;In Indonesia, you can bought equipment here:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/kamera-usb-camera-8mp-untuk-raspberry-pi-3-model-b-kabel-tarik-retrack&quot;&gt;Cheap webcam camera&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.bukalapak.com/p/komputer/mini-pc/3dyw77y-jual-raspberry-pi-4-model-b-ram-8-gb-siap-pakai?product_sku=7399366470&quot;&gt;Raspberry Pi 4 Complete&lt;/a&gt;, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/3pcs-black-aluminium-heatsink-pendingin-heat-sink-raspberry-pi-4-b-3b&quot;&gt;Heatsink&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/wireless-mini-keyboard-rii-mini-i8-2-4g-touchpad-remote-support-raspi-hitam&quot;&gt;Keyboard wireless&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;This program is consist of several part:&lt;/p&gt;
+&lt;p&gt;Load Image Model&lt;/p&gt;
+&lt;pre&gt;sess, graph = load_tf_model(&amp;#39;models/face_mask_detection.pb&amp;#39;)&lt;/pre&gt;
+&lt;p&gt;Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;image: 3D numpy array of image&lt;/li&gt;&lt;li&gt;conf_thresh: the min threshold of classification probabity.&lt;/li&gt;&lt;li&gt;iou_thresh: the IOU threshold of NMS&lt;/li&gt;&lt;li&gt;target_shape: the model input size.&lt;/li&gt;&lt;li&gt;draw_result: whether to draw bounding box to the image.&lt;/li&gt;&lt;li&gt;show_result: whether to display the image.&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp)&lt;/pre&gt;
+&lt;p&gt;y_bboxes_output will return box detection coordinate&lt;/p&gt;
+&lt;p&gt;y_cls_output will return score of confidence image have using proper mask or not&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;set label&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;id2class = {0: &amp;#39;Mask&amp;#39;, 1: &amp;#39;NoMask&amp;#39;}&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;write image&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;send to slack&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;requests.post(&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;https://slack.com/api/files.upload&amp;#39;,&lt;/pre&gt;
+&lt;pre&gt;{&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;token&amp;#39;: slack_token,&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;filename&amp;#39;: file_name,&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;channels&amp;#39;: slack_channel,&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;filetype&amp;#39;: file_type,&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;initial_comment&amp;#39;: text,&lt;/pre&gt;
+&lt;pre&gt;&amp;#39;title&amp;#39;: title&lt;/pre&gt;
+&lt;pre&gt;},&lt;/pre&gt;
+&lt;pre&gt;files = { &amp;#39;file&amp;#39;: file_bytes }).json()&lt;/pre&gt;
+&lt;p&gt;To running follow these step:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;git clone these repository&lt;/li&gt;&lt;li&gt;create virtual environment -&amp;gt; virtual env facemask&lt;/li&gt;&lt;li&gt;activate virtual environemnt -&amp;gt; source facemask/bin/activate&lt;/li&gt;&lt;li&gt;copy env -&amp;gt; cp .env.staging .env&lt;/li&gt;&lt;li&gt;update env value with slack channel and slack token&lt;/li&gt;&lt;li&gt;install requirements depends on raspberry or mac -&amp;gt; pip3 install -r requirements_raspberry.txt&lt;/li&gt;&lt;li&gt;run application -&amp;gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Example image catch from running raspberry video webcam.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*BvwfD4M8xXXOU8D7M-Y5AA.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*gwEfwyOI-Q_3ssPJz-eF7w.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*9HoKRfZQxqAx2p128U1WeQ.jpeg&quot; /&gt;&lt;figcaption&gt;People which using masked unproperly or not using mask. Capture with confidence score&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;See repository on &lt;a href=&quot;https://github.com/kusumandaru/FaceMaskDetection&quot;&gt;https://github.com/kusumandaru/FaceMaskDetection&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d0ebd2958220&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 25 Jul 2020 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/mask-detector-u/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/mask-detector-u/</guid>
+        
+        
+        <category>face-mask</category>
+        
+        <category>macbook</category>
+        
+        <category>tensorflow</category>
+        
+        <category>machine-learning</category>
+        
+        <category>raspberry-pi</category>
+        
+      </item>
+    
+      <item>
+        <title>Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite</title>
+        <description>&lt;p&gt;Using live detection object with tensorflow and record it on video format with common usb web, make your own dashcam.&lt;/p&gt;
+&lt;p&gt;These tutorial combined from &lt;a href=&quot;https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md&quot;&gt;EdjeElectronics&lt;/a&gt; article how to build model and run on raspberry Pi, and combined with &lt;a href=&quot;https://www.pyimagesearch.com/2016/02/22/writing-to-video-with-opencv/&quot;&gt;pyimagesearch&lt;/a&gt; tutorial to save video&lt;/p&gt;
+&lt;p&gt;In Indonesia, you can bought equipment here:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/kamera-usb-camera-8mp-untuk-raspberry-pi-3-model-b-kabel-tarik-retrack&quot;&gt;Cheap webcam camera&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.bukalapak.com/p/komputer/mini-pc/3dyw77y-jual-raspberry-pi-4-model-b-ram-8-gb-siap-pakai?product_sku=7399366470&quot;&gt;Raspberry Pi 4 Complete&lt;/a&gt;, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable.&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/3pcs-black-aluminium-heatsink-pendingin-heat-sink-raspberry-pi-4-b-3b&quot;&gt;Heatsink&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.tokopedia.com/rajacell/wireless-mini-keyboard-rii-mini-i8-2-4g-touchpad-remote-support-raspi-hitam&quot;&gt;Keyboard wireless&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/592/1*_XQ4NC8x7BeEI1B5siu2ig@2x.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*PaPulXEIrpI9n66ZLEtoGw@2x.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/288/1*IMgklPSbLQSlqMvfcfXPaQ@2x.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;Assembly raspberry with memory card, (optional) 3.5 screen and case.&lt;/p&gt;
+&lt;p&gt;Connect raspberry into monitor using hdmi. Or install VNC server to remote access using laptop.&lt;/p&gt;
+&lt;p&gt;Open terminal and run following steps:&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;update raspberry&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;sudo apt-get update &amp;amp;&amp;amp; sudo apt-get dist-upgrade&lt;/pre&gt;
+&lt;p&gt;Connect webcam with raspberry&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*WQd95dSUeP1OosNeK4zxfg@2x.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*AW4P9AHdCu_U68MOADth4Q@2x.jpeg&quot; /&gt;&lt;/figure&gt;
+&lt;ul&gt;&lt;li&gt;install webcam driver on raspberry&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;# install webcam driver&lt;br /&gt;sudo apt-get install fswebcam&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;check webcam work&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;# capture image with selected resolution and set output name and format&lt;br /&gt;fswebcam -r 640x480 image.jpg&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;download code in &lt;a href=&quot;https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi&quot;&gt;github repository&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;# clone object&lt;br /&gt;git clone &lt;a href=&quot;https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git&quot;&gt;https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git&lt;/a&gt;&lt;/pre&gt;
+&lt;pre&gt;# rename directory&lt;br /&gt;mv &lt;a href=&quot;https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git&quot;&gt;TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi&lt;/a&gt; tensorflow-lite-raspberry&lt;/pre&gt;
+&lt;pre&gt;# go to folder&lt;br /&gt;cd tensorflow-lite-raspberry&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;create virtual environment, to separate python library to each project&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;# install virtual environement library&lt;br /&gt;sudo pip3 install virtualenv&lt;/pre&gt;
+&lt;pre&gt;# create virtual environment&lt;br /&gt;python3 -m venv tflite-env&lt;/pre&gt;
+&lt;pre&gt;# activate environment&lt;br /&gt;source tflite-env/bin/activate&lt;/pre&gt;
+&lt;p&gt;keep in mind to re-activate environment when reboot system.&lt;/p&gt;
+&lt;ul&gt;&lt;li&gt;install dependency&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;bash get_pi_requirements.sh&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;Grab model&lt;/li&gt;&lt;/ul&gt;
+&lt;p&gt;Google have selected model to tensorflow lite such as Image classification, object detection, and other. For these project we use object detection. When passed image it will return confidence score and location object.&lt;/p&gt;
+&lt;p&gt;Confidence score: number between 0 and 1 that indicates confidence that the object was genuinely detected. The closer the number is to 1, the more confident the model is. When score is below threshold score it will abandon from result.&lt;/p&gt;
+&lt;p&gt;Location: array of four numbers representing a bounding rectangle that surrounds its position consist of: top, down, left, right.&lt;/p&gt;
+&lt;p&gt;Google provides a sample quantized SSDLite-MobileNet-v2 object detection model which is trained off the MSCOCO dataset and converted to run on TensorFlow Lite. It can detect and identify 80 different common objects, such as people, cars, cups, etc.&lt;/p&gt;
+&lt;pre&gt;wget &lt;a href=&quot;https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip&quot;&gt;https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip&lt;/a&gt;&lt;/pre&gt;
+&lt;pre&gt;# to get latest image download &lt;a href=&quot;https://www.tensorflow.org/lite/models/object_detection/overview&quot;&gt;https://www.tensorflow.org/lite/models/object_detection/overview&lt;/a&gt;&lt;/pre&gt;
+&lt;p&gt;than extract inside tensorflow-lite-raspberrydirectory.&lt;/p&gt;
+&lt;pre&gt;unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d tflite_model&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;running program, it need library to loaded and make sure webcam is record image, detected object will have squared boxes and label displayed in real time.&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;python3 TFLite_detection_dashcam.py — modeldir=tflite_model&lt;/pre&gt;
+&lt;p&gt;Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought &lt;a href=&quot;https://coral.ai/products/accelerator/&quot;&gt;coral usb accelerator&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Sample video can be located below:&lt;/p&gt;
+&lt;iframe src=&quot;https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4XVpRhM-IeM%3Ffeature%3Doembed&amp;amp;display_name=YouTube&amp;amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4XVpRhM-IeM&amp;amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4XVpRhM-IeM%2Fhqdefault.jpg&amp;amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;amp;type=text%2Fhtml&amp;amp;schema=youtube&quot; width=&quot;640&quot; height=&quot;480&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href&quot;&gt;https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=cdec3e105e55&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 11 Jul 2020 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/create-dashcam/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/create-dashcam/</guid>
+        
+        
+        <category>tensorflow-lite</category>
+        
+        <category>raspberry-pi</category>
+        
+        <category>video-recognition</category>
+        
+        <category>video-recording</category>
+        
+      </item>
     
       <item>
         <title>Google Cloud Platform (GCP) Jakarta now alive</title>
@@ -505,134 +626,6 @@
         <category>ruby-on-rails</category>
         
         <category>rabbitmq</category>
-        
-      </item>
-    
-      <item>
-        <title>Cheatsheet Deploy and Test in Pipeline for any language</title>
-        <description>&lt;h3&gt;Cheatsheet Deploy and Test on Pipeline for any language&lt;/h3&gt;
-&lt;p&gt;cheatsheet any language for pipeline continous integration&lt;/p&gt;
-&lt;h4&gt;&lt;strong&gt;Typescript vscode extension&lt;/strong&gt;&lt;/h4&gt;
-&lt;p&gt;build:&lt;/p&gt;
-&lt;pre&gt;npm install&lt;br /&gt;npm run compile&lt;/pre&gt;
-&lt;p&gt;test&lt;/p&gt;
-&lt;pre&gt;node ./node_modules/vscode/bin/test&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Jekyll&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;build:&lt;/p&gt;
-&lt;pre&gt;gem install bundler -v 1.17.3&lt;br /&gt;bundle install&lt;/pre&gt;
-&lt;p&gt;test&lt;/p&gt;
-&lt;pre&gt;export MEDIUM_USERNAME=xxx # optional when need export params&lt;br /&gt;bundle exec jekyll build&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Chrome extension&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;build&lt;/p&gt;
-&lt;pre&gt;yarn install&lt;/pre&gt;
-&lt;p&gt;install&lt;/p&gt;
-&lt;pre&gt;yarn test&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Dotnet core&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;build&lt;/p&gt;
-&lt;pre&gt;dotnet build&lt;/pre&gt;
-&lt;p&gt;test&lt;/p&gt;
-&lt;pre&gt;cd {project_name}.Test&lt;br /&gt;dotnet test&lt;/pre&gt;
-&lt;p&gt;&lt;strong&gt;Laravel&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;build&lt;/p&gt;
-&lt;pre&gt;sudo apt-get install python-software-properties&lt;br /&gt;sudo add-apt-repository ppa:ondrej/php&lt;br /&gt;sudo apt update&lt;br /&gt;sudo apt install -y php7.2&lt;br /&gt;sudo apt-get install php7.2-mbstring&lt;br /&gt;sudo apt-get install php7.2-xml&lt;br /&gt;curl -sS &lt;a href=&quot;https://getcomposer.org/installer&quot;&gt;https://getcomposer.org/installer&lt;/a&gt; | sudo php -- --install-dir=/usr/local/bin --filename=composer&lt;br /&gt;sudo phpenmod mbstring&lt;br /&gt;mkdir bootstrap/cache&lt;br /&gt;sudo chmod 777 -R bootstrap/cache&lt;br /&gt;composer install&lt;/pre&gt;
-&lt;p&gt;test&lt;/p&gt;
-&lt;pre&gt;phpunit&lt;/pre&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*GeFpt4wx9aTUUsUULB8dkA.jpeg&quot; /&gt;&lt;figcaption&gt;infinity deploy&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=356c2bdbb48&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 14 Jul 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/cheatsheet-depl/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/cheatsheet-depl/</guid>
-        
-        
-        <category>build</category>
-        
-        <category>pipeline</category>
-        
-        <category>test</category>
-        
-        <category>continous-integration</category>
-        
-      </item>
-    
-      <item>
-        <title>Budaya beracun dalam pengembangan aplikasi</title>
-        <description>&lt;p&gt;Ada beberapa kebiasaan dalam proses pengembangan aplikasi yang dapat merusak keharmonisan tim&lt;/p&gt;
-&lt;h3&gt;Terjebak dalam dikotomi bukan bagian programmer&lt;/h3&gt;
-&lt;p&gt;Programmer bukan sekedar juru ketik yang mentranformasikan ide bisnis ke baris kode. Profesi ini juga memiliki beberapa peranan:&lt;/p&gt;
-&lt;p&gt;Memiliki pemahaman dalam logika (konsep) bisnis, basis data(database), integrasi. Bahkan programmer pun harus melakukan proses pengetesan (walau tidak mengesampingkan bagian tester), setidaknya melalui unit test dan integrasi tes. Perlu ditekankan kita tidak perlu ahli 100% dalam aspek di wilayah luar programming seperti Product Owner atau Quality Assurance, tapi yang dibutuhkan adalah gambaran besar dari lingkup diluar koding (&lt;a href=&quot;https://agilepainrelief.com/notesfromatooluser/2018/06/how-to-cross-skill-and-grow-t-shaped-team-members.html&quot;&gt;T-shaped&lt;/a&gt;).&lt;/p&gt;
-&lt;p&gt;Selain itu terutama dalam scrum, developer juga bertindak sebagai bos atas dirinya sendiri, sebab:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;bos tidak selalu mengawasi, &amp;amp;&lt;/li&gt;&lt;li&gt;bos seharusnya tidak melakukan mikro manajemen&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Selayaknya programmer berkarya sebagai ilmuwan yang melakukan penyampaian usul/saran, membuat kerangka hipotesa, melakukan tes, meriset dan membuat keputusan berdasarkan fakta yang tersedia.&lt;/p&gt;
-&lt;h3&gt;Gampang menyalahkan&lt;/h3&gt;
-&lt;blockquote&gt;blamming driven design&lt;/blockquote&gt;
-&lt;p&gt;Terdapat dua tipe karakterisik dalam sikap ini:&lt;/p&gt;
-&lt;h4&gt;Menyalahkan user&lt;/h4&gt;
-&lt;ul&gt;&lt;li&gt;Pengembangan perangkat lunak pada dasarnya adalah bagian dari proses untuk menghasilkan layanan / produk kepada perusahaan (outsource) atau pelanggan (user). Terdapat beberapa alasan yang sering muncul ke permukaan ketika produk tidak berjalan seperti:&lt;/li&gt;&lt;li&gt;si A tidak tahu alur yang harus dijalankan&lt;/li&gt;&lt;li&gt;si B harusnya mengklik tombol ujung bawah dulu kemudian simpan, atau tombol kirim tidak boleh diklik berulang&lt;/li&gt;&lt;li&gt;si C harusnya tidak boleh mengisi nilai negatif atau kosong&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Pada dasarnya, menyalahkan pengguna tidak membuat masalah terselesaikan, salahkan kebutuhan (requirement) yang tidak bisa mengetahui karakteristik pengguna. Sebab pengguna lah dasar dari layanan / produk kita bisa berjalan&lt;/p&gt;
-&lt;p&gt;Bagaimana untuk mengatasinya:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Data driven design.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Dapat menggunakan metode survey pada beberapa pengguna dan mendapat umpan balik saran.&lt;/p&gt;
-&lt;p&gt;Serta bisa pula menggunakan alat bantu analisis seperti &lt;a href=&quot;https://www.hotjar.com/&quot;&gt;hotjar&lt;/a&gt;/&lt;a href=&quot;https://analytics.google.com/analytics/web/&quot;&gt;google analytic&lt;/a&gt; untuk mengetahui tingkah laku pengguna dalam menggunakan aplikasi&lt;/p&gt;
-&lt;h4&gt;Menyalahkan rekan kerja&lt;/h4&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/650/0*g1vh_Ec2rEFXsyS8.jpg&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;http://www.commitstrip.com/en/2017/12/19/no-git-blame/&quot;&gt;http://www.commitstrip.com/en/2017/12/19/no-git-blame/&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;Menyalahkan rekan kerja dapat membuat mental seseorang jatuh alih-alih untuk memberikan contoh yang baik. Apabila ingin memberikan perbaikan lakukan melalui:&lt;/p&gt;
-&lt;p&gt;Lakukan dalam Pull Request, apabila menemui ketidak setujuan:&lt;/p&gt;
-&lt;ol&gt;&lt;li&gt;Berikan pendapat konstruktif seperti `Lebih baik gunakan cara A daripada B sebab proses nya lebih cepat sekian kali`, ‘atau kode ini berpotensi akan menimbulkan bug bila ada input yang belum dijaga’&lt;/li&gt;&lt;li&gt;Hilangkan kata ‘kenapa / mengapa’. Lebih diterima mana:&lt;/li&gt;&lt;/ol&gt;
-&lt;ul&gt;&lt;li&gt;Kenapa fungsi ini punya 100 baris kode?&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;dibandingkan&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Kalau fungsi ini dipisah ke beberapa fungsi kecil ini akan lebih mudah dibaca dan di-maintenance&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;3. Ambigu&lt;/p&gt;
-&lt;p&gt;“Kayaknya ada cara yang lebih bagus deh selain ini”&lt;/p&gt;
-&lt;p&gt;“Beneran kodenya mau seperti ini?”&lt;/p&gt;
-&lt;p&gt;Apabila tidak memiliki perspektif yang jelas jangan mengatakan sesuatu yang tidak berguna seperti ini, komentar harus jelas dan memiliki arahan jelas apa yang harus dilakukan atau dioptimasi.&lt;/p&gt;
-&lt;p&gt;Apabila dibutuhkan lebih baik untuk berpedapat:&lt;/p&gt;
-&lt;p&gt;‘Sebaiknya coba koordinasi sama tony karena dia yang mengerjakan aplikasi jarvis sebelumnya, atau coba lihat kode pada penggajian karena konsepnya mirip dengan yang kamu kerjakan.’&lt;/p&gt;
-&lt;p&gt;4. Jangan dimasukkan ke dalam hati&lt;/p&gt;
-&lt;p&gt;Di lain sisi jangan membawa saran terlalu personal, rekan mu telah menyempatkan waktu untuk mereview dan memberi saran yang lebih baik, jangan punya persepsi bahwa rekan tersebut punya masalah denganmu, baca komennya dan perbaiki secara proporsional.&lt;/p&gt;
-&lt;h3&gt;Tidak mampu melakukan estimasi pekerjaan&lt;/h3&gt;
-&lt;blockquote&gt;Gampang kok 2 hari juga kelar&lt;/blockquote&gt;
-&lt;p&gt;Di satu sisi programmer memiliki ego dalam penentuan berapa lama pekerjaan dapat terselesaikan. Pada kenyataannya estimasi yang dilakukan berada pada kondisi yang ideal dimana tidak ada hambatan sedangkan ketidakpastian pada pengembangan aplikasi bersifat tinggi.&lt;/p&gt;
-&lt;p&gt;Ada juga tekanan dari pihak manajemen atau perusahaan untuk melakukan rilis secara terburu-buru yang menyebabkan developer merasa tidak enak bila menolak deadline yang diberikan.&lt;/p&gt;
-&lt;p&gt;Tapi bila ternyata sampai pada akhir estimasi, pekerjaan belum terselesaikan maka akan membawa dampak jelek ke perusahaan atau ke tim itu sendiri (burnout). atau apabila itu berhasil dirilis akan mengandung kecacatan (defect).&lt;/p&gt;
-&lt;p&gt;Ada beberapa cara seperti&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;melakukan diskusi (collective agreement) untuk menentukan berapa besar lingkup pekerjaan, bukan berapa lama hari. Dan disisi lain developer jangan hanya yes bos tapi juga mampu mengungkapkan pendapat atas proyek yang dikerjakan dan batasannya.&lt;/li&gt;&lt;li&gt;menggunakan data berdasar berapa besar lingkup pekerjaan suatu tugas, dibanding tugas yang pernah diselesaikan sebelumnya. Misal bobot pengerjaan untuk tugas A sebelumnya sebesar 5 poin dan pengerjaannya lebih susah untuk tugas yang B maka gunakan poin 8.&lt;/li&gt;&lt;/ul&gt;
-&lt;h3&gt;Ketakutan untuk mengoptimasi (refactor) kode&lt;/h3&gt;
-&lt;p&gt;Terkadang kita memasukkan kode yang agak acak aduk kedalam rilis produksi karena tuntutan dikejar waktu atau karena takut kode yang kita kerjakan dapat merusak fungsi lain. Kode ini lambat laun akan menjadi rumit dan susah untuk dikembangkan.&lt;/p&gt;
-&lt;p&gt;Tidak semua kode harus di-`refactor` karena menghabiskan sumber daya baik waktu maupun biaya. Dan apabila dirasa waktunya perlu maka beberapa hal ini dapat membantu proses refactoring.&lt;/p&gt;
-&lt;p&gt;a. sediakan waktu terpisah antara pengembangan fitur dan pembayaran technical debt (hutang pemograman). Bisa diantara selepas rilis fitur besar atau saat ada momen banyak libur pada pertengahan minggu&lt;/p&gt;
-&lt;p&gt;b. pastikan tes tersedia, untuk memastikan fungsi modul yang dioptimasi sama dengan sebelum optimasi&lt;/p&gt;
-&lt;p&gt;c. untuk modul yang bersifat kompleks seyogyanya melewati tes pada environment staging untuk memastikan fungsi yang direfaktor berjalan pada lapisan database yang mirip dengan production&lt;/p&gt;
-&lt;p&gt;d. Mitigasi ke kode lama dapat dilakukan dengan cepat apabila ada masalah critical yang timbul;&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;dapat melalui revert (mengembalikan ke rilis lama)&lt;/li&gt;&lt;li&gt;atau menggunakan feature toggling untuk fitur baru atau lama apabila dirasa perlu&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;e. pair programming dapat memperkaya perspektif untuk melakukan refaktor berikut juga review kode oleh anggota tim lain&lt;/p&gt;
-&lt;h3&gt;Tidak ada pencatatan progress (tracking)&lt;/h3&gt;
-&lt;blockquote&gt;Let it flow — frozen&lt;/blockquote&gt;
-&lt;p&gt;Pengembangan aplikasi memerlukan pencatatan proses seperti &lt;a href=&quot;https://www.atlassian.com/software/jira&quot;&gt;Jira&lt;/a&gt; atau &lt;a href=&quot;https://www.pivotaltracker.com&quot;&gt;Pivotal Tracker&lt;/a&gt;. Hal ini membantu saran, pengembangan, atau bug yang tertinggal dapat tercatat atau untuk menemukan blocker yang dihadapi dalam personal sehingga anggota tim lainnya dapat membantu atau memberikan petunjuk.&lt;/p&gt;
-&lt;p&gt;Pencatatan juga dapat melihat proyeksi kecepatan dan kapasitas suatu tim dalam suatu waktu untuk pengerjaan aplikasi.&lt;/p&gt;
-&lt;h3&gt;Segan dalam menyampaikan ide atau pendapat&lt;/h3&gt;
-&lt;blockquote&gt;Heraclitus — There is nothing permanent except change&lt;/blockquote&gt;
-&lt;p&gt;Ide yang disampaikan merupakan cerminan dari buah pikir developer. Harapan akan fitur/teknologi yang bisa diimplementasikan.&lt;/p&gt;
-&lt;p&gt;Memang beberapa ide tampaknya susah diimplementasikan pada kondisi saat ini, pendapat lainnya terkesan bagus tapi melanggar norma tidak tertulis atau beberapa opsi dikesampingkan dalam `to-do list` untuk dibahas pada kemudian hari.&lt;/p&gt;
-&lt;p&gt;Menertawakan ide atau menjatuhkan opini dari rekan tim akan membuat pencetus merasa dihukum. dan apabila diteruskan akan membuat lebih baik diam saja cari aman daripada mengemukakan pendapat yang jelas-jelas berakhir di tong sampah.&lt;/p&gt;
-&lt;p&gt;Apa yang terjadi?&lt;/p&gt;
-&lt;p&gt;Programmer dapat berhenti untuk belajar. Berhenti untuk mengemukakan ide atau konsep, berhenti untuk berinteraksi dengan pelanggan dan terutama berhenti untuk mendalami bisnis.&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*gy4a--uifdp7tfhYHcTXmQ.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;h4&gt;Pranala&lt;/h4&gt;
-&lt;p&gt;&lt;a href=&quot;https://gooroo.io/GoorooTHINK/Article/16363/Developer-Etiquette--Code-Review-and-Pull-Request-Comments&quot;&gt;Developer Etiquette — Code Review and Pull Request Comments&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://medium.com/@lsoares/common-programmers-errors-ea598b8f14c9&quot;&gt;Common programmer errors&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3958ab020565&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sun, 19 May 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/budaya-beracun/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/budaya-beracun/</guid>
-        
-        
-        <category>programming</category>
-        
-        <category>work-life-balance</category>
-        
-        <category>toxic</category>
         
       </item>
     

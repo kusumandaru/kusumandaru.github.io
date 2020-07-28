@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="https://kusumandaru.com/assets/images/logo.png">
+
+<title>Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite" />
+<meta name="author" content="ndaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Using live detection object with tensorflow and record it on video format with common usb web, make your own dashcam. These tutorial combined from EdjeElectronics article how to build model and run on raspberry Pi, and combined with pyimagesearch tutorial to save video In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable.HeatsinkKeyboard wireless Assembly raspberry with memory card, (optional) 3.5 screen and case. Connect raspberry into monitor using hdmi. Or install VNC server to remote access using laptop. Open terminal and run following steps: update raspberry sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade Connect webcam with raspberry install webcam driver on raspberry # install webcam driversudo apt-get install fswebcam check webcam work # capture image with selected resolution and set output name and formatfswebcam -r 640x480 image.jpg download code in github repository # clone objectgit clone https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git # rename directorymv TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi tensorflow-lite-raspberry # go to foldercd tensorflow-lite-raspberry create virtual environment, to separate python library to each project # install virtual environement librarysudo pip3 install virtualenv # create virtual environmentpython3 -m venv tflite-env # activate environmentsource tflite-env/bin/activate keep in mind to re-activate environment when reboot system. install dependency bash get_pi_requirements.sh Grab model Google have selected model to tensorflow lite such as Image classification, object detection, and other. For these project we use object detection. When passed image it will return confidence score and location object. Confidence score: number between 0 and 1 that indicates confidence that the object was genuinely detected. The closer the number is to 1, the more confident the model is. When score is below threshold score it will abandon from result. Location: array of four numbers representing a bounding rectangle that surrounds its position consist of: top, down, left, right. Google provides a sample quantized SSDLite-MobileNet-v2 object detection model which is trained off the MSCOCO dataset and converted to run on TensorFlow Lite. It can detect and identify 80 different common objects, such as people, cars, cups, etc. wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip # to get latest image download https://www.tensorflow.org/lite/models/object_detection/overview than extract inside tensorflow-lite-raspberrydirectory. unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d tflite_model running program, it need library to loaded and make sure webcam is record image, detected object will have squared boxes and label displayed in real time. python3 TFLite_detection_dashcam.py — modeldir=tflite_model Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought coral usb accelerator Sample video can be located below: https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href" />
+<meta property="og:description" content="Using live detection object with tensorflow and record it on video format with common usb web, make your own dashcam. These tutorial combined from EdjeElectronics article how to build model and run on raspberry Pi, and combined with pyimagesearch tutorial to save video In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable.HeatsinkKeyboard wireless Assembly raspberry with memory card, (optional) 3.5 screen and case. Connect raspberry into monitor using hdmi. Or install VNC server to remote access using laptop. Open terminal and run following steps: update raspberry sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade Connect webcam with raspberry install webcam driver on raspberry # install webcam driversudo apt-get install fswebcam check webcam work # capture image with selected resolution and set output name and formatfswebcam -r 640x480 image.jpg download code in github repository # clone objectgit clone https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git # rename directorymv TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi tensorflow-lite-raspberry # go to foldercd tensorflow-lite-raspberry create virtual environment, to separate python library to each project # install virtual environement librarysudo pip3 install virtualenv # create virtual environmentpython3 -m venv tflite-env # activate environmentsource tflite-env/bin/activate keep in mind to re-activate environment when reboot system. install dependency bash get_pi_requirements.sh Grab model Google have selected model to tensorflow lite such as Image classification, object detection, and other. For these project we use object detection. When passed image it will return confidence score and location object. Confidence score: number between 0 and 1 that indicates confidence that the object was genuinely detected. The closer the number is to 1, the more confident the model is. When score is below threshold score it will abandon from result. Location: array of four numbers representing a bounding rectangle that surrounds its position consist of: top, down, left, right. Google provides a sample quantized SSDLite-MobileNet-v2 object detection model which is trained off the MSCOCO dataset and converted to run on TensorFlow Lite. It can detect and identify 80 different common objects, such as people, cars, cups, etc. wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip # to get latest image download https://www.tensorflow.org/lite/models/object_detection/overview than extract inside tensorflow-lite-raspberrydirectory. unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d tflite_model running program, it need library to loaded and make sure webcam is record image, detected object will have squared boxes and label displayed in real time. python3 TFLite_detection_dashcam.py — modeldir=tflite_model Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought coral usb accelerator Sample video can be located below: https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href" />
+<link rel="canonical" href="https://kusumandaru.com/create-dashcam/" />
+<meta property="og:url" content="https://kusumandaru.com/create-dashcam/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/592/1*_XQ4NC8x7BeEI1B5siu2ig@2x.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-11T00:00:00+07:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/create-dashcam/"},"url":"https://kusumandaru.com/create-dashcam/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"Using live detection object with tensorflow and record it on video format with common usb web, make your own dashcam. These tutorial combined from EdjeElectronics article how to build model and run on raspberry Pi, and combined with pyimagesearch tutorial to save video In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable.HeatsinkKeyboard wireless Assembly raspberry with memory card, (optional) 3.5 screen and case. Connect raspberry into monitor using hdmi. Or install VNC server to remote access using laptop. Open terminal and run following steps: update raspberry sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade Connect webcam with raspberry install webcam driver on raspberry # install webcam driversudo apt-get install fswebcam check webcam work # capture image with selected resolution and set output name and formatfswebcam -r 640x480 image.jpg download code in github repository # clone objectgit clone https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git # rename directorymv TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi tensorflow-lite-raspberry # go to foldercd tensorflow-lite-raspberry create virtual environment, to separate python library to each project # install virtual environement librarysudo pip3 install virtualenv # create virtual environmentpython3 -m venv tflite-env # activate environmentsource tflite-env/bin/activate keep in mind to re-activate environment when reboot system. install dependency bash get_pi_requirements.sh Grab model Google have selected model to tensorflow lite such as Image classification, object detection, and other. For these project we use object detection. When passed image it will return confidence score and location object. Confidence score: number between 0 and 1 that indicates confidence that the object was genuinely detected. The closer the number is to 1, the more confident the model is. When score is below threshold score it will abandon from result. Location: array of four numbers representing a bounding rectangle that surrounds its position consist of: top, down, left, right. Google provides a sample quantized SSDLite-MobileNet-v2 object detection model which is trained off the MSCOCO dataset and converted to run on TensorFlow Lite. It can detect and identify 80 different common objects, such as people, cars, cups, etc. wget https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip # to get latest image download https://www.tensorflow.org/lite/models/object_detection/overview than extract inside tensorflow-lite-raspberrydirectory. unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d tflite_model running program, it need library to loaded and make sure webcam is record image, detected object will have squared boxes and label displayed in real time. python3 TFLite_detection_dashcam.py — modeldir=tflite_model Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought coral usb accelerator Sample video can be located below: https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href","image":"https://cdn-images-1.medium.com/max/592/1*_XQ4NC8x7BeEI1B5siu2ig@2x.jpeg","@type":"BlogPosting","headline":"Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite","dateModified":"2020-07-11T00:00:00+07:00","datePublished":"2020-07-11T00:00:00+07:00","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="https://kusumandaru.com/assets/css/screen.css" rel="stylesheet">
+
+<link href="https://kusumandaru.com/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<!-- change your GA id in _config.yml -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-135970453-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="https://kusumandaru.com/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="https://kusumandaru.com/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="https://kusumandaru.com/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection of medium story
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite&url=https://kusumandaru.com/create-dashcam/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=https://kusumandaru.com/create-dashcam/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://kusumandaru.com/create-dashcam/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/8e79c68c1efe61afb4ae962aa41f8ea8?s=250&d=mm&r=x" alt="ndaru">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="https://kusumandaru.com">ndaru</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">digital entushiast</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="https://cdn-images-1.medium.com/max/592/1*_XQ4NC8x7BeEI1B5siu2ig@2x.jpeg" alt="Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>Using live detection object with tensorflow and record it on video format with common usb web, make your own dashcam.</p>
+<p>These tutorial combined from <a href="https://github.com/EdjeElectronics/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi/blob/master/Raspberry_Pi_Guide.md">EdjeElectronics</a> article how to build model and run on raspberry Pi, and combined with <a href="https://www.pyimagesearch.com/2016/02/22/writing-to-video-with-opencv/">pyimagesearch</a> tutorial to save video</p>
+<p>In Indonesia, you can bought equipment here:</p>
+<ul><li><a href="https://www.tokopedia.com/rajacell/kamera-usb-camera-8mp-untuk-raspberry-pi-3-model-b-kabel-tarik-retrack">Cheap webcam camera</a></li><li><a href="https://www.bukalapak.com/p/komputer/mini-pc/3dyw77y-jual-raspberry-pi-4-model-b-ram-8-gb-siap-pakai?product_sku=7399366470">Raspberry Pi 4 Complete</a>, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable.</li><li><a href="https://www.tokopedia.com/rajacell/3pcs-black-aluminium-heatsink-pendingin-heat-sink-raspberry-pi-4-b-3b">Heatsink</a></li><li><a href="https://www.tokopedia.com/rajacell/wireless-mini-keyboard-rii-mini-i8-2-4g-touchpad-remote-support-raspi-hitam">Keyboard wireless</a></li></ul>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/592/1*_XQ4NC8x7BeEI1B5siu2ig@2x.jpeg" /></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*PaPulXEIrpI9n66ZLEtoGw@2x.jpeg" /></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/288/1*IMgklPSbLQSlqMvfcfXPaQ@2x.jpeg" /></figure>
+<p>Assembly raspberry with memory card, (optional) 3.5 screen and case.</p>
+<p>Connect raspberry into monitor using hdmi. Or install VNC server to remote access using laptop.</p>
+<p>Open terminal and run following steps:</p>
+<ul><li>update raspberry</li></ul>
+<pre>sudo apt-get update &amp;&amp; sudo apt-get dist-upgrade</pre>
+<p>Connect webcam with raspberry</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*WQd95dSUeP1OosNeK4zxfg@2x.jpeg" /></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*AW4P9AHdCu_U68MOADth4Q@2x.jpeg" /></figure>
+<ul><li>install webcam driver on raspberry</li></ul>
+<pre># install webcam driver<br />sudo apt-get install fswebcam</pre>
+<ul><li>check webcam work</li></ul>
+<pre># capture image with selected resolution and set output name and format<br />fswebcam -r 640x480 image.jpg</pre>
+<ul><li>download code in <a href="https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi">github repository</a></li></ul>
+<pre># clone object<br />git clone <a href="https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git">https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git</a></pre>
+<pre># rename directory<br />mv <a href="https://github.com/kusumandaru/TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi.git">TensorFlow-Lite-Object-Detection-on-Android-and-Raspberry-Pi</a> tensorflow-lite-raspberry</pre>
+<pre># go to folder<br />cd tensorflow-lite-raspberry</pre>
+<ul><li>create virtual environment, to separate python library to each project</li></ul>
+<pre># install virtual environement library<br />sudo pip3 install virtualenv</pre>
+<pre># create virtual environment<br />python3 -m venv tflite-env</pre>
+<pre># activate environment<br />source tflite-env/bin/activate</pre>
+<p>keep in mind to re-activate environment when reboot system.</p>
+<ul><li>install dependency</li></ul>
+<pre>bash get_pi_requirements.sh</pre>
+<ul><li>Grab model</li></ul>
+<p>Google have selected model to tensorflow lite such as Image classification, object detection, and other. For these project we use object detection. When passed image it will return confidence score and location object.</p>
+<p>Confidence score: number between 0 and 1 that indicates confidence that the object was genuinely detected. The closer the number is to 1, the more confident the model is. When score is below threshold score it will abandon from result.</p>
+<p>Location: array of four numbers representing a bounding rectangle that surrounds its position consist of: top, down, left, right.</p>
+<p>Google provides a sample quantized SSDLite-MobileNet-v2 object detection model which is trained off the MSCOCO dataset and converted to run on TensorFlow Lite. It can detect and identify 80 different common objects, such as people, cars, cups, etc.</p>
+<pre>wget <a href="https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip">https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip</a></pre>
+<pre># to get latest image download <a href="https://www.tensorflow.org/lite/models/object_detection/overview">https://www.tensorflow.org/lite/models/object_detection/overview</a></pre>
+<p>than extract inside tensorflow-lite-raspberrydirectory.</p>
+<pre>unzip coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip -d tflite_model</pre>
+<ul><li>running program, it need library to loaded and make sure webcam is record image, detected object will have squared boxes and label displayed in real time.</li></ul>
+<pre>python3 TFLite_detection_dashcam.py — modeldir=tflite_model</pre>
+<p>Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought <a href="https://coral.ai/products/accelerator/">coral usb accelerator</a></p>
+<p>Sample video can be located below:</p>
+<iframe src="https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4XVpRhM-IeM%3Ffeature%3Doembed&amp;display_name=YouTube&amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4XVpRhM-IeM&amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4XVpRhM-IeM%2Fhqdefault.jpg&amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;type=text%2Fhtml&amp;schema=youtube" width="640" height="480" frameborder="0" scrolling="no"><a href="https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href">https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href</a></iframe>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=cdec3e105e55" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2020-07-11">11 Jul 2020</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#raspberry-pi">raspberry-pi</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#tensorflow-lite">tensorflow-lite</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#video-recognition">video-recognition</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#video-recording">video-recording</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="https://kusumandaru.com//google-cloud-pl/"> &laquo; Google Cloud Platform (GCP) Jakarta now alive</a>
+            
+            
+            <a class="next d-block col-md-6 text-lg-right" href="https://kusumandaru.com//mask-detector-u/">Mask Detector using TensorFlow Lite &raquo; </a>
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2020 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+<script src="/assets/js/lazyload.js"></script>
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

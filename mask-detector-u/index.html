@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="https://kusumandaru.com/assets/images/logo.png">
+
+<title>Mask Detector using TensorFlow Lite | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Mask Detector using TensorFlow Lite | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.8.7" />
+<meta property="og:title" content="Mask Detector using TensorFlow Lite" />
+<meta name="author" content="ndaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection" />
+<meta property="og:description" content="It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection" />
+<link rel="canonical" href="https://kusumandaru.com/mask-detector-u/" />
+<meta property="og:url" content="https://kusumandaru.com/mask-detector-u/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-07-25T00:00:00+07:00" />
+<script type="application/ld+json">
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/mask-detector-u/"},"url":"https://kusumandaru.com/mask-detector-u/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection","image":"https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M","@type":"BlogPosting","headline":"Mask Detector using TensorFlow Lite","dateModified":"2020-07-25T00:00:00+07:00","datePublished":"2020-07-25T00:00:00+07:00","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="https://kusumandaru.com/assets/css/screen.css" rel="stylesheet">
+
+<link href="https://kusumandaru.com/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<!-- change your GA id in _config.yml -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-135970453-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="https://kusumandaru.com/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="https://kusumandaru.com/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="https://kusumandaru.com/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection of medium story
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Mask Detector using TensorFlow Lite&url=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/8e79c68c1efe61afb4ae962aa41f8ea8?s=250&d=mm&r=x" alt="ndaru">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="https://kusumandaru.com">ndaru</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">digital entushiast</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Mask Detector using TensorFlow Lite</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M" alt="Mask Detector using TensorFlow Lite">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M" /><figcaption>Photo by <a href="https://unsplash.com/@adamsky1973?utm_source=medium&amp;utm_medium=referral">Adam Nieścioruk</a> on <a href="https://unsplash.com?utm_source=medium&amp;utm_medium=referral">Unsplash</a></figcaption></figure>
+<p>Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend.</p>
+<p>Because of that Isearch and found repository of <a href="https://github.com/AIZOOTech/FaceMaskDetection">Facemask detection</a> and give some improvement to save image when some frame was detected and send into slack.</p>
+<p>In Indonesia, you can bought equipment here:</p>
+<ul><li><a href="https://www.tokopedia.com/rajacell/kamera-usb-camera-8mp-untuk-raspberry-pi-3-model-b-kabel-tarik-retrack">Cheap webcam camera</a></li><li><a href="https://www.bukalapak.com/p/komputer/mini-pc/3dyw77y-jual-raspberry-pi-4-model-b-ram-8-gb-siap-pakai?product_sku=7399366470">Raspberry Pi 4 Complete</a>, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.</li><li><a href="https://www.tokopedia.com/rajacell/3pcs-black-aluminium-heatsink-pendingin-heat-sink-raspberry-pi-4-b-3b">Heatsink</a></li><li><a href="https://www.tokopedia.com/rajacell/wireless-mini-keyboard-rii-mini-i8-2-4g-touchpad-remote-support-raspi-hitam">Keyboard wireless</a></li></ul>
+<p>This program is consist of several part:</p>
+<p>Load Image Model</p>
+<pre>sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;)</pre>
+<p>Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params:</p>
+<ul><li>image: 3D numpy array of image</li><li>conf_thresh: the min threshold of classification probabity.</li><li>iou_thresh: the IOU threshold of NMS</li><li>target_shape: the model input size.</li><li>draw_result: whether to draw bounding box to the image.</li><li>show_result: whether to display the image.</li></ul>
+<pre>y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp)</pre>
+<p>y_bboxes_output will return box detection coordinate</p>
+<p>y_cls_output will return score of confidence image have using proper mask or not</p>
+<ul><li>set label</li></ul>
+<pre>id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;}</pre>
+<ul><li>write image</li></ul>
+<pre>cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR))</pre>
+<ul><li>send to slack</li></ul>
+<pre>requests.post(</pre>
+<pre>&#39;https://slack.com/api/files.upload&#39;,</pre>
+<pre>{</pre>
+<pre>&#39;token&#39;: slack_token,</pre>
+<pre>&#39;filename&#39;: file_name,</pre>
+<pre>&#39;channels&#39;: slack_channel,</pre>
+<pre>&#39;filetype&#39;: file_type,</pre>
+<pre>&#39;initial_comment&#39;: text,</pre>
+<pre>&#39;title&#39;: title</pre>
+<pre>},</pre>
+<pre>files = { &#39;file&#39;: file_bytes }).json()</pre>
+<p>To running follow these step:</p>
+<ul><li>git clone these repository</li><li>create virtual environment -&gt; virtual env facemask</li><li>activate virtual environemnt -&gt; source facemask/bin/activate</li><li>copy env -&gt; cp .env.staging .env</li><li>update env value with slack channel and slack token</li><li>install requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txt</li><li>run application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0</li></ul>
+<p>Example image catch from running raspberry video webcam.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*BvwfD4M8xXXOU8D7M-Y5AA.jpeg" /></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*gwEfwyOI-Q_3ssPJz-eF7w.jpeg" /></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*9HoKRfZQxqAx2p128U1WeQ.jpeg" /><figcaption>People which using masked unproperly or not using mask. Capture with confidence score</figcaption></figure>
+<p>See repository on <a href="https://github.com/kusumandaru/FaceMaskDetection">https://github.com/kusumandaru/FaceMaskDetection</a></p>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d0ebd2958220" width="1" height="1" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2020-07-25">25 Jul 2020</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#face-mask">face-mask</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#macbook">macbook</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#machine-learning">machine-learning</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#raspberry-pi">raspberry-pi</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#tensorflow">tensorflow</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="https://kusumandaru.com//create-dashcam/"> &laquo; Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite</a>
+            
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2020 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+<script src="/assets/js/lazyload.js"></script>
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

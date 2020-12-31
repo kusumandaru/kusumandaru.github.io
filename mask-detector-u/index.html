@@ -16,14 +16,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection" />
 <meta property="og:description" content="It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection" />
-<link rel="canonical" href="https://kusumandaru.com/mask-detector-u/" />
-<meta property="og:url" content="https://kusumandaru.com/mask-detector-u/" />
+<link rel="canonical" href="https://kusumandaru.com//mask-detector-u/" />
+<meta property="og:url" content="https://kusumandaru.com//mask-detector-u/" />
 <meta property="og:site_name" content="Kusumandaru" />
 <meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-07-25T00:00:00+07:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/mask-detector-u/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection","url":"https://kusumandaru.com/mask-detector-u/","image":"https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M","@type":"BlogPosting","headline":"Mask Detector using TensorFlow Lite","dateModified":"2020-07-25T00:00:00+07:00","datePublished":"2020-07-25T00:00:00+07:00","@context":"https://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com//mask-detector-u/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com//assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"It can use Raspberry Pi or Macbook Pro and send into slack, even use 4 USD webcam Photo by Adam Nieścioruk on Unsplash Since some people don’t have sense of concern to use facemask on public area. Our office have regulation to assign some people to be watcher and take a record of image people which stubborn or forget. Furthermore it will took my time to watch surrounding and keep eye of my friend. Because of that Isearch and found repository of Facemask detection and give some improvement to save image when some frame was detected and send into slack. In Indonesia, you can bought equipment here: Cheap webcam cameraRaspberry Pi 4 Complete, it is already include case, memory card, and power cable, since it using dash cam, try to get usb cable. Or use some laptop /computer.HeatsinkKeyboard wireless This program is consist of several part: Load Image Model sess, graph = load_tf_model(&#39;models/face_mask_detection.pb&#39;) Send image to tensorflow detection (Receive an image array and run inference). It have detection inference with several params: image: 3D numpy array of imageconf_thresh: the min threshold of classification probabity.iou_thresh: the IOU threshold of NMStarget_shape: the model input size.draw_result: whether to draw bounding box to the image.show_result: whether to display the image. y_bboxes_output, y_cls_output = tf_inference(sess, graph, image_exp) y_bboxes_output will return box detection coordinate y_cls_output will return score of confidence image have using proper mask or not set label id2class = {0: &#39;Mask&#39;, 1: &#39;NoMask&#39;} write image cv2.imwrite(filename_path, cv2.cvtColor(image, cv2.COLOR_RGB2BGR)) send to slack requests.post( &#39;https://slack.com/api/files.upload&#39;, { &#39;token&#39;: slack_token, &#39;filename&#39;: file_name, &#39;channels&#39;: slack_channel, &#39;filetype&#39;: file_type, &#39;initial_comment&#39;: text, &#39;title&#39;: title }, files = { &#39;file&#39;: file_bytes }).json() To running follow these step: git clone these repositorycreate virtual environment -&gt; virtual env facemaskactivate virtual environemnt -&gt; source facemask/bin/activatecopy env -&gt; cp .env.staging .envupdate env value with slack channel and slack tokeninstall requirements depends on raspberry or mac -&gt; pip3 install -r requirements_raspberry.txtrun application -&gt; python3 tensorflow_infer.py — img-mode 0 — video-path 0 Example image catch from running raspberry video webcam. People which using masked unproperly or not using mask. Capture with confidence score See repository on https://github.com/kusumandaru/FaceMaskDetection","url":"https://kusumandaru.com//mask-detector-u/","image":"https://cdn-images-1.medium.com/max/1024/0*bGD2Rzp4-Qqax5_M","@type":"BlogPosting","headline":"Mask Detector using TensorFlow Lite","dateModified":"2020-07-25T00:00:00+07:00","datePublished":"2020-07-25T00:00:00+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -104,7 +104,7 @@ ga('send', 'pageview');
                 <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
                 </li>
 
-                <script src="/assets/js/lunr.js"></script>
+                <script src="https://kusumandaru.com/assets/js/lunr.js"></script>
 
 
 <style>
@@ -124,7 +124,7 @@ ga('send', 'pageview');
     <ul></ul>
 </div>
 
-<script src="/assets/js/lunrsearchengine.js"></script>
+<script src="https://kusumandaru.com/assets/js/lunrsearchengine.js"></script>
 
             </ul>
 
@@ -166,19 +166,19 @@ ga('send', 'pageview');
     </p>
     <ul>
         <li class="ml-1 mr-1">
-            <a target="_blank" href="https://twitter.com/intent/tweet?text=Mask Detector using TensorFlow Lite&url=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Mask Detector using TensorFlow Lite&url=https://kusumandaru.com//mask-detector-u/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
                 <i class="fab fa-twitter"></i>
             </a>
         </li>
 
         <li class="ml-1 mr-1">
-            <a target="_blank" href="https://facebook.com/sharer.php?u=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=https://kusumandaru.com//mask-detector-u/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
                 <i class="fab fa-facebook-f"></i>
             </a>
         </li>
 
         <li class="ml-1 mr-1">
-            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://kusumandaru.com/mask-detector-u/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://kusumandaru.com//mask-detector-u/" onclick="window.open(this.href, 'width=550,height=435');return false;">
                 <i class="fab fa-linkedin-in"></i>
             </a>
         </li>
@@ -300,23 +300,23 @@ ga('send', 'pageview');
                     
                     
                     <li>
-                        <a class="smoothscroll" href="/categories#face-mask">face-mask</a>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#face-mask">face-mask</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="/categories#macbook">macbook</a>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#macbook">macbook</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="/categories#machine-learning">machine-learning</a>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#machine-learning">machine-learning</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="/categories#raspberry-pi">raspberry-pi</a>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#raspberry-pi">raspberry-pi</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="/categories#tensorflow">tensorflow</a>
+                        <a class="smoothscroll" href="https://kusumandaru.com/categories#tensorflow">tensorflow</a>
                     </li>
                     
                 </ul>
@@ -335,7 +335,7 @@ ga('send', 'pageview');
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
             
-            <a class="prev d-block col-md-6" href="//create-dashcam/"> &laquo; Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite</a>
+            <a class="prev d-block col-md-6" href="https://kusumandaru.com//create-dashcam/"> &laquo; Create Dashcam with object detection using Raspberry Pi 4 and Tensorflow Lite</a>
             
             
             <div class="clearfix"></div>

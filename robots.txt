@@ -1,1 +1,1 @@
-Sitemap: https://kusumandaru.com/sitemap.xml
+Sitemap: https://kusumandaru.com//sitemap.xml

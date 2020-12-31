@@ -8,9 +8,9 @@
 
 <title>Tips mengkonversi .Net Framework ke .Net Core | Kusumandaru</title>
 
-<!-- Begin Jekyll SEO tag v2.5.0 -->
+<!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Tips mengkonversi .Net Framework ke .Net Core | Kusumandaru</title>
-<meta name="generator" content="Jekyll v3.8.7" />
+<meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="Tips mengkonversi .Net Framework ke .Net Core" />
 <meta name="author" content="ndaru" />
 <meta property="og:locale" content="en_US" />
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-01-06T00:00:00+07:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/tips-mengkonversi-net/"},"url":"https://kusumandaru.com/tips-mengkonversi-net/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"Tips mengkonversi .Net Framework ke .Net Core .NET framework atau biasa dikenal dengan dot net adalah framework perangkat lunak yang diproduksi oleh Microsoft dan dijalankan pada media Microsoft Windows. Dot net berjalan pada perangkat lunak virtual machine (Common Language Runtime) alih-alih menggunakan perangkat keras komputer. Dan CLR ini berjalan native pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan library Framework Class Library (FCL). .Net Core bersifat open source dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan CoreFX yang merupakan porting dari sebagian FCL Ada beberapa checklist kapan menggunakan .net kapan menggunakan .netCore. Tetap gunakan .net ketika: Servernya harus menggunakan Windows ServerBasis kode saat ini sebagian besar menggunakan .net FrameworkLibrary atau paket nuget belum tersedia di .netcorePlatform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric) Gunakan .net Core ketika: membutuhkan aplikasi lintas platformmenggunakan Dockermembutuhkan peforma lebih cepat Apabila diperlukan porting .net ke .netCore dapat dilakukan dengan beberapa langkah. Identifikasi apakah ada third party library pada projek saat ini. Kita dapat melakukan pengecekan dengan beberapa cara: a. melihat reference pada tiap-tiap proyek. TIdak ada third party b. Kita dapat menggunakan tools apiport untuk mencek kompabilitas dari libary yang kita gunakan. apiport analyzae -f . checking library API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan. Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah. portabilitas library Library yang tidak ditemukan Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan: Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahuluBila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain. Kita dapat juga menggunakan situs packagesearch untuk menemukan alternatif dari package di .net Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core. Target framework ke 4.7.2 keatas (hanya windows) 2. Langkah selanjutnya adalah melakukan konversi project. Opsi pertama adalah melakukan konversi csproj. Ubah csproj dengan Tools-&gt; edit file ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt; Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; Jalankan dotnet build untuk me-restore dan build, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa konfigurasi perbaikan. Lakukan perbaikan apabila terjadi masalah saat build. build berhasil Contoh repository dapat dilihat disini. Beberapa kendala yang terkadang muncul pada proses porting: Paket tidak ditemukan Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup Tips personal untuk refaktor ke .net core: Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net CoreBuat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai Selamat mengkonversi :)","image":"https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png","@type":"BlogPosting","headline":"Tips mengkonversi .Net Framework ke .Net Core","dateModified":"2019-01-06T00:00:00+07:00","datePublished":"2019-01-06T00:00:00+07:00","@context":"http://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/tips-mengkonversi-net/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"Tips mengkonversi .Net Framework ke .Net Core .NET framework atau biasa dikenal dengan dot net adalah framework perangkat lunak yang diproduksi oleh Microsoft dan dijalankan pada media Microsoft Windows. Dot net berjalan pada perangkat lunak virtual machine (Common Language Runtime) alih-alih menggunakan perangkat keras komputer. Dan CLR ini berjalan native pada sistem operasi windows. Selain itu dotnet juga bergantung pada kumpulan library Framework Class Library (FCL). .Net Core bersifat open source dan gratis dan mampu berjalan pada multi ranah windows, linux, dan mac Os. DotnetCore memiliki CoreCLR, implementasi CLR untuk lintas platform, dan CoreFX yang merupakan porting dari sebagian FCL Ada beberapa checklist kapan menggunakan .net kapan menggunakan .netCore. Tetap gunakan .net ketika: Servernya harus menggunakan Windows ServerBasis kode saat ini sebagian besar menggunakan .net FrameworkLibrary atau paket nuget belum tersedia di .netcorePlatform layanan yang digunakan tidak mendukung .net core (beberapa layanan azure membutuhkan net framework seperti azure fabric) Gunakan .net Core ketika: membutuhkan aplikasi lintas platformmenggunakan Dockermembutuhkan peforma lebih cepat Apabila diperlukan porting .net ke .netCore dapat dilakukan dengan beberapa langkah. Identifikasi apakah ada third party library pada projek saat ini. Kita dapat melakukan pengecekan dengan beberapa cara: a. melihat reference pada tiap-tiap proyek. TIdak ada third party b. Kita dapat menggunakan tools apiport untuk mencek kompabilitas dari libary yang kita gunakan. apiport analyzae -f . checking library API Portability Analyzer tool (apitool) menganalisa dan membuat laporan kesesuaian tiap API yang tidak tersedia di .net core. Dan memberi kita analisa garis besar, bagaimana rencana porting dijalankan. Sehingga kita lihat library apa saja yang kompabilitasnya bermasalah. portabilitas library Library yang tidak ditemukan Dari data diatas dapat disimpulkan bahwa tidak ada library 3rd party yang bermasalah atau dapat dikonversi ke .net core Apabila ditemukan library yang tidak kompatibel. Ada beberapa penanganan: Bila library itu milik kita sendiri, maka kita harus mengkonversi library itu terlebih dahuluBila itu merupakan milik pihak luar maka kita dapat meminta tiket untuk mengkonversi atau mencari alternatif package lain. Kita dapat juga menggunakan situs packagesearch untuk menemukan alternatif dari package di .net Khusus pengguna windows dapat melakukan pengecekan kompabilitas target framework dengan memilih framework 4.7.2 atau diatasnya. Yang akan memunculkan alternatif secara otomatis bila ada target yang tidak disupport .net core. Target framework ke 4.7.2 keatas (hanya windows) 2. Langkah selanjutnya adalah melakukan konversi project. Opsi pertama adalah melakukan konversi csproj. Ubah csproj dengan Tools-&gt; edit file ubah targetFramework menjadi dotnet framework dari &lt;TargetFrameworkVersion&gt;v4.6.2&lt;/TargetFrameworkVersion&gt; ke &lt;TargetFramework&gt;netcoreapp2.1&lt;/TargetFramework&gt; Serta pada &lt;ItemGroup&gt; tambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; Jalankan dotnet build untuk me-restore dan build, maka akan muncul hasil apakah project berhasil dibuild atau tidak. Bila tidak maka lakukan beberapa konfigurasi perbaikan. Lakukan perbaikan apabila terjadi masalah saat build. build berhasil Contoh repository dapat dilihat disini. Beberapa kendala yang terkadang muncul pada proses porting: Paket tidak ditemukan Global.Flight.Data.csproj : error NU1101: Unable to find package System.Xml. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Web. No packages exist with this id in source(s): nuget.org Global.Flight.Data.csproj : error NU1101: Unable to find package System.Data. No packages exist with this id in source(s): nuget.org AspNetCore.App telah berisi set API untuk net Core. Library ini dapat ditambahkan &lt;PackageReference Include=”Microsoft.AspNetCore.App” /&gt; di ItemGroup AssemblyInfo.cs(10,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyCompanyAttribute&#39; attribute AssemblyInfo.cs(11,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyConfigurationAttribute&#39; attribute AssemblyInfo.cs(12,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyFileVersionAttribute&#39; attribute AssemblyInfo.cs(14,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyProductAttribute&#39; attribute AssemblyInfo.cs(15,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyTitleAttribute&#39; attribute AssemblyInfo.cs(16,12): error CS0579: Duplicate &#39;System.Reflection.AssemblyVersionAttribute&#39; attribute Hal ini terjadi karena pada .net framework terdapat assembly pada bin atau terdapat berkas Properties\\AssemblyInfo.cs Hal ini dapat diakali dengan menambah &lt;GenerateAssemblyInfo&gt;false&lt;/GenerateAssemblyInfo&gt; di PropertyGroup Tips personal untuk refaktor ke .net core: Refaktor test terlebih dahulu, seminimalnya fungsi utama pada aplikasi dapat tercover sebelum melakukan refaktor menggunakan MSTest, xUnit atau NUnit yang telah disupport net CoreBuat monolitik terlebih dahulu, bila interface/factory dan library ada di proyek lain satukan terlebih dahulu lalu refaktor apabila tes sudah berjalan sesuai Selamat mengkonversi :)","url":"https://kusumandaru.com/tips-mengkonversi-net/","image":"https://cdn-images-1.medium.com/max/1024/1*_nypnJvULfcnQ5AbsYfMcQ.png","@type":"BlogPosting","headline":"Tips mengkonversi .Net Framework ke .Net Core","dateModified":"2019-01-06T00:00:00+07:00","datePublished":"2019-01-06T00:00:00+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -33,7 +33,7 @@
 
 <link href="https://kusumandaru.com/assets/css/main.css" rel="stylesheet">
 
-<script src="/assets/js/jquery.min.js"></script>
+<script src="https://kusumandaru.com/assets/js/jquery.min.js"></script>
 
 </head>
 
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 
     <!-- Begin Logo -->
     <a class="navbar-brand" href="https://kusumandaru.com/">
-    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    <img src="https://kusumandaru.com/assets/images/logo.png" alt="Kusumandaru">
     </a>
     <!-- End Logo -->
 
@@ -316,15 +316,15 @@ ga('send', 'pageview');
                     
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#Convert">Convert</a>
+                        <a class="smoothscroll" href="/categories#Convert">Convert</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#Dotnet">Dotnet</a>
+                        <a class="smoothscroll" href="/categories#Dotnet">Dotnet</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#Dotnet-Core">Dotnet Core</a>
+                        <a class="smoothscroll" href="/categories#Dotnet-Core">Dotnet Core</a>
                     </li>
                     
                 </ul>
@@ -343,10 +343,10 @@ ga('send', 'pageview');
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
             
-            <a class="prev d-block col-md-6" href="https://kusumandaru.com//manfaat-masjid-dekat/"> &laquo; Manfaat masjid dekat kantor</a>
+            <a class="prev d-block col-md-6" href="//manfaat-masjid-dekat/"> &laquo; Manfaat masjid dekat kantor</a>
             
             
-            <a class="next d-block col-md-6 text-lg-right" href="https://kusumandaru.com//menjaga-kesehat/">Menjaga kesehatan sebagai software engineer &raquo; </a>
+            <a class="next d-block col-md-6 text-lg-right" href="//menjaga-kesehat/">Menjaga kesehatan sebagai software engineer &raquo; </a>
             
             <div class="clearfix"></div>
             </div>
@@ -425,13 +425,13 @@ https://search.google.com/structured-data/testing-tool/u/0/
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-<script src="/assets/js/mediumish.js"></script>
+<script src="https://kusumandaru.com/assets/js/mediumish.js"></script>
 
 
-<script src="/assets/js/lazyload.js"></script>
+<script src="https://kusumandaru.com/assets/js/lazyload.js"></script>
 
 
-<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+<script src="https://kusumandaru.com/assets/js/ie10-viewport-bug-workaround.js"></script> 
 
 
 <script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>

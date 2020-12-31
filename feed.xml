@@ -5,9 +5,9 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 28 Jul 2020 21:19:46 +0700</pubDate>
-    <lastBuildDate>Tue, 28 Jul 2020 21:19:46 +0700</lastBuildDate>
-    <generator>Jekyll v3.8.7</generator>
+    <pubDate>Thu, 31 Dec 2020 08:21:38 +0700</pubDate>
+    <lastBuildDate>Thu, 31 Dec 2020 08:21:38 +0700</lastBuildDate>
+    <generator>Jekyll v3.9.0</generator>
     
       <item>
         <title>Mask Detector using TensorFlow Lite</title>
@@ -48,7 +48,7 @@
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*gwEfwyOI-Q_3ssPJz-eF7w.jpeg&quot; /&gt;&lt;/figure&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*9HoKRfZQxqAx2p128U1WeQ.jpeg&quot; /&gt;&lt;figcaption&gt;People which using masked unproperly or not using mask. Capture with confidence score&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;See repository on &lt;a href=&quot;https://github.com/kusumandaru/FaceMaskDetection&quot;&gt;https://github.com/kusumandaru/FaceMaskDetection&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d0ebd2958220&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d0ebd2958220&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 25 Jul 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/mask-detector-u/</link>
@@ -113,7 +113,7 @@
 &lt;p&gt;Since computational power is relative low, it only detect about 4–5 frame per second. To increase power 5–6 times, you can bought &lt;a href=&quot;https://coral.ai/products/accelerator/&quot;&gt;coral usb accelerator&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Sample video can be located below:&lt;/p&gt;
 &lt;iframe src=&quot;https://cdn.embedly.com/widgets/media.html?src=https%3A%2F%2Fwww.youtube.com%2Fembed%2F4XVpRhM-IeM%3Ffeature%3Doembed&amp;amp;display_name=YouTube&amp;amp;url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3D4XVpRhM-IeM&amp;amp;image=https%3A%2F%2Fi.ytimg.com%2Fvi%2F4XVpRhM-IeM%2Fhqdefault.jpg&amp;amp;key=a19fcc184b9711e1b4764040d3dc5c07&amp;amp;type=text%2Fhtml&amp;amp;schema=youtube&quot; width=&quot;640&quot; height=&quot;480&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href&quot;&gt;https://medium.com/media/0e85d37b8563c800f60a82eb4fb1079e/href&lt;/a&gt;&lt;/iframe&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=cdec3e105e55&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=cdec3e105e55&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 11 Jul 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/create-dashcam/</link>
@@ -150,7 +150,7 @@
 &lt;p&gt;Unfortunately for Redis is still not supported on Indonesia&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*3Jf1-w1aq63x4cbhaSKw8Q.png&quot; /&gt;&lt;figcaption&gt;redis instance&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;p&gt;We also waiting Amazon Web Service to release data center in Jakarta to give head to head alternative for our as customer.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d56318ac79cb&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d56318ac79cb&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Mon, 08 Jun 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/google-cloud-pl/</link>
@@ -186,15 +186,17 @@
 &lt;p&gt;On model we set serializer on rails and create function to search:&lt;/p&gt;
 &lt;pre&gt;class MyModel &amp;lt; ActiveRecord::Base&lt;br /&gt;  serialize(:email, ActiveRecord::PGCrypto::SymmetricCoder)&lt;br /&gt;&lt;br /&gt;  def self.decrypted_email&lt;br /&gt;    ActiveRecord::PGCrypto::SymmetricCoder&lt;br /&gt;      .decrypted_arel_text(arel_table[:email])&lt;br /&gt;  end&lt;br /&gt;end&lt;/pre&gt;
 &lt;p&gt;But since above implementation is redundant and attribute to encrypted is more than one, we create metaprogramming and create concern for these one:&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/164db80b7ff8c4512a3dd917fd8fb29d.js&quot;&gt;&lt;/script&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/0848b276775325a5d3ee5d006dfe48ea/href&quot;&gt;https://medium.com/media/0848b276775325a5d3ee5d006dfe48ea/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;&lt;em&gt;decrypted_#{attribute}&lt;/em&gt; on above method will return arel query like below&lt;/p&gt;
 &lt;pre&gt;# return Arel::Nodes::NamedFunction, it can use like Arel::Nodes::Matches&lt;/pre&gt;
 &lt;pre&gt;# example User.where(User.decrypted_email.matches(&amp;#39;raisa@random.com&amp;#39;))&lt;/pre&gt;
 &lt;pre&gt;----- will return -----&lt;/pre&gt;
 &lt;pre&gt;&amp;quot;SELECT \&amp;quot;users\&amp;quot;.* FROM \&amp;quot;users\&amp;quot; WHERE ENCODE(PGP_SYM_DECRYPT_BYTEA(\&amp;quot;users\&amp;quot;.\&amp;quot;email\&amp;quot;, CRYPTOGRAPHY_KEY), &amp;#39;escape&amp;#39;)ILIKE &amp;#39;raisa@random.com&amp;#39;&amp;quot;&lt;/pre&gt;
+&lt;pre&gt;or it can use below method to get single record&lt;/pre&gt;
+&lt;pre&gt;Admin.find_by(Admin.decrypted_email.eq(&amp;#39;&lt;a href=&quot;mailto:raisa@random.com&quot;&gt;raisa@random.com&lt;/a&gt;&amp;#39;))&lt;/pre&gt;
 &lt;p&gt;We need to test those concern with shared_examples&lt;/p&gt;
 &lt;p&gt;We try to create shared example to test model which have these function&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/c5bd949d2c06da0efb17c23d30e3a89a.js&quot;&gt;&lt;/script&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/7c793ef8f560ea52b4f4d35e9612bb66/href&quot;&gt;https://medium.com/media/7c793ef8f560ea52b4f4d35e9612bb66/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;After that we refactor previous model to become:&lt;/p&gt;
 &lt;pre&gt;class MyModel &amp;lt; ActiveRecord::Base&lt;br /&gt;  include PgCryptoable&lt;/pre&gt;
 &lt;pre&gt;  attr_pgcrypto :email, :full_name, :gender&lt;br /&gt;end&lt;/pre&gt;
@@ -202,13 +204,13 @@
 &lt;pre&gt;it_behaves_like &amp;#39;pgcryptoable model&amp;#39;&lt;/pre&gt;
 &lt;pre&gt;is_expected.to have_pgcryptoable_attribute(:email)&lt;/pre&gt;
 &lt;p&gt;&lt;strong&gt;Step 3: migrate plain attributes&lt;/strong&gt;&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/e61ba2c1d4c9f03ad8aa66f23283fb00.js&quot;&gt;&lt;/script&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/3d41a7261632058728564fc24aec620c/href&quot;&gt;https://medium.com/media/3d41a7261632058728564fc24aec620c/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;On these step we enable extension pgcrypto on postgres using command enable_extension .&lt;/p&gt;
 &lt;p&gt;After that we rename recent attribute into temporary field and do migration, when update method called, it will called serializer to encrypt data&lt;/p&gt;
 &lt;p&gt;Thats all and now database is encrypted and query search not decrease significanly&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*peAFMehWOcN12Y9xsTVQ0Q.png&quot; /&gt;&lt;figcaption&gt;time consume&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*WXLKCD2VvwnaL3ET&quot; /&gt;&lt;figcaption&gt;Photo by &lt;a href=&quot;https://unsplash.com/@maurosbicego?utm_source=medium&amp;amp;utm_medium=referral&quot;&gt;Mauro Sbicego&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com?utm_source=medium&amp;amp;utm_medium=referral&quot;&gt;Unsplash&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=e09ddbce53eb&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=e09ddbce53eb&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 16 May 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/how-to-implemen/</link>
@@ -230,26 +232,23 @@
 &lt;p&gt;For this example each salt is located in same record encrypted attribute. It use a salt ‘works’ by making sure the hash result unique to each used instance. This is done by picking a different random salt value for each computed hash.&lt;/p&gt;
 &lt;p&gt;MessageEncryptor is rails function which have ability to encrypt decrypt value use base64 encoded. It using key which generate from combination password , salt and length . For now it use ActiveSupport::MessageEncryptor.key_len which have 32 since ruby from version 2.4.0 forward use open ssl which have 32 bytes length.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Service to encrypt and decrypt&lt;/strong&gt;&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/03a6b220ed3706dc5c49dd2a4b48b167.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&quot;&gt;https://medium.com/media/d6f122d5d193a27bbed5ad081b25b089/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;It define initialise, so each new method will create encryptor/decryptor based on salt record. Then it can encrypt or decrypt attribute.&lt;/p&gt;
 &lt;p&gt;It read key ENCRYPT_KEY_BASE from environment variable, make sure key not uploaded to repository and try to make unique for production and staging environment. Also create using hard random key like SecureRandom.base64 or SecureRandom.random_bytes&lt;/p&gt;
 &lt;h4&gt;Define concern&lt;/h4&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/356de4bf1c5115589a80465b5bec5683.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&quot;&gt;https://medium.com/media/43d81d7c0e8f31943d5127e8f9767ea8/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;We use meta programming ruby to override class method attr_encrypted for each attribute which assigned and and assign value to encrypted_attribute&lt;/p&gt;
 &lt;p&gt;Example: attr_encrypted :mother_name, on_model user, it will overriding attribute mother_name with decrypted value and reassign value for attribute encrypted_mother_name with encrypted value. You can assign multiple attribute also on these class method&lt;/p&gt;
 &lt;p&gt;It send salt from record and encrypted_attribute to encryption service, either to encrypt or decrypt data.&lt;/p&gt;
 &lt;p&gt;When salt not exist on those record, it also built automatically use ActiveActiveSupport::MessageEncryptor.key_len a.k.a SecureRandom.random_bytes(32)&lt;/p&gt;
 &lt;h4&gt;Migrate plain attributes to encrypted one&lt;/h4&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/054b3dd7ed8d10ea75ce0e9efb45ca30.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&quot;&gt;https://medium.com/media/cdb827fc2e5fa504290aeb18c37928c5/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;After service and model already done we try to migrate unencrypted data, we define new column with prefix encrypted_ and we add salt with type binary, in postgres it will save with format bytea. Cause salt cannot save in format string.&lt;/p&gt;
 &lt;p&gt;We also define user.mother_name = user.mother_name_was since method mother_name already override on above concern, and mother_name_was is directly call active record.&lt;/p&gt;
 &lt;p&gt;For better security try to store salt in different source. Like different database, or access by another endpoint, so when database was breach, key is on another world.&lt;/p&gt;
 &lt;p&gt;Alternatively you can use third party cryptography service like aws/google cloud KMS, vault, or thales.&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*Ze_S6uRvYBZLQxS4xBysHg.jpeg&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://unsplash.com/photos/0Yiy0XajJHQ&quot;&gt;https://unsplash.com/photos/0Yiy0XajJHQ&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=85e10dfe90d7&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=85e10dfe90d7&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 02 May 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/encrypt-decrypt/</link>
@@ -278,8 +277,7 @@
 &lt;pre&gt;end&lt;/pre&gt;
 &lt;p&gt;After that, install with command bundle install .&lt;/p&gt;
 &lt;p&gt;These gem using key from Service Account, before we create key, we need to define Role for these service account, since we only need to steam data and avoid alter or delete table, we register these roles:&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/e1b3ddb34e96edd9a4a3452d060bf1c3.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&quot;&gt;https://medium.com/media/74ec259e9bea87810300e07e83d1caef/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;Example give this roles name BigQuery Stream&lt;/p&gt;
 &lt;p&gt;Back into service account create new one, than assign role into this service,&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*EcHLUnNNl_2SwKkJ.png&quot; /&gt;&lt;figcaption&gt;service account generation&lt;/figcaption&gt;&lt;/figure&gt;
@@ -289,34 +287,28 @@
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*008l5QIKVFsRJEg3.png&quot; /&gt;&lt;figcaption&gt;project ID&lt;/figcaption&gt;&lt;/figure&gt;
 &lt;pre&gt;BIGQUERY_CREDENTIAL_PATH=/path-to-file/bigquery.json&lt;br /&gt;BIGQUERY_PROJECT_ID=bigquery-test-270003&lt;/pre&gt;
 &lt;p&gt;After that create base service file to connect to bigquery, like base.rb&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/8fab31f9b014e3d0df18b5ff9ec66de8.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&quot;&gt;https://medium.com/media/e2718b7ccebeae01e758d23699e5b5a2/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;We load library bigquery also use active model for catch error on header filer&lt;/p&gt;
 &lt;p&gt;We load configuration using environment variable and initialize instance on initialise method.&lt;/p&gt;
 &lt;p&gt;Since we make base class as superclass and inheritance dataset and table id we must define on base.rb and than we load these dataset and table, after that we call method to send json data into bigquery.&lt;/p&gt;
 &lt;p&gt;We need check if table is exist on bigquery before we stream data, and than we send data into bigquery and check if response is success or not, if response file than we catch errors to show to user and return false value, otherwise we return true response.&lt;/p&gt;
 &lt;p&gt;Than we can define subclass for sent data, for example, we try send user model&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/2d56682d521f143b9563e2b2e83a132d.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&quot;&gt;https://medium.com/media/f593ba8e2688475d92c0fada3c821e8d/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;We then define DATASET_ID and TABLE_ID for these service and convert model into json using as_json method&lt;/p&gt;
 &lt;p&gt;we define shared example to mock bigquery, catch response form response and define on json for each request&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/57de95c5248452c6e9df80d694d6678d.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&quot;&gt;https://medium.com/media/784244e3a72257afa198ae161bb14030/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;and we create spec by test this class:&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/b47f0262efc2a142ea7267d40f64359f.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&quot;&gt;https://medium.com/media/dad452302be6d75066db8ca40709aab9/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;For final step we create job so, streaming data running on background task&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/a3d2fc9ec0f83531dc512ff36ff6e0b3.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&quot;&gt;https://medium.com/media/f9a89d3198aef6b74687b416190f1936/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;We check model is exist before we send and we call service to run job&lt;/p&gt;
 &lt;p&gt;for spec test we check using these command&lt;/p&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/54d21ce01b085fc575bf7382251ae27e.js&quot;&gt;&lt;/script&gt;
-
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&quot;&gt;https://medium.com/media/f44bb47ef4cc88e3f28004f72058a0a0/href&lt;/a&gt;&lt;/iframe&gt;
 &lt;p&gt;And you can call by using command:&lt;/p&gt;
 &lt;p&gt;BigQuery::UserStreamJob.perform_later(some_user.id)&lt;/p&gt;
 &lt;p&gt;Check on bigquery console when data is succesfully inserted&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*a-7b53oaGAZ58qAh.png&quot; /&gt;&lt;figcaption&gt;user table&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=c422ac47d520&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=c422ac47d520&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 14 Mar 2020 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/streaming-json/</link>
@@ -391,7 +383,7 @@
 &lt;ul&gt;&lt;li&gt;Apakah kode yang diproduksi merupakan kode yang paling terbaru. (bisa dilakukan dengan git logatau memasukkan versi program ketika release)&lt;/li&gt;&lt;li&gt;Apakah konfigurasi yang dijalankan pada production sudah sesuai.&lt;/li&gt;&lt;li&gt;Apakah database telah menggunakan skema yang paling baru apabila ada penambahan tabel atau kolom&lt;/li&gt;&lt;li&gt;Cek log yang terjadi apakah pesan error yang terjadi (untuk itu pastikan ketika ada error sedapat mungkin jangan dilakukan catch exception karena ini dapat mengkaburkan penyebab error yang terjadi)&lt;/li&gt;&lt;li&gt;Apabila ada sumber dayanya dan secara aturan diperbolehka. Gunakan monitoring seperti scout, new relic atau stackify. Ini akan mempermudah apabila error terjadi di production dan melakukan reka ulang kejadian.&lt;/li&gt;&lt;/ul&gt;
 &lt;blockquote&gt;- sekian, murid pamit dulu untuk menimba ilmu lainnya&lt;/blockquote&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/640/1*8Ak7RPdV2bxbU5lw-2Eing.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d441249c5002&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=d441249c5002&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Wed, 11 Dec 2019 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/memetik-ilmu-da/</link>
@@ -455,7 +447,7 @@
 &lt;p&gt;And voila your website now consist medium content.&lt;/p&gt;
 &lt;p&gt;You can see full repository code &lt;a href=&quot;https://github.com/kusumandaru/medium-rss&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png&quot; /&gt;&lt;figcaption&gt;final website&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3ab1c3c9625f&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=3ab1c3c9625f&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
 </description>
         <pubDate>Sat, 21 Sep 2019 00:00:00 +0700</pubDate>
         <link>https://kusumandaru.com/how-to-clone-me/</link>

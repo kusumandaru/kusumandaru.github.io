@@ -8,9 +8,9 @@
 
 <title>How to clone medium story into custom domain | Kusumandaru</title>
 
-<!-- Begin Jekyll SEO tag v2.5.0 -->
+<!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>How to clone medium story into custom domain | Kusumandaru</title>
-<meta name="generator" content="Jekyll v3.8.7" />
+<meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="How to clone medium story into custom domain" />
 <meta name="author" content="ndaru" />
 <meta property="og:locale" content="en_US" />
@@ -23,7 +23,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-09-21T00:00:00+07:00" />
 <script type="application/ld+json">
-{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/how-to-clone-me/"},"url":"https://kusumandaru.com/how-to-clone-me/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"How to build custom domain medium today Duplicate your medium content on your own site using jekyll and feedjira Perquisites: see article https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c to step by step detail how to set and publish site. As we know since November 2017 medium will not accept custom domain as part of medium. How if we want to took our content from medium and move it to our personal domain with only cost custom domain in nowadays. Disclaimer: rather than publication will be hosted on Medium, it still using own hosting, i prefer github pages to hosting static page, cause it’s free and simple. First of all we need Jekyll and specific template, i use template mediumish since it have sleek design and more relevant with medium design. It also have additional configuration for comment, google analytic and featured image. Since it using markdown file (.md) as source of article ---layout: posttitle: &quot;Cool title&quot;author: angga kusumandarcategories: [ Jekyll, tutorial ]image: assets/images/5.jpgdescription: &quot;Something about this post here&quot;--- we create md file from rss of medium, example https://medium.com/feed/@kusumandaru, we can grab it and transform into md file. Take a note if each rss have ten latest article, and it can generate new one if new article medium exist, for old article you need create md file manually. url = &quot;https://medium.com/feed/@#{username}&quot; xml = ::HTTParty.get(url).body feeds = Feedjira.parse(xml) feeds.entries.each do |entry| p &quot;Title: #{entry.title}, published on Medium #{entry.url} #{entry}&quot; create_file(entry, site) end first we try to get rss and get entries data def image_url(content) doc = Nokogiri::HTML(content) doc.xpath(&quot;//img&quot;)[0][&#39;src&#39;] end we also parse image using Nokogiri to get first image from each article to convert as feature image path_file = &quot;./_posts/&quot; + published.strftime(&#39;%F&#39;) + &#39;-&#39; + title.parameterize.first(15) + &quot;.md&quot; path = site.in_source_dir(path_file) and than we create file with publish data and title to make unique and sort article by date File.open(path, &#39;wb&#39;) do |file| file.write &quot;---&quot; file.write &quot;\\n&quot; file.write &quot;layout: post&quot; file.write &quot;\\n&quot; file.write &quot;title: #{title}&quot; file.write &quot;\\n&quot; file.write &quot;author: #{author}&quot; file.write &quot;\\n&quot; file.write &quot;categories: #{category}&quot; file.write &quot;\\n&quot; file.write &quot;image: #{image}&quot; file.write &quot;\\n&quot; file.write &quot;---&quot; file.write &quot;\\n&quot; file.write content end and then we create content of md file with spesific format and content After that try to publish static page using JEKYLL_ENV=production bundle exec jekyll build. also on spesific md file, add feature: true to make artice published on top of index page. Finally publish site page in github page. And voila your website now consist medium content. You can see full repository code here final website","image":"https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png","@type":"BlogPosting","headline":"How to clone medium story into custom domain","dateModified":"2019-09-21T00:00:00+07:00","datePublished":"2019-09-21T00:00:00+07:00","@context":"http://schema.org"}</script>
+{"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/how-to-clone-me/"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"author":{"@type":"Person","name":"ndaru"},"description":"How to build custom domain medium today Duplicate your medium content on your own site using jekyll and feedjira Perquisites: see article https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c to step by step detail how to set and publish site. As we know since November 2017 medium will not accept custom domain as part of medium. How if we want to took our content from medium and move it to our personal domain with only cost custom domain in nowadays. Disclaimer: rather than publication will be hosted on Medium, it still using own hosting, i prefer github pages to hosting static page, cause it’s free and simple. First of all we need Jekyll and specific template, i use template mediumish since it have sleek design and more relevant with medium design. It also have additional configuration for comment, google analytic and featured image. Since it using markdown file (.md) as source of article ---layout: posttitle: &quot;Cool title&quot;author: angga kusumandarcategories: [ Jekyll, tutorial ]image: assets/images/5.jpgdescription: &quot;Something about this post here&quot;--- we create md file from rss of medium, example https://medium.com/feed/@kusumandaru, we can grab it and transform into md file. Take a note if each rss have ten latest article, and it can generate new one if new article medium exist, for old article you need create md file manually. url = &quot;https://medium.com/feed/@#{username}&quot; xml = ::HTTParty.get(url).body feeds = Feedjira.parse(xml) feeds.entries.each do |entry| p &quot;Title: #{entry.title}, published on Medium #{entry.url} #{entry}&quot; create_file(entry, site) end first we try to get rss and get entries data def image_url(content) doc = Nokogiri::HTML(content) doc.xpath(&quot;//img&quot;)[0][&#39;src&#39;] end we also parse image using Nokogiri to get first image from each article to convert as feature image path_file = &quot;./_posts/&quot; + published.strftime(&#39;%F&#39;) + &#39;-&#39; + title.parameterize.first(15) + &quot;.md&quot; path = site.in_source_dir(path_file) and than we create file with publish data and title to make unique and sort article by date File.open(path, &#39;wb&#39;) do |file| file.write &quot;---&quot; file.write &quot;\\n&quot; file.write &quot;layout: post&quot; file.write &quot;\\n&quot; file.write &quot;title: #{title}&quot; file.write &quot;\\n&quot; file.write &quot;author: #{author}&quot; file.write &quot;\\n&quot; file.write &quot;categories: #{category}&quot; file.write &quot;\\n&quot; file.write &quot;image: #{image}&quot; file.write &quot;\\n&quot; file.write &quot;---&quot; file.write &quot;\\n&quot; file.write content end and then we create content of md file with spesific format and content After that try to publish static page using JEKYLL_ENV=production bundle exec jekyll build. also on spesific md file, add feature: true to make artice published on top of index page. Finally publish site page in github page. And voila your website now consist medium content. You can see full repository code here final website","url":"https://kusumandaru.com/how-to-clone-me/","image":"https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png","@type":"BlogPosting","headline":"How to clone medium story into custom domain","dateModified":"2019-09-21T00:00:00+07:00","datePublished":"2019-09-21T00:00:00+07:00","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -33,7 +33,7 @@
 
 <link href="https://kusumandaru.com/assets/css/main.css" rel="stylesheet">
 
-<script src="/assets/js/jquery.min.js"></script>
+<script src="https://kusumandaru.com/assets/js/jquery.min.js"></script>
 
 </head>
 
@@ -64,7 +64,7 @@ ga('send', 'pageview');
 
     <!-- Begin Logo -->
     <a class="navbar-brand" href="https://kusumandaru.com/">
-    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    <img src="https://kusumandaru.com/assets/images/logo.png" alt="Kusumandaru">
     </a>
     <!-- End Logo -->
 
@@ -289,7 +289,7 @@ ga('send', 'pageview');
 <p>And voila your website now consist medium content.</p>
 <p>You can see full repository code <a href="https://github.com/kusumandaru/medium-rss">here</a></p>
 <figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*5aLb7BKRDdMgLyCCEBwE9g.png" /><figcaption>final website</figcaption></figure>
-<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3ab1c3c9625f" width="1" height="1" /></p>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3ab1c3c9625f" width="1" height="1" alt="" /></p>
 
             </div>
 
@@ -310,19 +310,19 @@ ga('send', 'pageview');
                     
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#clone-data">clone-data</a>
+                        <a class="smoothscroll" href="/categories#clone-data">clone-data</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#jekyll">jekyll</a>
+                        <a class="smoothscroll" href="/categories#jekyll">jekyll</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#médium">médium</a>
+                        <a class="smoothscroll" href="/categories#médium">médium</a>
                     </li>
                     
                     <li>
-                        <a class="smoothscroll" href="https://kusumandaru.com/categories#rss-feeds">rss-feeds</a>
+                        <a class="smoothscroll" href="/categories#rss-feeds">rss-feeds</a>
                     </li>
                     
                 </ul>
@@ -341,10 +341,10 @@ ga('send', 'pageview');
             <!-- Prev/Next -->
             <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
             
-            <a class="prev d-block col-md-6" href="https://kusumandaru.com//how-we-rewrite/"> &laquo; How we rewrite our code without customer aware and uninterrupted business</a>
+            <a class="prev d-block col-md-6" href="//how-we-rewrite/"> &laquo; How we rewrite our code without customer aware and uninterrupted business</a>
             
             
-            <a class="next d-block col-md-6 text-lg-right" href="https://kusumandaru.com//memetik-ilmu-da/">Memetik ilmu dari pemogram senior &raquo; </a>
+            <a class="next d-block col-md-6 text-lg-right" href="//memetik-ilmu-da/">Memetik ilmu dari pemogram senior &raquo; </a>
             
             <div class="clearfix"></div>
             </div>
@@ -423,13 +423,13 @@ https://search.google.com/structured-data/testing-tool/u/0/
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 
-<script src="/assets/js/mediumish.js"></script>
+<script src="https://kusumandaru.com/assets/js/mediumish.js"></script>
 
 
-<script src="/assets/js/lazyload.js"></script>
+<script src="https://kusumandaru.com/assets/js/lazyload.js"></script>
 
 
-<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+<script src="https://kusumandaru.com/assets/js/ie10-viewport-bug-workaround.js"></script> 
 
 
 <script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>

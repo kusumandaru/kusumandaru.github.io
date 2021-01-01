@@ -101,6 +101,10 @@
 <lastmod>2020-07-25T00:00:00+07:00</lastmod>
 </url>
 <url>
+<loc>https://kusumandaru.com/deploy-jekyll-i/</loc>
+<lastmod>2021-01-01T00:00:00+07:00</lastmod>
+</url>
+<url>
 <loc>https://kusumandaru.com/about/</loc>
 </url>
 <url>
@@ -330,6 +334,9 @@
 </url>
 <url>
 <loc>https://kusumandaru.com/category/machine-learning/</loc>
+</url>
+<url>
+<loc>https://kusumandaru.com/category/heroku/</loc>
 </url>
 <url>
 <loc>https://kusumandaru.com/page2/</loc>

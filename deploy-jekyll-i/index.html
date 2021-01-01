@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/logo.png">
+
+<title>Deploy Jekyll in Heroku with Custom Domain | Kusumandaru</title>
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Jekyll in Heroku with Custom Domain | Kusumandaru</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="Deploy Jekyll in Heroku with Custom Domain" />
+<meta name="author" content="ndaru" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="How to deploy Jekyll in Heroku using free dynos and using cloudflare as DNS for custom domain These article is alternate story from previous article about jekyll and custom domain. Instead using github page, we try to adopt Heroku free tier. Skip to step 4 if you ever read above article. Part 1 — choose a custom domain domain registration You can buy with various domain provider like GoDaddy, Wix, 101domain or many option outside there, for this example I use Namecheap. Some domain like .com need activation via email to check owner validity. Part 2— Using cloudflare to inject https We use cloudflare to connect custom domain with CNAME on heroku Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change Nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite in Edge Certificates to make assets to use HTTPS when eligible, rather than HTTP Your site now already using https already force using ssl Part 3— Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 Part 4 — Install Heroku on Jekyll Register heroku free dynos here Install heroku client using brew brew install heroku/brew/heroku Create project name using heroku create {name of project} Adding ruby dependencies using heroku buildpacks:add heroku/ruby Since jekyll generate static website to host static website we must install static web using heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static add static.json and Rakefile on root path https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href Root file is located for generated jekyll and Rakefile to build command rake assets:precompile For deploy using branch, use git push heroku {name of branch}:master example: git push heroku heroku:master Than link custom domainheroku domains:add blog.kusumandaru.com Check domain creation using heroku domains:wait ‘blog.kusumandaru.com&#39; Check domain setup using heroku domains to check DNS and CNAME custom domains For free service we cannot add custom SSL, only hobby and upper plan can use SSL, if you have those plan, use heroku certs:add certificate.pem certificate.key Generate Certificate Pem and Private Key We skip those step if free tier. We set on DNS to redirect subdomain to heroku. On DNS tab fill subdomain name, ex: blog from blog.kusumandaru.com and set domain name from heroku. kusumandaru.herokuapp.com . We use domain name since if we use DNS Target it will cause redirect loop on cloudflare Than wait for several minutes than website is published custom domain on heroku free" />
+<meta property="og:description" content="How to deploy Jekyll in Heroku using free dynos and using cloudflare as DNS for custom domain These article is alternate story from previous article about jekyll and custom domain. Instead using github page, we try to adopt Heroku free tier. Skip to step 4 if you ever read above article. Part 1 — choose a custom domain domain registration You can buy with various domain provider like GoDaddy, Wix, 101domain or many option outside there, for this example I use Namecheap. Some domain like .com need activation via email to check owner validity. Part 2— Using cloudflare to inject https We use cloudflare to connect custom domain with CNAME on heroku Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change Nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite in Edge Certificates to make assets to use HTTPS when eligible, rather than HTTP Your site now already using https already force using ssl Part 3— Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 Part 4 — Install Heroku on Jekyll Register heroku free dynos here Install heroku client using brew brew install heroku/brew/heroku Create project name using heroku create {name of project} Adding ruby dependencies using heroku buildpacks:add heroku/ruby Since jekyll generate static website to host static website we must install static web using heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static add static.json and Rakefile on root path https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href Root file is located for generated jekyll and Rakefile to build command rake assets:precompile For deploy using branch, use git push heroku {name of branch}:master example: git push heroku heroku:master Than link custom domainheroku domains:add blog.kusumandaru.com Check domain creation using heroku domains:wait ‘blog.kusumandaru.com&#39; Check domain setup using heroku domains to check DNS and CNAME custom domains For free service we cannot add custom SSL, only hobby and upper plan can use SSL, if you have those plan, use heroku certs:add certificate.pem certificate.key Generate Certificate Pem and Private Key We skip those step if free tier. We set on DNS to redirect subdomain to heroku. On DNS tab fill subdomain name, ex: blog from blog.kusumandaru.com and set domain name from heroku. kusumandaru.herokuapp.com . We use domain name since if we use DNS Target it will cause redirect loop on cloudflare Than wait for several minutes than website is published custom domain on heroku free" />
+<link rel="canonical" href="https://kusumandaru.com/deploy-jekyll-i/" />
+<meta property="og:url" content="https://kusumandaru.com/deploy-jekyll-i/" />
+<meta property="og:site_name" content="Kusumandaru" />
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-01T00:00:00+07:00" />
+<script type="application/ld+json">
+{"headline":"Deploy Jekyll in Heroku with Custom Domain","dateModified":"2021-01-01T00:00:00+07:00","datePublished":"2021-01-01T00:00:00+07:00","author":{"@type":"Person","name":"ndaru"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://kusumandaru.com/assets/images/logo.png"},"name":"ndaru"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://kusumandaru.com/deploy-jekyll-i/"},"url":"https://kusumandaru.com/deploy-jekyll-i/","description":"How to deploy Jekyll in Heroku using free dynos and using cloudflare as DNS for custom domain These article is alternate story from previous article about jekyll and custom domain. Instead using github page, we try to adopt Heroku free tier. Skip to step 4 if you ever read above article. Part 1 — choose a custom domain domain registration You can buy with various domain provider like GoDaddy, Wix, 101domain or many option outside there, for this example I use Namecheap. Some domain like .com need activation via email to check owner validity. Part 2— Using cloudflare to inject https We use cloudflare to connect custom domain with CNAME on heroku Register first on https://www.cloudflare.com/ fill custom domain name choose free option update domain setting to using cloudflare dns On your hosting change Nameservers default dns into cloudflare dns. lia.ns.cloudflare.com for dns1 west.ns.cloudflare.com for dns2 It cost several hours until days depends on domain provider, check status on overview tab. Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare. crypto area Also turn check on Automatic https rewrite in Edge Certificates to make assets to use HTTPS when eligible, rather than HTTP Your site now already using https already force using ssl Part 3— Using jekyll to generate website Choose theme from github page theme from https://jekyllthemes.io/ or just install jekyll using jekyll new blog Build using command bundle exec jekyll build and check with bundle exec jekyll server. check on localhost:4000 Part 4 — Install Heroku on Jekyll Register heroku free dynos here Install heroku client using brew brew install heroku/brew/heroku Create project name using heroku create {name of project} Adding ruby dependencies using heroku buildpacks:add heroku/ruby Since jekyll generate static website to host static website we must install static web using heroku buildpacks:add https://github.com/heroku/heroku-buildpack-static add static.json and Rakefile on root path https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href Root file is located for generated jekyll and Rakefile to build command rake assets:precompile For deploy using branch, use git push heroku {name of branch}:master example: git push heroku heroku:master Than link custom domainheroku domains:add blog.kusumandaru.com Check domain creation using heroku domains:wait ‘blog.kusumandaru.com&#39; Check domain setup using heroku domains to check DNS and CNAME custom domains For free service we cannot add custom SSL, only hobby and upper plan can use SSL, if you have those plan, use heroku certs:add certificate.pem certificate.key Generate Certificate Pem and Private Key We skip those step if free tier. We set on DNS to redirect subdomain to heroku. On DNS tab fill subdomain name, ex: blog from blog.kusumandaru.com and set domain name from heroku. kusumandaru.herokuapp.com . We use domain name since if we use DNS Target it will cause redirect loop on cloudflare Than wait for several minutes than website is published custom domain on heroku free","@type":"BlogPosting","image":"https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+<link href="/assets/css/screen.css" rel="stylesheet">
+
+<link href="/assets/css/main.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+<!-- change your GA id in _config.yml -->
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-135970453-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<body class="layout-post">
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Righteous%7CMerriweather:300,300i,400,400i,700,700i" rel="stylesheet">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+
+<!-- Begin Menu Navigation
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top mediumnavigation nav-down">
+
+    <div class="container pr-0">
+
+    <!-- Begin Logo -->
+    <a class="navbar-brand" href="/">
+    <img src="/assets/images/logo.png" alt="Kusumandaru">
+    </a>
+    <!-- End Logo -->
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMediumish" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarMediumish">
+
+        <!-- Begin Menu -->
+
+            <ul class="navbar-nav ml-auto">
+
+                
+                <li class="nav-item">
+                
+                <a class="nav-link" href="/index.html">Blog</a>
+                </li>
+
+                <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://bootstrapstarter.com/bootstrap-templates/template-mediumish-bootstrap-jekyll/"> Docs</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-wordpress/"><i class="fab fa-wordpress-simple"></i> WP Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://www.wowthemes.net/themes/mediumish-ghost/"><i class="fab fa-snapchat-ghost"></i> Ghost Version</a>
+                </li>
+
+                <li class="nav-item" hidden=true>
+                <a target="_blank" class="nav-link" href="https://github.com/wowthemesnet/mediumish-theme-jekyll"><i class="fab fa-github"></i> Fork on Github</a>
+                </li>
+
+                <script src="/assets/js/lunr.js"></script>
+
+
+<style>
+    .lunrsearchresult .title {color: #d9230f;}
+    .lunrsearchresult .url {color: silver;}
+    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
+    .lunrsearchresult a:hover .title {text-decoration: underline;}
+</style>
+
+
+<form class="bd-search" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <input type="text" class="form-control text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+</form>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+            </ul>
+
+        <!-- End Menu -->
+
+    </div>
+
+    </div>
+</nav>
+<!-- End Navigation
+================================================== -->
+
+<div class="site-content">
+
+<div class="container">
+
+<!-- Site Title
+================================================== -->
+<div class="mainheading">
+    <h1 class="sitetitle">Kusumandaru</h1>
+    <p class="lead">
+        Collection of medium story
+    </p>
+</div>
+
+<!-- Content
+================================================== -->
+<div class="main-content">
+    <!-- Begin Article
+================================================== -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Share -->
+        <div class="col-md-2 pl-0">
+            <div class="share sticky-top sticky-top-offset">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Deploy Jekyll in Heroku with Custom Domain&url=https://kusumandaru.com/deploy-jekyll-i/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=https://kusumandaru.com/deploy-jekyll-i/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://kusumandaru.com/deploy-jekyll-i/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+    
+    <div class="sep">
+    </div>
+    <ul>
+        <li>
+        <a class="small smoothscroll" href="#disqus_thread"></a>
+        </li>
+    </ul>
+    
+</div>
+
+        </div>
+
+        <!-- Post -->
+        
+
+        <div class="col-md-9 flex-first flex-md-unordered">
+            <div class="mainheading">
+
+                <!-- Author Box -->
+                
+                <div class="row post-top-meta">
+                    <div class="col-xs-12 col-md-3 col-lg-2 text-center text-md-left mb-4 mb-md-0">
+                        
+                        <img class="author-thumb" src="https://www.gravatar.com/avatar/8e79c68c1efe61afb4ae962aa41f8ea8?s=250&d=mm&r=x" alt="ndaru">
+                        
+                    </div>
+                    <div class="col-xs-12 col-md-9 col-lg-10 text-center text-md-left">
+                        <a target="_blank" class="link-dark" href="https://kusumandaru.com">ndaru</a><a target="_blank" href="" class="btn follow">Follow</a>
+                        <span class="author-description">digital entushiast</span>
+                    </div>
+                </div>
+                
+
+                <!-- Post Title -->
+                <h1 class="posttitle">Deploy Jekyll in Heroku with Custom Domain</h1>
+
+            </div>
+
+            <!-- Adsense if enabled from _config.yml (change your pub id and slot) -->
+            
+            <!-- End Adsense -->
+
+            <!-- Post Featured Image -->
+            
+
+            
+            <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" alt="Deploy Jekyll in Heroku with Custom Domain">
+            
+
+            
+            <!-- End Featured Image -->
+
+            <!-- Post Content -->
+            <div class="article-post">
+                <!-- Toc if any -->
+                
+                <!-- End Toc -->
+                <p>How to deploy Jekyll in Heroku using free dynos and using cloudflare as DNS for custom domain</p>
+<p>These article is alternate story from <a href="https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c">previous article</a> about jekyll and custom domain. Instead using github page, we try to adopt Heroku free tier. Skip to step 4 if you ever read above article.</p>
+<p><strong>Part 1 — choose a custom domain</strong></p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png" /><figcaption>domain registration</figcaption></figure>
+<p>You can buy with various domain provider like GoDaddy, Wix, 101domain or many option outside there, for this example I use Namecheap.</p>
+<p>Some domain like .com need activation via email to check owner validity.</p>
+<p><strong>Part 2— Using cloudflare to inject https</strong></p>
+<p>We use cloudflare to connect custom domain with CNAME on heroku</p>
+<p>Register first on <a href="https://www.cloudflare.com/">https://www.cloudflare.com/</a></p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/832/1*8NbToPoehLquG87WX7LcZg.png" /><figcaption>fill custom domain name</figcaption></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/666/1*kGTJWcFqvz4y_v5Jkb9ljA.png" /><figcaption>choose free option</figcaption></figure>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*MTLjmTVwVzTVPv5nzDNuWA.png" /><figcaption>update domain setting to using cloudflare dns</figcaption></figure>
+<p>On your hosting change Nameservers default dns into cloudflare dns.</p>
+<p>lia.ns.cloudflare.com for dns1</p>
+<p>west.ns.cloudflare.com for dns2</p>
+<p>It cost several hours until days depends on domain provider, check status on overview tab.</p>
+<p>Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare.</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*k5QAmRIl7YkbaW9PcMA3cw.png" /><figcaption>crypto area</figcaption></figure>
+<p>Also turn check on Automatic https rewrite in Edge Certificates to make assets to use HTTPS when eligible, rather than HTTP</p>
+<p>Your site now already using https</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/704/1*L0eG2mrD4sV4qg4BCg9FzQ.png" /><figcaption>already force using ssl</figcaption></figure>
+<p><strong>Part 3— Using jekyll to generate website</strong></p>
+<p>Choose theme from github page theme from <a href="https://jekyllthemes.io/">https://jekyllthemes.io/</a></p>
+<p>or just install jekyll using jekyll new blog</p>
+<p>Build using command bundle exec jekyll build and check with bundle exec jekyll server.</p>
+<p>check on localhost:4000</p>
+<p><strong>Part 4 — Install Heroku on Jekyll</strong></p>
+<p>Register heroku free dynos <a href="https://www.heroku.com/free">here</a></p>
+<p>Install heroku client using <a href="http://brew install heroku/brew/heroku">brew</a> brew install heroku/brew/heroku</p>
+<p>Create project name using heroku create {name of project}</p>
+<p>Adding ruby dependencies using heroku buildpacks:add heroku/ruby</p>
+<p>Since jekyll generate static website to host static website we must install static web using heroku buildpacks:add <a href="https://github.com/heroku/heroku-buildpack-static">https://github.com/heroku/heroku-buildpack-static</a></p>
+<p>add static.json and Rakefile on root path</p>
+<iframe src="" width="0" height="0" frameborder="0" scrolling="no"><a href="https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href">https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href</a></iframe>
+<p>Root file is located for generated jekyll and Rakefile to build command rake assets:precompile</p>
+<p>For deploy using branch, use git push heroku {name of branch}:master</p>
+<p>example: git push heroku heroku:master</p>
+<p>Than link custom domainheroku domains:add blog.kusumandaru.com</p>
+<p>Check domain creation using heroku domains:wait ‘blog.kusumandaru.com&#39;</p>
+<p>Check domain setup using heroku domains to check DNS and CNAME</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*J5kKWdMwBrqrg_LXZJjSkg.png" /><figcaption>custom domains</figcaption></figure>
+<p><strong><em>For free service we cannot add custom SSL</em></strong>, only hobby and upper plan can use SSL, if you have those plan, use heroku certs:add certificate.pem certificate.key</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*XwZWveg2AbyjSrnx4nO8Gg.png" /><figcaption>Generate Certificate Pem and Private Key</figcaption></figure>
+<p>We skip those step if free tier. We set on DNS to redirect subdomain to heroku. On DNS tab fill subdomain name, ex: blog from blog.kusumandaru.com and set domain name from heroku. kusumandaru.herokuapp.com . We use domain name since if we use DNS Target it will cause redirect loop on cloudflare</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0O0vxWUKftLlvRf6fB2rSA.png" /></figure>
+<p>Than wait for several minutes than website is published</p>
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*j9ZbhqEBps80bCSn2NIq4w.png" /><figcaption>custom domain on heroku free</figcaption></figure>
+<p><img src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=e5d2b793fac0" width="1" height="1" alt="" /></p>
+
+            </div>
+
+            <!-- Rating -->
+            
+
+            <!-- Post Date -->
+            <p>
+            <small>
+                <span class="post-date"><time class="post-date" datetime="2021-01-01">01 Jan 2021</time></span>           
+                
+                </small>
+            </p>
+
+            <!-- Post Categories -->
+            <div class="after-post-cats">
+                <ul class="tags mb-4">
+                    
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#custom-domain">custom-domain</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#heroku">heroku</a>
+                    </li>
+                    
+                    <li>
+                        <a class="smoothscroll" href="/categories#jekyll">jekyll</a>
+                    </li>
+                    
+                </ul>
+            </div>
+            <!-- End Categories -->
+
+            <!-- Post Tags -->
+            <div class="after-post-tags">
+                <ul class="tags">
+                    
+                    
+                </ul>
+            </div>
+            <!-- End Tags -->
+
+            <!-- Prev/Next -->
+            <div class="row PageNavigation d-flex justify-content-between font-weight-bold">
+            
+            <a class="prev d-block col-md-6" href="https://kusumandaru.com//mask-detector-u/"> &laquo; Mask Detector using TensorFlow Lite</a>
+            
+            
+            <div class="clearfix"></div>
+            </div>
+            <!-- End Categories -->
+
+        </div>
+        <!-- End Post -->
+
+    </div>
+</div>
+<!-- End Article
+================================================== -->
+
+<!-- Begin Comments
+================================================== -->
+
+    <div class="container">
+        <div id="comments" class="row justify-content-center mb-5">
+            <div class="col-md-8">
+                <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'kusumandaru'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+            </div>
+        </div>
+    </div>
+
+<!--End Comments
+================================================== -->
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+</div>
+
+
+    
+</div>
+
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 text-center text-lg-left">
+                Copyright © 2021 Kusumandaru 
+            </div>
+            <div class="col-md-6 col-sm-6 text-center text-lg-right" hidden=true>    
+                <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts
+================================================== -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<script src="/assets/js/mediumish.js"></script>
+
+
+<script src="/assets/js/lazyload.js"></script>
+
+
+<script src="/assets/js/ie10-viewport-bug-workaround.js"></script> 
+
+
+<script id="dsq-count-scr" src="//kusumandaru.disqus.com/count.js"></script>
+
+
+</body>
+</html>

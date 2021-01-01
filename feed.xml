@@ -5,9 +5,73 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 31 Dec 2020 09:06:24 +0700</pubDate>
-    <lastBuildDate>Thu, 31 Dec 2020 09:06:24 +0700</lastBuildDate>
+    <pubDate>Fri, 01 Jan 2021 19:35:39 +0700</pubDate>
+    <lastBuildDate>Fri, 01 Jan 2021 19:35:39 +0700</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>Deploy Jekyll in Heroku with Custom Domain</title>
+        <description>&lt;p&gt;How to deploy Jekyll in Heroku using free dynos and using cloudflare as DNS for custom domain&lt;/p&gt;
+&lt;p&gt;These article is alternate story from &lt;a href=&quot;https://medium.com/@kusumandaru/create-personal-website-on-second-152339342b7c&quot;&gt;previous article&lt;/a&gt; about jekyll and custom domain. Instead using github page, we try to adopt Heroku free tier. Skip to step 4 if you ever read above article.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 1 — choose a custom domain&lt;/strong&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*uGUWRoXNAh3w0_xMd0nWIA.png&quot; /&gt;&lt;figcaption&gt;domain registration&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;You can buy with various domain provider like GoDaddy, Wix, 101domain or many option outside there, for this example I use Namecheap.&lt;/p&gt;
+&lt;p&gt;Some domain like .com need activation via email to check owner validity.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 2— Using cloudflare to inject https&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;We use cloudflare to connect custom domain with CNAME on heroku&lt;/p&gt;
+&lt;p&gt;Register first on &lt;a href=&quot;https://www.cloudflare.com/&quot;&gt;https://www.cloudflare.com/&lt;/a&gt;&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/832/1*8NbToPoehLquG87WX7LcZg.png&quot; /&gt;&lt;figcaption&gt;fill custom domain name&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/666/1*kGTJWcFqvz4y_v5Jkb9ljA.png&quot; /&gt;&lt;figcaption&gt;choose free option&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*MTLjmTVwVzTVPv5nzDNuWA.png&quot; /&gt;&lt;figcaption&gt;update domain setting to using cloudflare dns&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;On your hosting change Nameservers default dns into cloudflare dns.&lt;/p&gt;
+&lt;p&gt;lia.ns.cloudflare.com for dns1&lt;/p&gt;
+&lt;p&gt;west.ns.cloudflare.com for dns2&lt;/p&gt;
+&lt;p&gt;It cost several hours until days depends on domain provider, check status on overview tab.&lt;/p&gt;
+&lt;p&gt;Than go to crypto tab than set ssl to on, it will redirect any http request to https and use ssl from cloud flare.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*k5QAmRIl7YkbaW9PcMA3cw.png&quot; /&gt;&lt;figcaption&gt;crypto area&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;Also turn check on Automatic https rewrite in Edge Certificates to make assets to use HTTPS when eligible, rather than HTTP&lt;/p&gt;
+&lt;p&gt;Your site now already using https&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/704/1*L0eG2mrD4sV4qg4BCg9FzQ.png&quot; /&gt;&lt;figcaption&gt;already force using ssl&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;Part 3— Using jekyll to generate website&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Choose theme from github page theme from &lt;a href=&quot;https://jekyllthemes.io/&quot;&gt;https://jekyllthemes.io/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;or just install jekyll using jekyll new blog&lt;/p&gt;
+&lt;p&gt;Build using command bundle exec jekyll build and check with bundle exec jekyll server.&lt;/p&gt;
+&lt;p&gt;check on localhost:4000&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 4 — Install Heroku on Jekyll&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Register heroku free dynos &lt;a href=&quot;https://www.heroku.com/free&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Install heroku client using &lt;a href=&quot;http://brew install heroku/brew/heroku&quot;&gt;brew&lt;/a&gt; brew install heroku/brew/heroku&lt;/p&gt;
+&lt;p&gt;Create project name using heroku create {name of project}&lt;/p&gt;
+&lt;p&gt;Adding ruby dependencies using heroku buildpacks:add heroku/ruby&lt;/p&gt;
+&lt;p&gt;Since jekyll generate static website to host static website we must install static web using heroku buildpacks:add &lt;a href=&quot;https://github.com/heroku/heroku-buildpack-static&quot;&gt;https://github.com/heroku/heroku-buildpack-static&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;add static.json and Rakefile on root path&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href&quot;&gt;https://medium.com/media/e9716fb8458e073d971e3af35b79bf34/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;p&gt;Root file is located for generated jekyll and Rakefile to build command rake assets:precompile&lt;/p&gt;
+&lt;p&gt;For deploy using branch, use git push heroku {name of branch}:master&lt;/p&gt;
+&lt;p&gt;example: git push heroku heroku:master&lt;/p&gt;
+&lt;p&gt;Than link custom domainheroku domains:add blog.kusumandaru.com&lt;/p&gt;
+&lt;p&gt;Check domain creation using heroku domains:wait ‘blog.kusumandaru.com&amp;#39;&lt;/p&gt;
+&lt;p&gt;Check domain setup using heroku domains to check DNS and CNAME&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*J5kKWdMwBrqrg_LXZJjSkg.png&quot; /&gt;&lt;figcaption&gt;custom domains&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;For free service we cannot add custom SSL&lt;/em&gt;&lt;/strong&gt;, only hobby and upper plan can use SSL, if you have those plan, use heroku certs:add certificate.pem certificate.key&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*XwZWveg2AbyjSrnx4nO8Gg.png&quot; /&gt;&lt;figcaption&gt;Generate Certificate Pem and Private Key&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;We skip those step if free tier. We set on DNS to redirect subdomain to heroku. On DNS tab fill subdomain name, ex: blog from blog.kusumandaru.com and set domain name from heroku. kusumandaru.herokuapp.com . We use domain name since if we use DNS Target it will cause redirect loop on cloudflare&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*0O0vxWUKftLlvRf6fB2rSA.png&quot; /&gt;&lt;/figure&gt;
+&lt;p&gt;Than wait for several minutes than website is published&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*j9ZbhqEBps80bCSn2NIq4w.png&quot; /&gt;&lt;figcaption&gt;custom domain on heroku free&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=e5d2b793fac0&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Fri, 01 Jan 2021 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/deploy-jekyll-i/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/deploy-jekyll-i/</guid>
+        
+        
+        <category>heroku</category>
+        
+        <category>jekyll</category>
+        
+        <category>custom-domain</category>
+        
+      </item>
     
       <item>
         <title>Mask Detector using TensorFlow Lite</title>
@@ -511,113 +575,6 @@
         <category>continuous-integration</category>
         
         <category>startup</category>
-        
-      </item>
-    
-      <item>
-        <title>Publish subscribe on ruby on rails</title>
-        <description>&lt;p&gt;Using RabbitMQ bunny and sneakers&lt;/p&gt;
-&lt;p&gt;This tutorial contain example how to implement service oriented architecture on ruby on rails, using RabbitMQ, bunny as producer and sneakers as consumer. This introduction accommodating step by step from first installation.&lt;/p&gt;
-&lt;p&gt;I got idea from &lt;a href=&quot;https://medium.com/@himang27s/background-job-in-rails-using-rabbitmq-and-sneaker-449c07284abf&quot;&gt;this&lt;/a&gt; medium post and adding some additional step.&lt;/p&gt;
-&lt;h4&gt;Initiation and environment setup&lt;/h4&gt;
-&lt;p&gt;First of all, we create skeleton of rails, using command: rails new {branch_name} -d mysql, this function create basic rails file and folder and using database mysql instead default sqlite.&lt;/p&gt;
-&lt;p&gt;After files are initiated, go to folder via cd {branch_name} and then type bundle to install rails dependencies. After success go to config/database.yml and set some environment variable like host, username and password.&lt;/p&gt;
-&lt;pre&gt;default: &amp;amp;default  &lt;br /&gt;adapter: mysql2&lt;br /&gt;encoding: utf8  &lt;br /&gt;pool: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_MAX_THREADS&amp;quot;) { 5 } %&amp;gt;  &lt;br /&gt;host: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_HOST_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;username: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_USERNAME_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;password: &amp;lt;%= ENV.fetch(&amp;quot;RAILS_PASSWORD_DB&amp;quot;) %&amp;gt;  &lt;br /&gt;socket: /tmp/mysql.sock&lt;/pre&gt;
-&lt;p&gt;For development convenience i set some environment on .env and read using gem dotenv-rails, on Gemfile add gemfile &amp;#39;dotenv-rails&amp;#39; on group :development, :test section and type bundle again in terminal. After dependencies were updated, create .env file on root folder and fill like&lt;/p&gt;
-&lt;pre&gt;RAILS_HOST_DB=127.0.0.1&lt;br /&gt;RAILS_USERNAME_DB=root&lt;br /&gt;RAILS_PASSWORD_DB=secret_password&lt;/pre&gt;
-&lt;p&gt;also on config/application.rb add new line Dotenv::Railtie.load&lt;/p&gt;
-&lt;p&gt;Do initialize database using command rails db:create , and voila now on your mysql instance, two database created.&lt;/p&gt;
-&lt;p&gt;We continue to create model using command rails generate model User first_name:string last_name:string email:string , it will automatically generate model, test/model and migration file on db/migrate.&lt;/p&gt;
-&lt;p&gt;Try to runrails db:migrate to create table and column on schema database.&lt;/p&gt;
-&lt;p&gt;Since we try using rspec and shoulda matcher to test, we adding additional gem on test section&lt;/p&gt;
-&lt;pre&gt;gem ‘rspec-rails’&lt;/pre&gt;
-&lt;pre&gt;gem ‘shoulda-matchers’&lt;/pre&gt;
-&lt;p&gt;and again type bundle and additional rails generate rspec:install to create spec_helper and rails_helper&lt;/p&gt;
-&lt;p&gt;Finally we back to model User.rb and add simple validation like validates :first_name, :last_name, :email, presence: true to make validation of mandatory variable&lt;/p&gt;
-&lt;h4&gt;Set publisher&lt;/h4&gt;
-&lt;p&gt;Install rabbitMq client, one of gem is &lt;a href=&quot;https://github.com/ruby-amqp/bunny&quot;&gt;bunny&lt;/a&gt; using command:gem install bunny and set initializer. You can use initializers to hold configuration settings that should be made after all of the frameworks and plugins are loaded.&lt;/p&gt;
-&lt;p&gt;create new file on config/initializers/publisher/bunny_publisher.rb than set logger and connection. for simpliest setup can be used like Bunny.new(&amp;quot;amqp://guest:guest@localhost:5672&amp;quot;) but we can also set more advance setting like :&lt;/p&gt;
-&lt;pre&gt;@connection ||= begin&lt;/pre&gt;
-&lt;pre&gt;  instance = Bunny.new(&lt;/pre&gt;
-&lt;pre&gt;    addresses: &amp;#39;localhost:5672&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    username: &amp;#39;guest&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    password: &amp;#39;guest&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    vhost: &amp;#39;/&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    logger: Rails.logger&lt;/pre&gt;
-&lt;pre&gt;  )&lt;/pre&gt;
-&lt;pre&gt;  instance.start&lt;/pre&gt;
-&lt;pre&gt;  instance&lt;/pre&gt;
-&lt;pre&gt;end&lt;/pre&gt;
-&lt;p&gt;It will create connection when not initiated before.&lt;/p&gt;
-&lt;p&gt;After initializer created you can create service on app/services/user_publisher.rb , with main method publish&lt;/p&gt;
-&lt;pre&gt;def publish(options = {})&lt;/pre&gt;
-&lt;pre&gt;  channel = ::Publisher::BunnyPublisher.connection.create_channel&lt;/pre&gt;
-&lt;pre&gt;  exchange = channel.exchange(&lt;/pre&gt;
-&lt;pre&gt;    &amp;#39;sneakers&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    type: &amp;#39;direct&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;    durable: true&lt;/pre&gt;
-&lt;pre&gt;  )&lt;/pre&gt;
-&lt;pre&gt;  headers = { &amp;#39;x-delay&amp;#39; =&amp;gt; options[:delay_time].to_i * 1_000 } if options[:delay_time].present?&lt;/pre&gt;
-&lt;pre&gt;  exchange.publish(payload.to_json, routing_key: QUEUE_NAME, headers: headers)&lt;/pre&gt;
-&lt;pre&gt;end&lt;/pre&gt;
-&lt;p&gt;make sure queue name in publisher same with customer, than publisher ready to use.&lt;/p&gt;
-&lt;h4&gt;Set consumer&lt;/h4&gt;
-&lt;p&gt;For background processing consumer we choose &lt;a href=&quot;https://github.com/jondot/sneakers&quot;&gt;sneakers&lt;/a&gt;, install via gem install sneakers&lt;/p&gt;
-&lt;p&gt;create initializer on config/initializers/sneakers.rb and set configuration:&lt;/p&gt;
-&lt;pre&gt;Sneakers.configure  connection: Connection.sneakers,&lt;/pre&gt;
-&lt;pre&gt;  exchange: &amp;#39;sneakers,&lt;/pre&gt;
-&lt;pre&gt;  exchange_type: :direct,&lt;/pre&gt;
-&lt;pre&gt;  runner_config_file: nil,&lt;/pre&gt;
-&lt;pre&gt;  metric: nil,&lt;/pre&gt;
-&lt;pre&gt;  workers: 1,&lt;/pre&gt;
-&lt;pre&gt;  log: STDOUT,&lt;/pre&gt;
-&lt;pre&gt;  pid_path: &amp;#39;sneakers.pid&amp;#39;,&lt;/pre&gt;
-&lt;pre&gt;  timeout_job_after: 5.minutes,&lt;/pre&gt;
-&lt;pre&gt;  env: ENV[&amp;#39;RAILS_ENV&amp;#39;], &lt;/pre&gt;
-&lt;pre&gt;  durable: true,&lt;/pre&gt;
-&lt;pre&gt;  ack: true,&lt;/pre&gt;
-&lt;pre&gt;  heartbeat: 2,&lt;/pre&gt;
-&lt;pre&gt;  handler: Sneakers::Handlers::Maxretry&lt;/pre&gt;
-&lt;pre&gt;Sneakers.logger = Rails.logger&lt;/pre&gt;
-&lt;pre&gt;Sneakers.logger.level = Logger::WARN&lt;/pre&gt;
-&lt;p&gt;we choose &lt;strong&gt;ack&lt;/strong&gt; option to be true to make sure message must be acknowledge when process is finished on consumer&lt;/p&gt;
-&lt;p&gt;and then we create worker on app/workers/user_create.rb&lt;/p&gt;
-&lt;pre&gt;include Sneakers::Worker&lt;/pre&gt;
-&lt;pre&gt;QUEUE_NAME = ::UserPublisher::QUEUE_NAME&lt;/pre&gt;
-&lt;pre&gt;from_queue QUEUE_NAME, arguments: { &amp;#39;x-dead-letter-exchange&amp;#39;: &amp;quot;#{QUEUE_NAME}-retry&amp;quot; }&lt;/pre&gt;
-&lt;pre&gt;def work(msg)&lt;/pre&gt;
-&lt;pre&gt;  data = ActiveSupport::JSON.decode(msg)&lt;/pre&gt;
-&lt;pre&gt;  data[&amp;#39;users&amp;#39;].each do |user|&lt;/pre&gt;
-&lt;pre&gt;    update_user(user.to_h)&lt;/pre&gt;
-&lt;pre&gt;  end&lt;/pre&gt;
-&lt;pre&gt;  ack!&lt;/pre&gt;
-&lt;pre&gt;rescue StandardError =&amp;gt; e&lt;/pre&gt;
-&lt;pre&gt;  create_log(false, data, message: e.message)&lt;/pre&gt;
-&lt;pre&gt;  reject!&lt;/pre&gt;
-&lt;pre&gt;end&lt;/pre&gt;
-&lt;p&gt;so on above code we get message from rabbitMq and we decode and iterate and update 1 by one, when no raise error it will call ack! to inform in RabbitMq if message already done processed&lt;/p&gt;
-&lt;p&gt;now we can call consumer rake, via rake sneakers:run, make sure in ENV WORKERS=UserCreate it scan worker folders with class_name UserCreate&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Test publishing and consuming&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;To publish you can call UserPublisher and it will consumed automatically.&lt;/p&gt;
-&lt;pre&gt;irb(main):002:0&amp;gt; user_params = [{id: 1, first_name: &amp;#39;first&amp;#39;}]&lt;br /&gt;=&amp;gt; [{:id=&amp;gt;1, :first_name=&amp;gt;&amp;quot;first&amp;quot;}]&lt;br /&gt;irb(main):003:0&amp;gt; UserPublisher.new(user_params).publish&lt;/pre&gt;
-&lt;p&gt;on cosumer it will wait for any message&lt;/p&gt;
-&lt;pre&gt;rake sneakers:run           &lt;br /&gt;&lt;br /&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: subscribing.&lt;/pre&gt;
-&lt;pre&gt;2019-08-17T05:36:41Z p-83921 t-owt7p5uik DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b0885d78 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] New worker: I&amp;#39;m alive.&lt;/pre&gt;
-&lt;pre&gt;2019-08-17T05:41:03Z p-83921 t-owt7x84vw DEBUG: [worker-user.create:1:d5ckph][#&amp;lt;Thread:0x00007fd5b225af78@/Users/ndaru/.rbenv/versions/2.5.0/lib/ruby/gems/2.5.0/gems/bunny-2.14.2/lib/bunny/consumer_work_pool.rb:101 run&amp;gt;][user.create][#&amp;lt;Sneakers::Configuration:0x00007fd5b6efd240&amp;gt;] Working off: &amp;quot;{\&amp;quot;users\&amp;quot;:[{\&amp;quot;id\&amp;quot;:1,\&amp;quot;first_name\&amp;quot;:\&amp;quot;first\&amp;quot;}]}&amp;quot;&lt;/pre&gt;
-&lt;p&gt;You can trace repository in &lt;a href=&quot;https://github.com/kusumandaru/rails_queue&quot;&gt;&lt;strong&gt;here&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*23WsqANJv5IS4ar-LGU2sw.jpeg&quot; /&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=6aa6893ef819&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&lt;/p&gt;
-</description>
-        <pubDate>Sat, 17 Aug 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/publish-subscri/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/publish-subscri/</guid>
-        
-        
-        <category>publish-subscribe</category>
-        
-        <category>ruby-on-rails</category>
-        
-        <category>rabbitmq</category>
         
       </item>
     

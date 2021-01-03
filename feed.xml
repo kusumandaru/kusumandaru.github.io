@@ -5,9 +5,52 @@
     <description>Collection of medium story</description>
     <link>https://kusumandaru.com/</link>
     <atom:link href="https://kusumandaru.com/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 01 Jan 2021 19:35:39 +0700</pubDate>
-    <lastBuildDate>Fri, 01 Jan 2021 19:35:39 +0700</lastBuildDate>
+    <pubDate>Sun, 03 Jan 2021 18:23:40 +0700</pubDate>
+    <lastBuildDate>Sun, 03 Jan 2021 18:23:40 +0700</lastBuildDate>
     <generator>Jekyll v3.9.0</generator>
+    
+      <item>
+        <title>Using Ruby 3 in Rails 6</title>
+        <description>&lt;p&gt;And how much performance increase&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/&quot;&gt;Ruby 3&lt;/a&gt; has been released on 25 December 2020, and increase speed performance almost 3 times when compare with Ruby 2.0 (not latest one 2.7.2) and also when using JIT. We will try to check live world performance using Ruby on Rails 6. As comparison we check speed using ruby 2.7.2 (latest Ruby 2 when these article published) instead long ago Ruby 2.0.0.&lt;/p&gt;
+&lt;p&gt;Ruby is interpreted language, it need to read source code and gets broken down into byte code and sent an interpreter to be executed. On other side, compiled language like Java, Swift, C, program which you’re writing, need to turn it into a native application. Then you run that compiled code.&lt;/p&gt;
+&lt;p&gt;JIT — Just In Time acronym is a hybrid of compiled and interpreted languages. First it run on interpreted, and when found some method / function called in multiple times, it compiled that specific function to got optimisation effect.&lt;/p&gt;
+&lt;p&gt;JIT already birth on Ruby 2.6, but it show some deformed performance in Rails because the process of optimising individual methods is slower since for larger and complex methods is actually slower than interpreting that method directly. And since each methods consume 2Mb memory it float exponentially and burden machines&lt;/p&gt;
+&lt;p&gt;On Ruby 2.7, there is improvement for JIT like&lt;a href=&quot;https://medium.com/@k0kubun/jit-development-progress-at-ruby-2-7-d6dd62a8c76a&quot;&gt; these articles&lt;/a&gt;, consist of JIT max size and minimize call size, de-optimized compilation and Frame-omitted method inlining.&lt;/p&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/0*fOzmp_fk3jZUp8kp.png&quot; /&gt;&lt;figcaption&gt;&lt;a href=&quot;https://github.com/mame/optcarrot&quot;&gt;https://github.com/mame/optcarrot&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;ul&gt;&lt;li&gt;Installation&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;brew update &amp;amp;&amp;amp; brew upgrade ruby-build&lt;/pre&gt;
+&lt;pre&gt;rbenv install 3.0.0&lt;/pre&gt;
+&lt;pre&gt;rbenv local 3.0.0&lt;/pre&gt;
+&lt;pre&gt;gem install rails&lt;/pre&gt;
+&lt;pre&gt;rails new ruby3 -d postgresql&lt;/pre&gt;
+&lt;ul&gt;&lt;li&gt;Add some gem for test and benchmark&lt;/li&gt;&lt;/ul&gt;
+&lt;pre&gt;gem &amp;#39;rspec-rails&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;gem &amp;#39;rspec-benchmark&amp;#39;&lt;/pre&gt;
+&lt;pre&gt;gem &amp;#39;rexml&amp;#39; &lt;br /&gt;# stream parsing need for Rails 6 &lt;br /&gt;# add require &amp;#39;rexml/document&amp;#39; on application.rb&lt;/pre&gt;
+&lt;p&gt;Now we try to test with several aspect, with use Ruby 2.7.2, Ruby 2.7.2 JIT, Ruby 3.0.0 and Ruby 3.0.0 JIT&lt;/p&gt;
+&lt;iframe src=&quot;&quot; width=&quot;0&quot; height=&quot;0&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;a href=&quot;https://medium.com/media/349b82cdc4fecb9f2f57f6a169daee8f/href&quot;&gt;https://medium.com/media/349b82cdc4fecb9f2f57f6a169daee8f/href&lt;/a&gt;&lt;/iframe&gt;
+&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*AoeQp4yvngWruY0FGGIdZg.png&quot; /&gt;&lt;figcaption&gt;benchmark&lt;/figcaption&gt;&lt;/figure&gt;
+&lt;p&gt;For above benchmark, we run 3 times to got average speed. Speed is increase about 8 percent only in same function, for database interaction (active record) and cpu intensive task it not have some improvement.&lt;strong&gt; At least it not slow down Rails 6 as before Ruby 2.6 release. &lt;/strong&gt;&lt;a href=&quot;https://blog.heroku.com/ruby-just-in-time-compilation&quot;&gt;see these articles&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;So is it worth it to move from Ruby 2.7 to Ruby 3?&lt;/p&gt;
+&lt;p&gt;If you just common Rails consumer which need day to day operation to database, message broker or third party, improvement is par.&lt;/p&gt;
+&lt;p&gt;But if you need power of concurrency for internal calculation or parallel request like &lt;a href=&quot;https://www.ruby-lang.org/en/news/2020/12/25/ruby-3-0-0-released/&quot;&gt;Ractor, along with Async Fiber&lt;/a&gt; you can considered to move into Ruby 3&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=761fa148571&quot; width=&quot;1&quot; height=&quot;1&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 03 Jan 2021 00:00:00 +0700</pubDate>
+        <link>https://kusumandaru.com/using-ruby-3-in/</link>
+        <guid isPermaLink="true">https://kusumandaru.com/using-ruby-3-in/</guid>
+        
+        
+        <category>rails</category>
+        
+        <category>ruby</category>
+        
+        <category>just-in-time</category>
+        
+        <category>ruby-on-rails</category>
+        
+      </item>
     
       <item>
         <title>Deploy Jekyll in Heroku with Custom Domain</title>
@@ -525,56 +568,6 @@
         <category>jekyll</category>
         
         <category>clone-data</category>
-        
-      </item>
-    
-      <item>
-        <title>How we rewrite our code without customer aware and uninterrupted business</title>
-        <description>&lt;h4&gt;Rebuild could be cure for startup problem on scale and bug flooding, how to make sure it become medicine rather than band aid.&lt;/h4&gt;
-&lt;p&gt;When beginning project was initiated, either you are startup or stable corporation, we tend to make project which have technical debt inside. it could like: don’t have any test, bad naming variable, hard to scale, complicated to modified, took wrong short cut, or anything else which can you drink aspirin everyday to catch customer growth or make minimum viable product which accepted by market. And time is passed and now management want new feature or your customer raise into exponentially growth. Nevertheless your system is hard to adapt either your team busy on fixing never ending bug or found perplexity to adding new stuff.&lt;/p&gt;
-&lt;p&gt;Suddenly your whole team (and management) agreed to do some refactor plan to overcome those obstacles. But refactor is tricky challenge, it’s hard to see progress as clear as development (some ticket seems not move day to day) and have some drawback like:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;you must allocate dedicated member and time,&lt;/li&gt;&lt;li&gt;make regressive whole testing,&lt;/li&gt;&lt;li&gt;hold some new feature,&lt;/li&gt;&lt;li&gt;make sure recent feature still steady and not broken,&lt;/li&gt;&lt;li&gt;lack of documentation how recent module work.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;In current company we do rewrite not only make it project more robust and clean but also change language and framework, and how we roll it without customer unconsciously disturbed, let’s dive in.&lt;/p&gt;
-&lt;p&gt;Our progress is start on beginning of 2018.&lt;/p&gt;
-&lt;p&gt;We move from PHP to Ruby on Rails cause our CTO love ruby. kidding :)&lt;/p&gt;
-&lt;p&gt;We change to ruby cause of several aspect:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;No test on phpUnit, when join, i try to make unit test on php and it long time to separate logic and query builder on current class and it spend long time to prepare input data rather than create logic test.&lt;/li&gt;&lt;li&gt;No standardisation and code review, yes this is not language sin but it make some code is have duplication (not DRY) and hard to read.&lt;/li&gt;&lt;li&gt;Hard to maintain, when you change or add new feature it tend to make other feature became broken. We pray to God when we deploy our system still fine on our patch.&lt;/li&gt;&lt;li&gt;On-the-fly calculation, in some feature, when use option Ait will read directly from database and otherwise when we use option Bit need to recalculate using some formula, it make data inconsistent on some area and make customer upset.&lt;/li&gt;&lt;li&gt;Some UI/UX need to adapt.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Disclaimer: i don’t say Rails is better than Laravel. We change over language because on past development developer tend to use any shortcut and we don’t want premature refactor if use same language also we need separate repository to adapt strict pipeline: like linter and running whole testing, before code merge to master branch.&lt;/p&gt;
-&lt;p&gt;Strategy pattern to rewrite:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;We try replace module 1 by 1 rather than big bang deploy. Bigbang deploy can bring catastrophe like previous module, it needs long time to build among half until several years with unchanged scope, but customer demand can change in several month, also it make big scope to be underestimated on time estimation, and forget side case scenario.&lt;/li&gt;&lt;li&gt;Use data driven when adopt old module to new one, use how many transaction which generated, more transaction in selected module means important to build, use net promoter score to scan part of module to be improved.&lt;/li&gt;&lt;li&gt;We use group discussion on new database schema to analyse outcome challenge and capability of proposed database, we even invite product owner to make scenario and make simulation how data is insert and read.&lt;/li&gt;&lt;li&gt;Use pair programming to initialise core code like model definition and basic service. We do pair programming also for migration script cause it have some many if-else condition cause of abnormal data and different behaviour between old system and new system.&lt;/li&gt;&lt;li&gt;Make coverage test to more than 90%.&lt;/li&gt;&lt;li&gt;Use code review and linter to make code become standard. Also implemented on repository pipeline so every code can be tested and standardized.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Our first deploy is login and signup module, we use existing table to avoid migration and make as proof on concept if code can be running on production, we also use same session and oauth to make sure laravel can use login module directly.&lt;/p&gt;
-&lt;p&gt;And voila it works like charm.&lt;/p&gt;
-&lt;p&gt;Next step is do refactor on core data like decoupling employee information, role and additional attribute. We don’t change current column on existing table but we leverage on other table. In this step we make new table like profile to save personal identity employee, dependent to save family member and other table which become supplement of employee.&lt;/p&gt;
-&lt;p&gt;And before deploy in production we found some chaotic moment cause of some unexpected thing we don’t realise. Like:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;both system need redirection url between each system.&lt;/li&gt;&lt;li&gt;Some data need to be created on old system but it not exist on new one (we create some endpoint to call old system module, to create relevant data which used by laravel)&lt;/li&gt;&lt;li&gt;some data have anomaly (inconsistent ) because in new system some validation is more strict than old one.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;In these case we use transaction to lock data when migrate and use rollback when some error occurred, we did in staging fortunately.&lt;/p&gt;
-&lt;p&gt;We do on mob programming on co-working place to avoid disturbing and to more focus (we do this about 5 days), and after that our core system replaced in new one.&lt;/p&gt;
-&lt;p&gt;We monitor and fix some bugs on several day later. Before facing more challenging area, migrate rest module and shutdown php.&lt;/p&gt;
-&lt;p&gt;We learn some point after last deploy like:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;It cause downtime on all customer (3 hour only in 1 module) and affected to all customer and we want avoid this on next iteration. Imagine next iteration is remaining module (12 * 3 hour downtime is bad scenario)&lt;/li&gt;&lt;li&gt;There are gap of validation on old data and new data, and since next module is write on new table, it need more test scenario to adapt and convert missing validation.&lt;/li&gt;&lt;li&gt;Some customer already churn, and we don’t hesitating to migrate this customer on new feature.&lt;/li&gt;&lt;li&gt;It need dev-ops to run migration process. We ask dev-ops to running migration and we waiting result either success and fail, and when fail we ask log to dev-ops again.&lt;/li&gt;&lt;li&gt;It one-way street and cannot turn back around when customer feels better on old system. Customer must accept it, like or not.&lt;/li&gt;&lt;li&gt;We do overtime on weekend, it deteriorate mental and make physical exhausted and can make wrong decision indeed. We want work life balance so we try to avoid this method.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;Cause of above point we try to make migrate by selected customer rather than global (whole company). With step:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;Coordinate business development and product owner to select and inform customer which want to migrate on new feature.&lt;/li&gt;&lt;li&gt;Using regression test using automate script by Software Development Engineer in Test (SDET) to match old data and new data. And when we found some anomaly in some customer, other customer still can be moved.&lt;/li&gt;&lt;li&gt;Deploy refactoring code on production but only activated on new signup customer to get direct feedback to improve.&lt;/li&gt;&lt;li&gt;Select company or some company via admin dashboard, so everyone can migrate and call web-hook to flock / slack so progress can be tracked, we also got log when it fail, some migration running on long time on background processing job.&lt;/li&gt;&lt;li&gt;Freeze whole account on selected member of company and force logout so no data change when migrate to keep data consistent.&lt;/li&gt;&lt;li&gt;Do migration on one transaction so when some bad occurred old data still save. We do on job with zero retry. It’s important to stop retry cause it cause locking database.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;script src=&quot;https://gist.github.com/kusumandaru/8f1eb6259e49f7178a0ac3fa94e6921b.js&quot;&gt;&lt;/script&gt;
-
-&lt;ul&gt;&lt;li&gt;Make some feature toggling so when migration done any redirection and service switch and new one. We use redis to make IO read fast.&lt;/li&gt;&lt;li&gt;Set versioning migration so we can track company status migration of each company.&lt;/li&gt;&lt;li&gt;Button to rollback when needed, to switch back to old system. So when customer still missing old system, or some new system not work, we can accommodate.&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;And before customer migration, we do some improvement like:&lt;/p&gt;
-&lt;ul&gt;&lt;li&gt;automatic deploy (continuous delivery and continuous integration) so we can deploy every time code merge to production. &lt;a href=&quot;https://medium.com/sleekrco/the-journey-build-continuous-deployment-sleekr-69f07adb7efe&quot;&gt;see this link&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Make code already in production but not active with feature toggle. (Deploy code on dormant mode).&lt;/li&gt;&lt;li&gt;Do scrum routine like daily standup to catch problem early, create Pull Request so everyone can understand proposed change and catch some edge case defect and make code have more quality&lt;/li&gt;&lt;/ul&gt;
-&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*2jmbYRYsAY7XWW1FWJ7V8Q.jpeg&quot; /&gt;&lt;figcaption&gt;Photo by &lt;a href=&quot;https://unsplash.com/@martinirc?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;José Martín Ramírez C&lt;/a&gt; on &lt;a href=&quot;https://unsplash.com/search/photos/business?utm_source=unsplash&amp;amp;utm_medium=referral&amp;amp;utm_content=creditCopyText&quot;&gt;Unsplash&lt;/a&gt;&lt;/figcaption&gt;&lt;/figure&gt;
-&lt;p&gt;&lt;img src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b4590273c3c9&quot; width=&quot;1&quot; height=&quot;1&quot; /&gt;&amp;lt;hr&amp;gt;&amp;lt;p&amp;gt;&lt;a href=&quot;https://medium.com/sleekrco/how-we-rewrite-our-code-without-customer-aware-and-uninterrupted-business-b4590273c3c9&quot;&gt;How we rewrite our code without customer aware and uninterrupted business&lt;/a&gt; was originally published in &lt;a href=&quot;https://medium.com/sleekrco&quot;&gt;Daily Sleekr&lt;/a&gt; on Medium, where people are continuing the conversation by highlighting and responding to this story.&amp;lt;/p&amp;gt;&lt;/p&gt;
-</description>
-        <pubDate>Wed, 28 Aug 2019 00:00:00 +0700</pubDate>
-        <link>https://kusumandaru.com/how-we-rewrite/</link>
-        <guid isPermaLink="true">https://kusumandaru.com/how-we-rewrite/</guid>
-        
-        
-        <category>migration</category>
-        
-        <category>rebuild</category>
-        
-        <category>continuous-integration</category>
-        
-        <category>startup</category>
         
       </item>
     
